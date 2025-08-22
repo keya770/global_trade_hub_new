@@ -30,10 +30,16 @@
         
         <!-- Hero Background Image -->
         <div class="absolute inset-0 z-0">
+            <!-- Video Background -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="/images/ship.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
             <div class="absolute inset-0 bg-black opacity-40"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-primary-dark via-transparent to-transparent"></div>
         </div>
     </section>
+    
 
     <!-- Services Overview Section -->
     <section class="section bg-white">
