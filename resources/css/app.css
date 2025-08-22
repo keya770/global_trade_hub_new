@@ -36,11 +36,11 @@
     
     /* Button Styles */
     .btn-primary {
-        @apply bg-[#265478] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1a3d5a] transition-colors duration-300 inline-block;
+        @apply bg-primary-color text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors duration-300 inline-block;
     }
     
     .btn-secondary {
-        @apply bg-white text-[#265478] border-2 border-[#265478] px-6 py-3 rounded-lg font-semibold hover:bg-[#265478] hover:text-white transition-colors duration-300 inline-block;
+        @apply bg-white text-primary-color border-2 border-primary-color px-6 py-3 rounded-lg font-semibold hover:bg-primary-color hover:text-white transition-colors duration-300 inline-block;
     }
     
     /* Header Styles */
@@ -54,11 +54,11 @@
     
     /* Navigation Styles */
     .nav-link {
-        @apply text-gray-700 hover:text-[#265478] transition-colors duration-200 font-medium;
+        @apply text-gray-700 hover:text-primary-color transition-colors duration-200 font-medium;
     }
     
     .nav-link.active {
-        @apply text-[#265478];
+        @apply text-primary-color;
     }
     
     /* Hero Section Styles */
@@ -109,7 +109,6 @@
         background: rgba(248, 184, 3, 0.1);
         border-radius: 50%;
         animation: particleFloat 25s linear infinite;
-        will-change: transform, opacity;
     }
     
     .particle:nth-child(1) {
@@ -180,7 +179,6 @@
         opacity: 0;
         transform: translateY(30px);
         transition: all 0.6s ease;
-        will-change: transform, opacity;
     }
     
     .fade-in.visible {
@@ -192,7 +190,6 @@
         opacity: 0;
         transform: translateX(-50px);
         transition: all 0.6s ease;
-        will-change: transform, opacity;
     }
     
     .slide-in-left.visible {
@@ -204,7 +201,6 @@
         opacity: 0;
         transform: translateX(50px);
         transition: all 0.6s ease;
-        will-change: transform, opacity;
     }
     
     .slide-in-right.visible {
@@ -214,7 +210,7 @@
     
     /* Form Styles */
     .form-input {
-        @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent transition-colors duration-200;
+        @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent transition-colors duration-200;
     }
     
     .form-label {
@@ -298,10 +294,6 @@
     .btn-primary, .btn-secondary {
         @apply px-4 py-2 text-sm;
     }
-    
-    .particle {
-        display: none;
-    }
 }
 
 /* Print Styles */
@@ -337,38 +329,14 @@
         opacity: 1 !important;
         transform: none !important;
     }
-    
-    .service-card:hover {
-        transform: none !important;
-    }
 }
 
-/* Dark Mode Support */
+/* Dark Mode Support (if needed) */
 @media (prefers-color-scheme: dark) {
     :root {
         --text-dark: #f3f4f6;
         --text-light: #d1d5db;
         --bg-light: #1f2937;
         --bg-white: #111827;
-    }
-    
-    .card,
-    .testimonial-card,
-    .service-card,
-    .vessel-card,
-    .blog-card {
-        @apply bg-gray-800 text-white;
-    }
-    
-    .form-input {
-        @apply bg-gray-700 border-gray-600 text-white;
-    }
-    
-    .section-title {
-        @apply text-white;
-    }
-    
-    .section-subtitle {
-        @apply text-gray-300;
     }
 }
