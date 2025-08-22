@@ -26,7 +26,7 @@
             --primary-color: #265478;
             --primary-light: #3a6b8f;
             --primary-dark: #1a3d5a;
-            --accent-color: #f8b803;
+            --accent-color: #0370f8;
             --text-dark: #1b1b18;
             --text-light: #6b7280;
             --bg-light: #f8fafc;
@@ -236,7 +236,12 @@
         }
 
         .footer-link {
-            color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+        
+        .bottom-footer-link {
+            color: #000000;
             transition: color 0.3s ease;
         }
 
@@ -244,66 +249,58 @@
             color: var(--accent-color);
         }
 
-       /* Waves Footer Animation */
-.footer-wave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 150px;
-    overflow: hidden;
-    line-height: 0;
-    z-index: 0;
-}
+        .footer-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 180px; /* increased height for bigger waves */
+            overflow: hidden;
+            line-height: 0;
+            z-index: 0;
+        }
 
-/* White waves */
-.waves {
-    position: absolute;
-    bottom: 0;
-    width: 200%;
-    height: 100%;
-    fill: white; /* Waves color */
-}
+        /* White waves */
+        .waves {
+            position: absolute;
+            bottom: 0;
+            width: 250%;
+            height: 120%;
+            fill: white; /* Waves color */
+        }
 
-.parallax use:nth-child(1) {
-    animation: moveWaves 12s linear infinite;
-}
-.parallax use:nth-child(2) {
-    animation: moveWaves 8s linear infinite;
-}
-.parallax use:nth-child(3) {
-    animation: moveWaves 10s linear infinite;
-}
-.parallax use:nth-child(4) {
-    animation: moveWaves 6s linear infinite;
-}
+        /* Parallax layers moving at different speeds */
+        .parallax use:nth-child(1) { animation: moveWaves 16s linear infinite; }
+        .parallax use:nth-child(2) { animation: moveWaves 10s linear infinite; }
+        .parallax use:nth-child(3) { animation: moveWaves 15s linear infinite; }
+        .parallax use:nth-child(4) { animation: moveWaves 11s linear infinite; }
 
-@keyframes moveWaves {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
+        @keyframes moveWaves {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
-/* Make footer responsive */
-@media (max-width: 1200px) {
-    .footer {
-        padding: 50px 15px 15px;
-    }
-}
+        /* Make footer responsive */
+        @media (max-width: 1200px) {
+            .footer {
+                padding: 50px 15px 15px;
+            }
+        }
 
-@media (max-width: 768px) {
-    .footer-wave {
-        height: 100px;
-    }
-    .footer {
-        padding: 40px 10px 10px;
-    }
-}
+        @media (max-width: 768px) {
+            .footer-wave {
+                height: 100px;
+            }
+            .footer {
+                padding: 40px 10px 10px;
+            }
+        }
 
-@media (max-width: 480px) {
-    .footer {
-        padding: 30px 5px 5px;
-    }
-}
+        @media (max-width: 480px) {
+            .footer {
+                padding: 30px 5px 5px;
+            }
+        }
 
 
         /* WhatsApp Float Button */
@@ -383,6 +380,10 @@
         .slide-in-right.visible {
             opacity: 1;
             transform: translateX(0);
+        }
+
+        .bg-gray-50 {
+            background-color : rgb(215 218 221);
         }
     </style>
 </head>
@@ -508,29 +509,26 @@
             </div>
 
             <!-- Bottom Footer -->
-            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-300 text-sm">
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center bottom-footer-link text-sm">
                 <p>© {{ date('Y') }} Global Trade Hub. All rights reserved.</p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="{{ route('legal') }}#terms" class="footer-link">Terms & Conditions</a>
-                    <a href="{{ route('legal') }}#privacy" class="footer-link">Privacy Policy</a>
+                    <a href="{{ route('legal') }}#terms" class="bottom-footer-link">Terms & Conditions</a>
+                    <a href="{{ route('legal') }}#privacy" class="bottom-footer-link">Privacy Policy</a>
                 </div>
             </div>
         </div>
 
         <!-- Waves Animation -->
         <div class="footer-wave">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <defs>
-                    <path id="gentle-wave"
-                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-                    </path>
+                    <path id="gentle-wave" d="M0,60 C150,90 300,30 450,60 C600,90 750,30 900,60 C1050,90 1200,30 1350,60 L1350,120 L0,120 Z"></path>
                 </defs>
                 <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7)"></use>
-                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)"></use>
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)"></use>
-                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="0" fill="rgba(255,255,255,0.7)"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="10" fill="rgba(255,255,255,0.5)"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="20" fill="rgba(255,255,255,0.3)"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="30" fill="#fff"></use>
                 </g>
             </svg>
         </div>
