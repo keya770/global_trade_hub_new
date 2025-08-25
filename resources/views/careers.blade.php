@@ -4,9 +4,13 @@
 @section('description', 'Join our team at Global Trade Hub. Explore current job openings, internship opportunities, and start your career in the maritime industry.')
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white">
-        <div class="container mx-auto px-4 text-center">
+    <!-- Careers Hero Section with Particles -->
+    <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white overflow-hidden">
+        <!-- Canvas for particles -->
+        <canvas id="particles" class="absolute inset-0 z-0"></canvas>
+
+        <!-- Content -->
+        <div class="container mx-auto px-4 text-center relative z-10">
             <div class="fade-in">
                 <h1 class="text-5xl md:text-6xl font-bold mb-6">Careers</h1>
                 <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
@@ -15,6 +19,55 @@
             </div>
         </div>
     </section>
+
+    <!-- Particles Script -->
+    <script>
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+    const colors = ['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.5)'];
+
+    function initParticles() {
+        particlesArray = [];
+        for (let i = 0; i < 80; i++) {
+            particlesArray.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speedX: (Math.random() - 0.5) * 0.8,
+                speedY: (Math.random() - 0.5) * 0.8
+            });
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particlesArray.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+            p.x += p.speedX;
+            p.y += p.speedY;
+            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+        });
+        requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+    });
+    </script>
 
     <!-- Why Work With Us -->
     <section class="section bg-white">
@@ -200,7 +253,7 @@
         </div>
     </section>
 
-    <!-- Internship Opportunities -->
+    {{-- <!-- Internship Opportunities -->
     <section class="section bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
@@ -252,7 +305,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Application Form -->
     <section id="apply" class="section bg-gray-50">

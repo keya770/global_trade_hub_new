@@ -214,7 +214,7 @@
             </div>
     
             <!-- Vessel Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 <!-- Card -->
                 <div class="card bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl fade-in p-6">
                     <div class="bg-gray-200 h-48 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
