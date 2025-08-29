@@ -20,61 +20,13 @@
             </div>
         </section>
 
-        <!-- Particles Script -->
-        <script>
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particlesArray = [];
-        const colors = ['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.5)'];
-
-        function initParticles() {
-            particlesArray = [];
-            for (let i = 0; i < 80; i++) {
-                particlesArray.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: Math.random() * 3,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    speedX: (Math.random() - 0.5) * 0.8,
-                    speedY: (Math.random() - 0.5) * 0.8
-                });
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particlesArray.forEach(p => {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.fill();
-                p.x += p.speedX;
-                p.y += p.speedY;
-                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-            });
-            requestAnimationFrame(animateParticles);
-        }
-
-        initParticles();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        });
-        </script>
-
-
     <!-- Search & Filter Section -->
     <section class="section bg-white">
         <div class="container mx-auto px-4">
             <div class="card">
-                <h2 class="text-2xl font-bold mb-6">Search & Filter Vessels</h2>
+                <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Search & Filter Vessels</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                     <!-- Vessel Type Filter -->
@@ -132,82 +84,15 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Vessel Types Overview -->
-    <section class="section bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Vessel Types We Handle</h2>
-                <p class="section-subtitle">
-                    Comprehensive coverage across all major vessel categories
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                <!-- Dry Bulk Carriers -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold mb-2">Dry Bulk Carriers</h3>
-                    <p class="text-sm text-gray-600">Handysize to Capesize</p>
-                </div>
-
-                <!-- Tankers -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold mb-2">Tankers</h3>
-                    <p class="text-sm text-gray-600">CPP, DPP, LPG/LNG</p>
-                </div>
-
-                <!-- General Cargo -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold mb-2">General Cargo</h3>
-                    <p class="text-sm text-gray-600">Multi-purpose vessels</p>
-                </div>
-
-                <!-- Container Ships -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold mb-2">Container Ships</h3>
-                    <p class="text-sm text-gray-600">Feeder to Ultra Large</p>
-                </div>
-
-                <!-- Offshore Service -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold mb-2">Offshore Service</h3>
-                    <p class="text-sm text-gray-600">PSV, AHTS, OSV</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    </section>    
 
     <!-- Featured Vessels Section -->
     <section class="section bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="section-title">Featured Vessels</h2>
+                <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Featured Vessels</h2>
                 <p class="section-subtitle">
                     Explore our latest vessel listings with detailed specifications and competitive pricing
                 </p>
@@ -452,10 +337,10 @@
                     vessel for your requirements.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('contact') }}" class="bg-white text-primary-color px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    <a href="{{ route('contact') }}" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105 ">
                         Contact Us
                     </a>
-                    <a href="{{ route('services') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-color transition-colors">
+                    <a href="{{ route('services') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors">
                         Our Services
                     </a>
                 </div>

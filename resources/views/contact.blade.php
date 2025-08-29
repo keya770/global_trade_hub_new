@@ -20,195 +20,13 @@
         </div>
     </section>
 
-    <!-- Particles Script -->
-    <script>
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-    const colors = ['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.5)'];
-
-    function initParticles() {
-        particlesArray = [];
-        for (let i = 0; i < 80; i++) {
-            particlesArray.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 3,
-                color: colors[Math.floor(Math.random() * colors.length)],
-                speedX: (Math.random() - 0.5) * 0.8,
-                speedY: (Math.random() - 0.5) * 0.8
-            });
-        }
-    }
-
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particlesArray.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.fill();
-            p.x += p.speedX;
-            p.y += p.speedY;
-            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-        });
-        requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
-    });
-    </script>
-
-
-    <!-- Office Locations Section -->
-    <section class="section bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Our Office Locations</h2>
-                <p class="section-subtitle">
-                    Global presence with local expertise across major maritime hubs
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Dubai HQ -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Dubai HQ</h3>
-                    <p class="text-gray-600 mb-4">
-                        Global Trade Hub<br>
-                        Sheikh Zayed Road<br>
-                        Dubai, UAE
-                    </p>
-                    <div class="space-y-2">
-                        <p class="text-sm text-gray-600">Tel: +971 4 123 4567</p>
-                        <p class="text-sm text-gray-600">Email: dubai@globaltradehub.com</p>
-                    </div>
-                </div>
-
-                <!-- Singapore Office -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Singapore</h3>
-                    <p class="text-gray-600 mb-4">
-                        Global Trade Hub Asia<br>
-                        Marina Bay Financial Centre<br>
-                        Singapore
-                    </p>
-                    <div class="space-y-2">
-                        <p class="text-sm text-gray-600">Tel: +65 6789 0123</p>
-                        <p class="text-sm text-gray-600">Email: singapore@globaltradehub.com</p>
-                    </div>
-                </div>
-
-                <!-- London Office -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">London</h3>
-                    <p class="text-gray-600 mb-4">
-                        Global Trade Hub Europe<br>
-                        Canary Wharf<br>
-                        London, UK
-                    </p>
-                    <div class="space-y-2">
-                        <p class="text-sm text-gray-600">Tel: +44 20 7123 4567</p>
-                        <p class="text-sm text-gray-600">Email: london@globaltradehub.com</p>
-                    </div>
-                </div>
-
-                <!-- Hong Kong Office -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Hong Kong</h3>
-                    <p class="text-gray-600 mb-4">
-                        Global Trade Hub HK<br>
-                        Central District<br>
-                        Hong Kong
-                    </p>
-                    <div class="space-y-2">
-                        <p class="text-sm text-gray-600">Tel: +852 2345 6789</p>
-                        <p class="text-sm text-gray-600">Email: hongkong@globaltradehub.com</p>
-                    </div>
-                </div>
-
-                <!-- New York Office -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">New York</h3>
-                    <p class="text-gray-600 mb-4">
-                        Global Trade Hub Americas<br>
-                        Wall Street<br>
-                        New York, USA
-                    </p>
-                    <div class="space-y-2">
-                        <p class="text-sm text-gray-600">Tel: +1 212 345 6789</p>
-                        <p class="text-sm text-gray-600">Email: newyork@globaltradehub.com</p>
-                    </div>
-                </div>
-
-                <!-- Shanghai Office -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Shanghai</h3>
-                    <p class="text-gray-600 mb-4">
-                        Global Trade Hub China<br>
-                        Lujiazui Financial District<br>
-                        Shanghai, China
-                    </p>
-                    <div class="space-y-2">
-                        <p class="text-sm text-gray-600">Tel: +86 21 3456 7890</p>
-                        <p class="text-sm text-gray-600">Email: shanghai@globaltradehub.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Interactive Map Section -->
     <section class="section bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="section-title">Find Us on the Map</h2>
+                <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Find Us on the Map</h2>
                 <p class="section-subtitle">
                     Visit our offices worldwide or get in touch remotely
                 </p>
@@ -233,7 +51,9 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="section-title">Send Us a Message</h2>
+                    <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Send Us a Message</h2>
                     <p class="section-subtitle">
                         Get in touch with our team for any inquiries about our services
                     </p>
@@ -305,7 +125,7 @@
                         <div class="card">
                             <h3 class="text-2xl font-bold mb-6">Direct Contact</h3>
                             
-                            <div class="space-y-6">
+                            <div class="space-y-6 bg-gradient-to-br from-[#305b73] to-[#4a7c95] rounded-2xl p-8 text-white">
                                 <div class="flex items-start">
                                     <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4 mt-1">
                                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -314,8 +134,8 @@
                                     </div>
                                     <div>
                                         <h4 class="font-semibold mb-2">Phone</h4>
-                                        <p class="text-gray-600">+971 4 123 4567</p>
-                                        <p class="text-sm text-gray-500">Available 24/7</p>
+                                        <p class="text-gray-100">+971 4 123 4567</p>
+                                        <p class="text-sm text-gray-100">Available 24/7</p>
                                     </div>
                                 </div>
 
@@ -327,8 +147,8 @@
                                     </div>
                                     <div>
                                         <h4 class="font-semibold mb-2">Email</h4>
-                                        <p class="text-gray-600">info@globaltradehub.com</p>
-                                        <p class="text-sm text-gray-500">Response within 24 hours</p>
+                                        <p class="text-gray-100">info@globaltradehub.com</p>
+                                        <p class="text-sm text-gray-100">Response within 24 hours</p>
                                     </div>
                                 </div>
 
@@ -340,8 +160,8 @@
                                     </div>
                                     <div>
                                         <h4 class="font-semibold mb-2">WhatsApp</h4>
-                                        <p class="text-gray-600">+971 50 123 4567</p>
-                                        <p class="text-sm text-gray-500">Quick responses</p>
+                                        <p class="text-gray-100">+971 50 123 4567</p>
+                                        <p class="text-sm text-gray-100">Quick responses</p>
                                     </div>
                                 </div>
 
@@ -353,8 +173,8 @@
                                     </div>
                                     <div>
                                         <h4 class="font-semibold mb-2">Skype</h4>
-                                        <p class="text-gray-600">global.trade.hub</p>
-                                        <p class="text-sm text-gray-500">Video calls available</p>
+                                        <p class="text-gray-100">global.trade.hub</p>
+                                        <p class="text-sm text-gray-100">Video calls available</p>
                                     </div>
                                 </div>
                             </div>
@@ -388,7 +208,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="section bg-gray-50">
+    <!-- <section class="section bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="section-title">Frequently Asked Questions</h2>
@@ -431,7 +251,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- CTA Section -->
     <section class="section bg-primary-color text-white">
@@ -443,10 +263,10 @@
                     help optimize your operations.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="tel:+97141234567" class="bg-white text-primary-color px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    <a href="tel:+97141234567" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105 ">
                         Call Now
                     </a>
-                    <a href="https://wa.me/971501234567" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-color transition-colors">
+                    <a href="https://wa.me/971501234567" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors">
                         WhatsApp
                     </a>
                 </div>

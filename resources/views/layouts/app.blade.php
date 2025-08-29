@@ -11,6 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -20,385 +21,331 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+
+
     <!-- Custom Styles -->
     <style>
-        :root {
-            --primary-color: #265478;
-            --primary-light: #3a6b8f;
-            --primary-dark: #1a3d5a;
-            --accent-color: #0370f8;
-            --text-dark: #1b1b18;
-            --text-light: #6b7280;
-            --bg-light: #f8fafc;
-            --bg-white: #ffffff;
-        }
+       :root {
+    --primary-dark: #1F3447;   
+    --primary-color: #305B73;  
+    --primary-light: #496409ff;  
+    --accent-color: #F4B400;   
+    --text-dark: #1F3447;
+    --text-light: #6b7280;
+    --bg-light: #f8fafc;
+    --bg-white: #ffffff;
+}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: var(--bg-light);
-        }
+/* Base */
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: var(--bg-light);
+    margin: 0;
+    padding: 0;
+}
 
-        /* Animated Background */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
 
-        .animated-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #265478 0%, #3a6b8f 25%, #4a7ba0 50%, #3a6b8f 75%, #265478 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
+/* Animated Gradient Background */
+#animated-bg {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--primary-light) 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
 
-        .animated-bg::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(248, 184, 3, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(38, 84, 120, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(248, 184, 3, 0.05) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-        }
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+/* Waves Animation */
+.waves-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(1deg); }
-            66% { transform: translateY(10px) rotate(-1deg); }
-        }
+.wave {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 100px;
+    background: linear-gradient(90deg, transparent, rgba(48, 91, 115, 0.3), transparent);
+    border-radius: 100px;
+    animation: wave 8s linear infinite;
+}
 
-        /* Floating Particles */
-        .particle {
-            position: absolute;
-            background: rgba(248, 184, 3, 0.1);
-            border-radius: 50%;
-            animation: particleFloat 25s linear infinite;
-        }
+.wave1 { animation-delay: 0s; opacity: 0.4; }
+.wave2 { animation-delay: -2s; opacity: 0.3; height: 80px; }
+.wave3 { animation-delay: -4s; opacity: 0.2; height: 60px; }
 
-        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
-        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 5s; }
-        .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 10s; }
-        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 15s; }
-        .particle:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 20s; }
-        .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 25s; }
-        .particle:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 30s; }
-        .particle:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 35s; }
-        .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; animation-delay: 40s; }
+@keyframes wave {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0%); }
+}
 
-        @keyframes particleFloat {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
+/* Header */
+.header {
+    background: linear-gradient(to bottom right, #b4dde4ff, #dcddc0ff);
+    /* border-radius: 0.5rem; matches Tailwind's rounded-lg */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(48, 91, 115, 0.1);
+    transition: all 0.3s ease;
+}
 
-        /* Header Styles */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(38, 84, 120, 0.1);
-            transition: all 0.3s ease;
-        }
+.header.scrolled {
+    background: linear-gradient(to bottom right, #b4dde4ff, #dcddc0ff);
+    box-shadow: 0 2px 20px rgba(31, 52, 71, 0.1);
+}
 
-        .header.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 2px 20px rgba(38, 84, 120, 0.1);
-        }
+.nav-link {
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
 
-        .nav-link {
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+.nav-link:hover {
+    color: var(--primary-color);
+}
 
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
+.nav-link:hover::after {
+    width: 100%;
+}
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+/* Buttons */
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
 
-        /* Button Styles */
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
+.btn-primary:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(48, 91, 115, 0.3);
+}
 
-        .btn-primary:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(38, 84, 120, 0.3);
-        }
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-color);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary-color);
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary-color);
-            cursor: pointer;
-        }
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
 
-        .btn-secondary:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-        }
+/* Sections */
+.section {
+    padding: 80px 0;
+    position: relative;
+}
 
-        /* Section Styles */
-        .section {
-            padding: 80px 0;
-            position: relative;
-        }
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    text-align: center;
+}
 
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
+.section-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            text-align: center;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+/* Cards */
+.card {
+    background: linear-gradient(to right, #e7f0ecff, #f1f2f7ff, #e6f1f0ff);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(48, 91, 115, 0.1);
+}
 
-        /* Card Styles */
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(38, 84, 120, 0.1);
-        }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(48, 91, 115, 0.2);
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(38, 84, 120, 0.2);
-        }
+/* Footer */
+.footer {
+    background: var(--primary-dark);
+    color: white;
+    padding: 60px 20px 20px;
+    position: relative;
+    overflow: hidden;
+}
 
-        .footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 60px 20px 20px;
-            position: relative;
-            overflow: hidden;
-        }
+.footer-link {
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
 
-        .footer-link {
-            color: #ffffff;
-            transition: color 0.3s ease;
-        }
-        
-        .bottom-footer-link {
-            color: #000000;
-            transition: color 0.3s ease;
-        }
+.footer-link:hover {
+    color: var(--accent-color);
+}
 
-        .footer-link:hover {
-            color: var(--accent-color);
-        }
+/* Waves in Footer */
+.footer-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 0;
+}
 
-        .footer-wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 180px; /* increased height for bigger waves */
-            overflow: hidden;
-            line-height: 0;
-            z-index: 0;
-        }
+.waves {
+    position: absolute;
+    bottom: 0;
+    width: 250%;
+    height: 120%;
+    fill: white;
+}
 
-        /* White waves */
-        .waves {
-            position: absolute;
-            bottom: 0;
-            width: 250%;
-            height: 120%;
-            fill: white; /* Waves color */
-        }
+.parallax use:nth-child(1) { animation: moveWaves 16s linear infinite; }
+.parallax use:nth-child(2) { animation: moveWaves 10s linear infinite; }
+.parallax use:nth-child(3) { animation: moveWaves 15s linear infinite; }
+.parallax use:nth-child(4) { animation: moveWaves 11s linear infinite; }
 
-        /* Parallax layers moving at different speeds */
-        .parallax use:nth-child(1) { animation: moveWaves 16s linear infinite; }
-        .parallax use:nth-child(2) { animation: moveWaves 10s linear infinite; }
-        .parallax use:nth-child(3) { animation: moveWaves 15s linear infinite; }
-        .parallax use:nth-child(4) { animation: moveWaves 11s linear infinite; }
+@keyframes moveWaves {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
 
-        @keyframes moveWaves {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #25d366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        /* Make footer responsive */
-        @media (max-width: 1200px) {
-            .footer {
-                padding: 50px 15px 15px;
-            }
-        }
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+}
 
-        @media (max-width: 768px) {
-            .footer-wave {
-                height: 100px;
-            }
-            .footer {
-                padding: 40px 10px 10px;
-            }
-        }
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        @media (max-width: 480px) {
-            .footer {
-                padding: 30px 5px 5px;
-            }
-        }
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.6s ease;
+}
+.slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
 
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.6s ease;
+}
+.slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
 
-        /* WhatsApp Float Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25d366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
+/* Responsive Design */
+@media (max-width: 992px) {
+    .section-title { font-size: 2rem; }
+    .section { padding: 60px 0; }
+}
 
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
-        }
+@media (max-width: 768px) {
+    .section-title { font-size: 1.8rem; }
+    .section { padding: 50px 0; }
+    .whatsapp-float { width: 50px; height: 50px; font-size: 24px; bottom: 20px; right: 20px; }
+}
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .section {
-                padding: 60px 0;
-            }
-            
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                font-size: 25px;
-                bottom: 20px;
-                right: 20px;
-            }
-        }
+@media (max-width: 480px) {
+    .section-title { font-size: 1.6rem; }
+    .section { padding: 40px 0; }
+    .footer { padding: 30px 10px; }
+}
 
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.6s ease;
-        }
-
-        .slide-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.6s ease;
-        }
-
-        .slide-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .bg-gray-50 {
-            background-color : rgb(215 218 221);
-        }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="animated-bg">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
+    
+
+     <!-- Animated Background -->
+    <div id="animated-bg" class="fixed inset-0 z-0">
+        <!-- <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-indigo-900 to-gray-900"></div> -->
+        <canvas id="particles-canvas" class="absolute inset-0 w-full h-full"></canvas>
+        <div class="waves-container">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+            <div class="wave wave3"></div>
+        </div>
     </div>
 
     <!-- Header -->
@@ -406,11 +353,13 @@
         <nav class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
-                <div class="flex items-center">
-                    <a href="{{ route('home') }}" class="text-2xl font-bold text-primary-color">
-                        Global Trade Hub
+                <div class="flex items-center space-x-3">
+                    <a href="{{ route('home') }}" class="flex items-center">
+                        <img src="/images/logo-main-without-background.png" alt="Global Trade Hub Logo" class="h-20 w-auto object-contain">
+                        <!-- <span class="ml-2 text-2xl font-bold text-primary-color">Global Trade Hub</span> -->
                     </a>
                 </div>
+
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
@@ -423,7 +372,7 @@
                     <a href="{{ route('testimonials') }}" class="nav-link">Testimonials</a>
                     <a href="{{ route('careers') }}" class="nav-link">Careers</a>
                     <a href="{{ route('contact') }}" class="nav-link">Contact</a>
-                    <a href="{{ route('legal') }}" class="nav-link">Legal</a>
+                    <!-- <a href="{{ route('legal') }}" class="nav-link">Legal</a> -->
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -467,20 +416,28 @@
         <div class="container mx-auto px-4 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <!-- Company Info -->
-                <div class="col-span-1 md:col-span-2">
+                <div class="col-span-1 md:col-span-1">
                     <h3 class="text-xl font-bold mb-4 text-white">Global Trade Hub</h3>
                     <p class="text-gray-300 mb-4">
                         Leading maritime solutions provider specializing in ship chartering,
                         sale & purchase, valuation, and marine services worldwide.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-accent-color transition-colors">
-                            <!-- Social Icons -->
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                            </svg>
-                        </a>
-                        <!-- Add more social icons as needed -->
+                    <a href="#" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition">
+                        <i class="fab fa-youtube"></i>
+                    </a>
                     </div>
                 </div>
 
@@ -506,6 +463,28 @@
                         <li><a href="{{ route('services') }}#marine-services" class="footer-link">Marine Services</a></li>
                     </ul>
                 </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Contact Info</h4>
+                    <ul class="space-y-3">
+                    <li class="flex items-center space-x-2">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Dubai Maritime City, UAE</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <i class="fas fa-phone"></i>
+                        <span>+971 4 123 4567</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@globaltradehub.com</span>
+                    </li>
+                    </ul>
+                    <button class="mt-4 px-4 py-2 bg-[#285566] text-white rounded-lg hover:bg-accent transition">
+                    Get In Touch
+                    </button>
+                </div>
+                </div>
             </div>
 
             <!-- Bottom Footer -->
@@ -525,14 +504,15 @@
                     <path id="gentle-wave" d="M0,60 C150,90 300,30 450,60 C600,90 750,30 900,60 C1050,90 1200,30 1350,60 L1350,120 L0,120 Z"></path>
                 </defs>
                 <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="0" y="0" fill="rgba(255,255,255,0.7)"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="0" fill="rgba(255, 255, 255, 0.46)"></use>
                     <use xlink:href="#gentle-wave" x="0" y="10" fill="rgba(255,255,255,0.5)"></use>
                     <use xlink:href="#gentle-wave" x="0" y="20" fill="rgba(255,255,255,0.3)"></use>
-                    <use xlink:href="#gentle-wave" x="0" y="30" fill="#fff"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="30" fill="#ffffffd2"></use>
                 </g>
             </svg>
         </div>
     </footer>
+
 
 
     <!-- WhatsApp Float Button -->

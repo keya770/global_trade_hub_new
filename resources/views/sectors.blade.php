@@ -20,369 +20,217 @@
         </div>
     </section>
 
-    <!-- Particles Script -->
-    <script>
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-    const colors = ['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.5)'];
-
-    function initParticles() {
-        particlesArray = [];
-        for (let i = 0; i < 80; i++) {
-            particlesArray.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 3,
-                color: colors[Math.floor(Math.random() * colors.length)],
-                speedX: (Math.random() - 0.5) * 0.8,
-                speedY: (Math.random() - 0.5) * 0.8
-            });
-        }
+    <style>
+    /* Fade-up animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
     }
 
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particlesArray.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.fill();
-            p.x += p.speedX;
-            p.y += p.speedY;
-            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Optional: animate features inside fade-up */
+    .feature {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .fade-up.show .feature {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Gradient animation for headings */
+    @keyframes gradient-slide {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient-slide 4s ease infinite;
+    }
+  </style>
+
+  <!-- Expertise Grid Section -->
+  <section class="section bg-white py-20">
+    <div class="container mx-auto px-4">
+      <!-- Heading -->
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-extrabold mb-6 
+                   bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                   bg-clip-text text-transparent">Our Expertise Across Maritime Sectors</h2>
+        <p class="section-subtitle text-gray-600 text-lg max-w-2xl mx-auto">
+          From dry bulk to specialized vessels, we provide expert services across all major shipping sectors
+        </p>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <!-- Dry Bulk Card -->
+        <div class="card group fade-up">
+          <img src="https://maritime-executive.com/media/images/article/Photos/Vessels_Large/Emerald-Putuo.0a611b.jpg" alt="Dry Bulk Carriers" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-4">Dry Bulk Carriers</h3>
+            <p class="text-gray-600 mb-6">
+              Specialized vessels for transporting dry cargo including grains, coal, iron ore, and other bulk commodities.
+            </p>
+            <ul class="text-left space-y-2 text-sm text-gray-600">
+              <li>• Handysize, Supramax, Panamax</li>
+              <li>• Capesize, Newcastlemax</li>
+              <li>• Chartering & S&P Services</li>
+              <li>• Market Analysis & Valuation</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- General Cargo Card -->
+        <div class="card group fade-up">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS-70-lS07S-59i5c9nxglCEuuMrj6xLcARA&s" alt="General Cargo" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-4">General Cargo</h3>
+            <p class="text-gray-600 mb-6">
+              Versatile vessels designed to carry various types of cargo including project cargo and heavy lifts.
+            </p>
+            <ul class="text-left space-y-2 text-sm text-gray-600">
+              <li>• Multi-purpose Vessels</li>
+              <li>• Heavy Lift Carriers</li>
+              <li>• Project Cargo Specialists</li>
+              <li>• Breakbulk Operations</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Container Ships Card -->
+        <div class="card group fade-up">
+          <img src="https://mosacoshipping.com/wp-content/uploads/2024/09/cosco-shipping-universe-open-water.jpg" alt="Container Ships" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-4">Container Ships</h3>
+            <p class="text-gray-600 mb-6">
+              Modern container vessels for efficient transportation of containerized cargo across global trade routes.
+            </p>
+            <ul class="text-left space-y-2 text-sm text-gray-600">
+              <li>• Platform Supply Vessels</li>
+              <li>• Anchor Handling Tugs</li>
+              <li>• Crew Transfer Vessels</li>
+              <li>• Offshore Support</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Sector Section -->
+  <section class="section bg-gradient-to-b from-gray-50 via-white to-gray-100 py-16">
+    <div class="container mx-auto px-6">
+      <!-- Section Title -->
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4 
+                   bg-gradient-to-r from-green-600 via-blue-500 to-teal-500 
+                   bg-clip-text text-transparent animate-gradient">
+          Detailed Sector Analysis
+        </h2>
+        <p class="section-subtitle text-gray-600 text-lg">
+          In-depth insights into each sector's market dynamics and our specialized services
+        </p>
+      </div>
+
+      <!-- Dry Bulk Carriers -->
+      <div class="fade-up grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+        <div>
+          <h3 class="text-3xl font-bold mb-6 text-gray-800">Dry Bulk Carriers</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Dry bulk carriers form the backbone of global commodity trade, transporting essential raw materials 
+            that power the world's economies. Our expertise spans all vessel sizes and market segments.
+          </p>
+          <div class="space-y-4">
+            <div class="feature flex items-start group hover:translate-x-2 transition-transform duration-300">
+              <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-3 mt-1 shadow-md">
+                <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                        01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                        011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Vessel Sizes</h4>
+                <p class="text-sm text-gray-600">Handysize (10,000-35,000 DWT) to Capesize (180,000+ DWT)</p>
+              </div>
+            </div>
+            <div class="feature flex items-start group hover:translate-x-2 transition-transform duration-300">
+              <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-4 mt-1 shadow-md">
+                <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                        01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                        011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Cargo Types</h4>
+                <p class="text-sm text-gray-600">Iron ore, coal, grain, bauxite, phosphate, and more</p>
+              </div>
+            </div>
+            <div class="feature flex items-start group hover:translate-x-2 transition-transform duration-300">
+              <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-4 mt-1 shadow-md">
+                <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                        01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                        011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Our Services</h4>
+                <p class="text-sm text-gray-600">Chartering, sale & purchase, valuation, market analysis</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gradient-to-tr from-gray-200 to-gray-300 h-80 rounded-xl shadow-lg flex items-center justify-center hover:scale-105 transform transition duration-500">
+          <img src="https://www.lloydslist.com/-/media/lloyds-list/images/stock-images/dry-bulk-ships/bulk-carrier-at-port-unloading.jpg?rev=4a5f5ef31be64235953e344e5fdb6169" alt="Dry Bulk Carrier" class="rounded-lg w-full h-full object-cover" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- JS for scroll animation -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const faders = document.querySelectorAll(".fade-up");
+
+      const appearOptions = {
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
         });
-        requestAnimationFrame(animateParticles);
-    }
+      }, appearOptions);
 
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
+      faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+      });
     });
-    </script>
-
-
-    <!-- Sectors Overview -->
-    <section class="section bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Our Expertise Across Maritime Sectors</h2>
-                <p class="section-subtitle">
-                    From dry bulk to specialized vessels, we provide expert services across all major shipping sectors
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Dry Bulk Carriers -->
-                <div class="card fade-in text-center group">
-                    <div class="w-20 h-20 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Dry Bulk Carriers</h3>
-                    <p class="text-gray-600 mb-6">
-                        Specialized vessels for transporting dry cargo including grains, coal, iron ore, and other bulk commodities.
-                    </p>
-                    <ul class="text-left space-y-2 text-sm text-gray-600">
-                        <li>• Handysize, Supramax, Panamax</li>
-                        <li>• Capesize, Newcastlemax</li>
-                        <li>• Chartering & S&P Services</li>
-                        <li>• Market Analysis & Valuation</li>
-                    </ul>
-                </div>
-
-                <!-- Tankers -->
-                <div class="card fade-in text-center group">
-                    <div class="w-20 h-20 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Tankers</h3>
-                    <p class="text-gray-600 mb-6">
-                        Oil and chemical tankers for transporting liquid cargo including crude oil, refined products, and chemicals.
-                    </p>
-                    <ul class="text-left space-y-2 text-sm text-gray-600">
-                        <li>• CPP (Clean Petroleum Products)</li>
-                        <li>• DPP (Dirty Petroleum Products)</li>
-                        <li>• LPG/LNG Carriers</li>
-                        <li>• Chemical Tankers</li>
-                    </ul>
-                </div>
-
-                <!-- General Cargo -->
-                <div class="card fade-in text-center group">
-                    <div class="w-20 h-20 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">General Cargo</h3>
-                    <p class="text-gray-600 mb-6">
-                        Versatile vessels designed to carry various types of cargo including project cargo and heavy lifts.
-                    </p>
-                    <ul class="text-left space-y-2 text-sm text-gray-600">
-                        <li>• Multi-purpose Vessels</li>
-                        <li>• Heavy Lift Carriers</li>
-                        <li>• Project Cargo Specialists</li>
-                        <li>• Breakbulk Operations</li>
-                    </ul>
-                </div>
-
-                <!-- Container Ships -->
-                <div class="card fade-in text-center group">
-                    <div class="w-20 h-20 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Container Ships</h3>
-                    <p class="text-gray-600 mb-6">
-                        Modern container vessels for efficient transportation of containerized cargo across global trade routes.
-                    </p>
-                    <ul class="text-left space-y-2 text-sm text-gray-600">
-                        <li>• Feeder Vessels</li>
-                        <li>• Panamax & Post-Panamax</li>
-                        <li>• Ultra Large Container Ships</li>
-                        <li>• Chartering & S&P Services</li>
-                    </ul>
-                </div>
-
-                <!-- Offshore Service Vessels -->
-                <div class="card fade-in text-center group">
-                    <div class="w-20 h-20 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Offshore Service Vessels</h3>
-                    <p class="text-gray-600 mb-6">
-                        Specialized vessels supporting offshore oil and gas operations, wind farms, and marine construction.
-                    </p>
-                    <ul class="text-left space-y-2 text-sm text-gray-600">
-                        <li>• Platform Supply Vessels</li>
-                        <li>• Anchor Handling Tugs</li>
-                        <li>• Crew Transfer Vessels</li>
-                        <li>• Offshore Support</li>
-                    </ul>
-                </div>
-
-                <!-- Specialized Vessels -->
-                <div class="card fade-in text-center group">
-                    <div class="w-20 h-20 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Specialized Vessels</h3>
-                    <p class="text-gray-600 mb-6">
-                        Unique vessels for specific operations including research, fishing, and specialized transport.
-                    </p>
-                    <ul class="text-left space-y-2 text-sm text-gray-600">
-                        <li>• Research Vessels</li>
-                        <li>• Fishing Vessels</li>
-                        <li>• Passenger Ferries</li>
-                        <li>• Custom Solutions</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Detailed Sector Information -->
-    <section class="section bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Detailed Sector Analysis</h2>
-                <p class="section-subtitle">
-                    In-depth insights into each sector's market dynamics and our specialized services
-                </p>
-            </div>
-
-            <!-- Dry Bulk Carriers Section -->
-            <div class="mb-20">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div class="fade-in">
-                        <h3 class="text-3xl font-bold mb-6 text-gray-800">Dry Bulk Carriers</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
-                            Dry bulk carriers form the backbone of global commodity trade, transporting essential raw materials 
-                            that power the world's economies. Our expertise spans all vessel sizes and market segments.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">Vessel Sizes</h4>
-                                    <p class="text-sm text-gray-600">Handysize (10,000-35,000 DWT) to Capesize (180,000+ DWT)</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">Cargo Types</h4>
-                                    <p class="text-sm text-gray-600">Iron ore, coal, grain, bauxite, phosphate, and other dry bulk commodities</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">Our Services</h4>
-                                    <p class="text-sm text-gray-600">Chartering, sale & purchase, valuation, and market analysis</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-200 h-80 rounded-lg flex items-center justify-center">
-                        <div class="text-center">
-                            <svg class="w-24 h-24 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                            </svg>
-                            <p class="text-gray-600">Dry Bulk Carrier Image</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tankers Section -->
-            <div class="mb-20">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div class="bg-gray-200 h-80 rounded-lg flex items-center justify-center lg:order-2">
-                        <div class="text-center">
-                            <svg class="w-24 h-24 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                            </svg>
-                            <p class="text-gray-600">Tanker Image</p>
-                        </div>
-                    </div>
-                    <div class="fade-in lg:order-1">
-                        <h3 class="text-3xl font-bold mb-6 text-gray-800">Tankers</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
-                            Tankers are essential for global energy security, transporting crude oil, refined products, 
-                            and chemicals. We specialize in all tanker segments with deep market knowledge.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">CPP Tankers</h4>
-                                    <p class="text-sm text-gray-600">Clean petroleum products including gasoline, diesel, and jet fuel</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">DPP Tankers</h4>
-                                    <p class="text-sm text-gray-600">Crude oil and dirty petroleum products transportation</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">LPG/LNG Carriers</h4>
-                                    <p class="text-sm text-gray-600">Specialized vessels for liquefied petroleum and natural gas</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Container Ships Section -->
-            <div class="mb-20">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div class="fade-in">
-                        <h3 class="text-3xl font-bold mb-6 text-gray-800">Container Ships</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
-                            Container ships are the workhorses of global trade, carrying manufactured goods and consumer 
-                            products across international markets with unmatched efficiency and reliability.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">Vessel Categories</h4>
-                                    <p class="text-sm text-gray-600">Feeder, Panamax, Post-Panamax, and Ultra Large Container Ships</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">Trade Routes</h4>
-                                    <p class="text-sm text-gray-600">Major trade lanes including Asia-Europe, Trans-Pacific, and regional routes</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-6 h-6 bg-primary-color rounded-full flex items-center justify-center mr-3 mt-1">
-                                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold mb-1">Market Services</h4>
-                                    <p class="text-sm text-gray-600">Chartering, sale & purchase, and market intelligence</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-200 h-80 rounded-lg flex items-center justify-center">
-                        <div class="text-center">
-                            <svg class="w-24 h-24 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
-                            </svg>
-                            <p class="text-gray-600">Container Ship Image</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  </script>
 
     <!-- Market Statistics -->
     <section class="section bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="section-title">Sector Market Statistics</h2>
+                <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Sector Market Statistics</h2>
                 <p class="section-subtitle">
                     Key metrics and insights across major maritime sectors
                 </p>
@@ -426,10 +274,10 @@
                     and help you navigate complex market dynamics.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('services') }}" class="bg-white text-primary-color px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    <a href="{{ route('services') }}" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105 ">
                         Our Services
                     </a>
-                    <a href="{{ route('contact') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-color transition-colors">
+                    <a href="{{ route('contact') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors">
                         Get in Touch
                     </a>
                 </div>

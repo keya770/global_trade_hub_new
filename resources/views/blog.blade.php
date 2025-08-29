@@ -20,127 +20,6 @@
         </div>
     </section>
 
-    <!-- Particles Script -->
-    <script>
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-    const colors = ['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.5)'];
-
-    function initParticles() {
-        particlesArray = [];
-        for (let i = 0; i < 80; i++) {
-            particlesArray.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 3,
-                color: colors[Math.floor(Math.random() * colors.length)],
-                speedX: (Math.random() - 0.5) * 0.8,
-                speedY: (Math.random() - 0.5) * 0.8
-            });
-        }
-    }
-
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particlesArray.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.fill();
-            p.x += p.speedX;
-            p.y += p.speedY;
-            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-        });
-        requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
-    });
-    </script>
-
-
-    <!-- Blog Categories Section -->
-    <section class="section bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Browse by Category</h2>
-                <p class="section-subtitle">
-                    Find articles relevant to your interests
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
-                <button class="category-btn active">All</button>
-                <button class="category-btn">Market Trends</button>
-                <button class="category-btn">Chartering</button>
-                <button class="category-btn">S&P</button>
-                <button class="category-btn">Valuation</button>
-                <button class="category-btn">Industry News</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Post Section -->
-    <section class="section bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Featured Article</h2>
-            </div>
-            
-            <div class="max-w-4xl mx-auto">
-                <article class="card overflow-hidden">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="bg-gray-200 h-64 lg:h-full rounded-lg flex items-center justify-center">
-                            <div class="text-center">
-                                <svg class="w-24 h-24 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                <p class="text-gray-600">Featured Image</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <div class="flex items-center mb-4">
-                                <span class="bg-primary-color text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
-                                <span class="text-gray-500 text-sm ml-4">December 15, 2024</span>
-                            </div>
-                            <h3 class="text-3xl font-bold mb-4 text-gray-800">
-                                2024 Maritime Market Outlook: Trends and Opportunities
-                            </h3>
-                            <p class="text-gray-600 mb-6 leading-relaxed">
-                                As we approach 2024, the maritime industry faces both challenges and opportunities. 
-                                From evolving regulations to technological advancements, discover what's shaping 
-                                the future of global shipping and how businesses can adapt and thrive.
-                            </p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-primary-color rounded-full flex items-center justify-center mr-3">
-                                        <span class="text-white font-semibold">GT</span>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold">Global Trade Hub</p>
-                                        <p class="text-sm text-gray-500">Maritime Experts</p>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
     <!-- Blog Posts Grid -->
     <section class="section bg-white">
         <div class="container mx-auto px-4">
@@ -363,20 +242,20 @@
     <!-- Newsletter Section -->
     <section class="section bg-primary-color text-white">
         <div class="container mx-auto px-4 text-center">
-            <div class="max-w-2xl mx-auto fade-in">
-                <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
-                <p class="text-xl mb-8 opacity-90">
-                    Subscribe to our newsletter for the latest maritime insights and market updates
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold mb-6">Need a Specific Vessel?</h2>
+                <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                    Can't find what you're looking for? Our extensive network can help source the perfect 
+                    vessel for your requirements.
                 </p>
-                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                    <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:ring-2 focus:ring-white focus:outline-none">
-                    <button type="submit" class="bg-white text-primary-color px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                        Subscribe
-                    </button>
-                </form>
-                <p class="text-sm opacity-75 mt-4">
-                    We respect your privacy. Unsubscribe at any time.
-                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{{ route('contact') }}" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105 ">
+                        Contact Us
+                    </a>
+                    <a href="{{ route('services') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors">
+                        Our Services
+                    </a>
+                </div>
             </div>
         </div>
     </section>
