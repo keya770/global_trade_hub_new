@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} - Admin Dashboard</title>
+    <title>{{ config('app.name', 'Global Trade Hub') }} - Admin Dashboard</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -48,7 +48,7 @@
         .bg-blue-600 { background-color: #2563eb; }
         .bg-blue-700 { background-color: #1d4ed8; }
         .bg-[#265478] { background-color: #265478; }
-        .bg-[#1e4260] { background-color: #1e4260; }
+        .bg-[#a9c1d4ff] { background-color: #a9c1d4ff; }
         .text-white { color: white; }
         .text-gray-600 { color: #4b5563; }
         .text-gray-900 { color: #111827; }
@@ -69,7 +69,7 @@
         .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
         .border-b { border-bottom-width: 1px; }
         .border-gray-200 { border-color: #e5e7eb; }
-        .border-[#1e4260] { border-color: #1e4260; }
+        .border-[#a9c1d4ff] { border-color: #a9c1d4ff; }
         .w-64 { width: 16rem; }
         .h-16 { height: 4rem; }
         .fixed { position: fixed; }
@@ -134,11 +134,11 @@
         /* Hover effects */
         .hover\:bg-gray-50:hover { background-color: #f9fafb; }
         .hover\:bg-gray-600:hover { background-color: #4b5563; }
-        .hover\:bg-blue-700:hover { background-color: #1d4ed8; }
-        .hover\:bg-[#1e4260]:hover { background-color: #1e4260; }
+        .hover\:bg-blue-700:hover { background-color: #1d4ed8ff; }
+        .hover\:bg-[#a9c1d4ff]:hover { background-color: #7898b3ff; }
         .hover\:text-gray-300:hover { color: #d1d5db; }
         .hover\:text-gray-900:hover { color: #111827; }
-        .hover\:text-[#1e4260]:hover { color: #1e4260; }
+        .hover\:text-[#a9c1d4ff]:hover { color: #a9c1d4ff; }
         
         /* Transitions */
         .transition-colors { transition-property: color, background-color, border-color; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
@@ -148,19 +148,25 @@
     <div class="min-h-screen flex">
         <!-- Sidebar -->
         <div id="sidebar" class="sidebar-transition fixed md:relative inset-y-0 left-0 z-50 w-64 bg-[#265478] text-white shadow-lg">
-            <div class="flex items-center justify-between h-16 px-6 border-b border-[#1e4260]">
-                <h1 class="text-xl font-bold">Admin Dashboard</h1>
+            <div class="flex items-center justify-between h-16 px-6 border-b border-[#a9c1d4ff]">
+                <div class="flex items-center space-x-3">
+                    <!-- Logo Image -->
+                    <img src="/images/logo-main-without-background.png" alt="Logo" class="h-10 w-10 object-contain">
+                    <!-- Dashboard Title -->
+                    <h1 class="text-xl font-bold text-white">Global Trade Hub</h1>
+                </div>
                 <button id="sidebar-close" class="md:hidden text-white hover:text-gray-300">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
+
             
             <nav class="mt-6">
                 <div class="px-4 mb-4">
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Main Navigation</p>
                 </div>
                 
-                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-[#1e4260] text-white' : '' }}">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-tachometer-alt w-5 mr-3"></i>
                     Dashboard
                 </a>
@@ -169,41 +175,56 @@
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Content Management</p>
                 </div>
                 
-                <a href="{{ route('admin.hero-sections.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.hero-sections.*') ? 'bg-[#1e4260] text-white' : '' }}">
+                <a href="{{ route('admin.hero-sections.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.hero-sections.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-image w-5 mr-3"></i>
                     Hero Sections
                 </a>
                 
-                <a href="{{ route('admin.services.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.services.*') ? 'bg-[#1e4260] text-white' : '' }}">
+                <a href="{{ route('admin.services.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.services.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-cogs w-5 mr-3"></i>
                     Services
                 </a>
                 
-                <a href="{{ route('admin.vessels.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.vessels.*') ? 'bg-[#1e4260] text-white' : '' }}">
+                <a href="{{ route('admin.sub_services.index') }}" 
+                class="flex items-center px-6 py-3 text-gray-300 
+                        hover:bg-[#a9c1d4ff] hover:text-white transition-colors 
+                        {{ request()->routeIs('admin.sub_services.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
+                    <i class="fas fa-layer-group w-5 mr-3"></i>
+                    Sub Services
+                </a>
+
+
+                <a href="{{ route('admin.vessels.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.vessels.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-ship w-5 mr-3"></i>
                     Vessels
                 </a>
                 
-                <a href="{{ route('admin.blog-posts.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.blog-posts.*') ? 'bg-[#1e4260] text-white' : '' }}">
+                <a href="{{ route('admin.blog-posts.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.blog-posts.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-blog w-5 mr-3"></i>
                     Blog Posts
                 </a>
                 
-                <a href="{{ route('admin.testimonials.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.testimonials.*') ? 'bg-[#1e4260] text-white' : '' }}">
+                <a href="{{ route('admin.testimonials.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.testimonials.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-quote-left w-5 mr-3"></i>
                     Testimonials
                 </a>
                 
-                <a href="{{ route('admin.jobs.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.jobs.*') ? 'bg-[#1e4260] text-white' : '' }}">
+                <a href="{{ route('admin.jobs.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.jobs.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-briefcase w-5 mr-3"></i>
                     Careers
                 </a>
                 
+                <a href="{{ route('admin.site-settings.index') }}" 
+                class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.site-settings.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
+                    <i class="fas fa-cogs w-5 mr-3"></i>
+                    Site Settings
+                </a>
+
                 <div class="px-4 mt-6 mb-4">
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Communication</p>
                 </div>
                 
-                <a href="{{ route('admin.contact-inquiries.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.contact-inquiries.*') ? 'bg-[#1e4260] text-white' : '' }}">
+                <a href="{{ route('admin.contact-inquiries.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.contact-inquiries.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-envelope w-5 mr-3"></i>
                     Contact Inquiries
                     @if($newInquiries = \App\Models\ContactInquiry::where('status', 'new')->count())
@@ -211,10 +232,10 @@
                     @endif
                 </a>
                 
-                <a href="{{ route('admin.legal-documents.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#1e4260] hover:text-white transition-colors {{ request()->routeIs('admin.legal-documents.*') ? 'bg-[#1e4260] text-white' : '' }}">
+                <!-- <a href="{{ route('admin.legal-documents.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.legal-documents.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-file-contract w-5 mr-3"></i>
                     Legal Documents
-                </a>
+                </a> -->
             </nav>
         </div>
 

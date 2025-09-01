@@ -50,10 +50,9 @@ class ServiceController extends Controller
             $validated['slug'] = Str::slug($validated['name']);
         }
 
-        // Handle file upload
+        // Handle image upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('services', 'public');
-            $validated['image'] = $imagePath;
+            $validated['image'] = $request->file('image')->store('services', 'public');
         }
 
         $validated['is_active'] = $request->has('is_active');
@@ -72,6 +71,15 @@ class ServiceController extends Controller
     {
         $service = Service::findOrFail($id);
         return view('admin.services.show', compact('service'));
+    }
+
+    /**
+     * Display a service category with sub-categories.
+     */
+    public function show_cat(string $id)
+    {
+        $service = Service::findOrFail($id);
+        return view('admin.services_cat.show', compact('service'));
     }
 
     /**
@@ -103,20 +111,17 @@ class ServiceController extends Controller
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
-        // Generate slug if not provided
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['name']);
         }
 
-        // Handle file upload
+        // Handle image upload
         if ($request->hasFile('image')) {
-            // Delete old image if exists
+            // Delete old image
             if ($service->image) {
                 Storage::disk('public')->delete($service->image);
             }
-            
-            $imagePath = $request->file('image')->store('services', 'public');
-            $validated['image'] = $imagePath;
+            $validated['image'] = $request->file('image')->store('services', 'public');
         }
 
         $validated['is_active'] = $request->has('is_active');
@@ -135,7 +140,6 @@ class ServiceController extends Controller
     {
         $service = Service::findOrFail($id);
 
-        // Delete image if exists
         if ($service->image) {
             Storage::disk('public')->delete($service->image);
         }

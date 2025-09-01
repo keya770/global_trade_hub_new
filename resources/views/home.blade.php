@@ -6,7 +6,8 @@
 @section('content')
     
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+   <!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
     <!-- Gradient Overlay -->
     <div class="absolute inset-0 bg-gradient-to-br from-primary-color to-primary-dark opacity-90 z-0 animate-gradient"></div>
 
@@ -42,8 +43,8 @@
 <style>
     /* Video Container */
     .video-container {
-        width: 80%;
-        max-width: 400px;
+        width: 90%;              /* पहले 80% था → बड़ा किया */
+        max-width: 900px;        /* पहले 400px था → अब बड़ा */
         aspect-ratio: 16/9;
         border-radius: 24px;
         margin-top: 80px;
@@ -95,8 +96,8 @@
         }
     })
     .to(".video-container", {
-        width: "90%",
-        maxWidth: "800px",
+        width: "100%",           // scroll पर और बड़ा
+        maxWidth: "1200px",
         borderRadius: "0px",
         ease: "power2.out"
     }, 0)
@@ -105,6 +106,7 @@
         ease: "power1.out"
     }, 0);
 </script>
+
 
     <!-- Services Overview -->
     <section id="services-overview" class="py-20 relative z-10">

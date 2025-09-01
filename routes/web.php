@@ -5,28 +5,59 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SubServiceController;
 use App\Http\Controllers\Admin\VesselController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\ContactInquiryController;
 use App\Http\Controllers\Admin\LegalDocumentController;
+use App\Http\Controllers\Admin\SiteSettingController;
 
 /*
 |--------------------------------------------------------------------------
 | Public Routes
 |--------------------------------------------------------------------------
 */
-Route::view('/', 'home')->name('home');
-Route::view('/about', 'about')->name('about');
-Route::view('/services', 'services')->name('services');
-Route::view('/vessels', 'vessels')->name('vessels');
-Route::view('/blog', 'blog')->name('blog');
-Route::view('/sectors', 'sectors')->name('sectors');
-Route::view('/testimonials', 'testimonials')->name('testimonials');
-Route::view('/careers', 'careers')->name('careers');
-Route::view('/contact', 'contact')->name('contact');
-Route::view('/legal', 'legal')->name('legal');
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/services', function () {
+    return view('services');
+})->name('services');
+
+Route::get('/vessels', function () {
+    return view('vessels');
+})->name('vessels');
+
+Route::get('/blog', function () {
+    return view('blog');
+})->name('blog');
+
+Route::get('/sectors', function () {
+    return view('sectors');
+})->name('sectors');
+
+Route::get('/testimonials', function () {
+    return view('testimonials');
+})->name('testimonials');
+
+Route::get('/careers', function () {
+    return view('careers');
+})->name('careers');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('/legal', function () {
+    return view('legal');
+})->name('legal');
 
 // Public contact form submission
 Route::post('/contact', [ContactInquiryController::class, 'store'])->name('contact.store');
@@ -37,7 +68,6 @@ Route::post('/contact', [ContactInquiryController::class, 'store'])->name('conta
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Hero Sections
@@ -47,6 +77,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Services
     Route::resource('services', ServiceController::class);
     Route::patch('services/{service}/toggle-status', [ServiceController::class, 'toggleStatus'])->name('services.toggle-status');
+    Route::resource('sub_services', SubServiceController::class);
 
     // Vessels
     Route::resource('vessels', VesselController::class);
@@ -74,6 +105,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::patch('contact-inquiries/{contactInquiry}/respond', [ContactInquiryController::class, 'markAsResponded'])->name('contact-inquiries.respond');
     Route::patch('contact-inquiries/{contactInquiry}/update-status', [ContactInquiryController::class, 'updateStatus'])->name('contact-inquiries.update-status');
     Route::get('contact-inquiries/statistics', [ContactInquiryController::class, 'statistics'])->name('contact-inquiries.statistics');
+
+    // Site settings
+    Route::get('site-settings', [SiteSettingController::class, 'index'])->name('site-settings.index');
+    Route::post('site-settings', [SiteSettingController::class, 'update'])->name('site-settings.update');
 
     // Legal Documents
     Route::resource('legal-documents', LegalDocumentController::class);

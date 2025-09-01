@@ -36,7 +36,7 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
                                         @if($service->image)
-                                            <img class="h-10 w-10 rounded-lg object-cover" src="{{ Storage::url($service->image) }}" alt="{{ $service->name }}">
+                                            <img class="h-10 w-10 rounded-lg object-cover" src="{{ asset($vessel->image) }}" alt="{{ $service->name }}">
                                         @else
                                             <div class="h-10 w-10 rounded-lg bg-gray-200 flex items-center justify-center">
                                                 <i class="fas fa-cogs text-gray-400"></i>

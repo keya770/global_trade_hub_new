@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Create Vessel Listing')
+@section('title', 'Create Vessel')
 
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
     <div class="flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Create Vessel Listing</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Create Vessel</h1>
             <p class="text-gray-600">Add a new vessel to your listings</p>
         </div>
         <a href="{{ route('admin.vessels.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center">
@@ -24,7 +24,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Left Column -->
                 <div class="space-y-6">
-                    <!-- Name -->
+                    <!-- Vessel Name -->
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Vessel Name *</label>
                         <input type="text" name="name" id="name" value="{{ old('name') }}" 
@@ -33,7 +33,7 @@
                         @error('name')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
                     </div>
 
-                    <!-- Type -->
+                    <!-- Vessel Type -->
                     <div>
                         <label for="type" class="block text-sm font-medium text-gray-700 mb-2">Vessel Type *</label>
                         <select name="type" id="type" class="w-full px-3 py-2 border rounded-lg">
@@ -44,6 +44,7 @@
                             <option value="Fishing">Fishing</option>
                             <option value="Other">Other</option>
                         </select>
+                        @error('type')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
                     </div>
 
                     <!-- Description -->
@@ -51,6 +52,7 @@
                         <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
                         <textarea name="description" id="description" rows="3"
                                   class="w-full px-3 py-2 border rounded-lg">{{ old('description') }}</textarea>
+                        @error('description')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
                     </div>
 
                     <!-- Capacity -->
@@ -84,10 +86,15 @@
 
                 <!-- Right Column -->
                 <div class="space-y-6">
-                    <!-- Image -->
+                    <!-- Image Upload -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Vessel Image</label>
-                        <input type="file" name="image" id="image" class="w-full">
+                        <input type="file" name="image" id="image" accept="image/*"
+                               class="w-full px-3 py-2 border rounded-lg @error('image') border-red-500 @enderror">
+                        <div class="mt-2">
+                            <img id="preview-image" class="hidden w-full h-48 object-cover rounded-lg border" />
+                        </div>
+                        @error('image')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
                     </div>
 
                     <!-- Daily Rate -->
@@ -144,11 +151,30 @@
                 <a href="{{ route('admin.vessels.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
                     Cancel
                 </a>
-                <button type="submit" class="bg-[#265478] hover:bg-[#1e4260] text-white px-6 py-2 rounded-lg">
+                <button type="submit" class="bg-[#265478] hover:bg-[#a9c1d4] text-white px-6 py-2 rounded-lg">
                     Create Vessel
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+<!-- Image Preview JS -->
+<script>
+document.getElementById('image').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('preview-image');
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = '';
+        preview.classList.add('hidden');
+    }
+});
+</script>
 @endsection

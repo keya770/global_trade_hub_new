@@ -10,7 +10,7 @@
             <h1 class="text-2xl font-bold text-gray-900">Vessels Management</h1>
             <p class="text-gray-600">Manage your fleet of vessels and ships</p>
         </div>
-        <a href="{{ route('admin.vessels.create') }}" class="bg-[#265478] hover:bg-[#1e4260] text-white px-4 py-2 rounded-lg flex items-center">
+        <a href="{{ route('admin.vessels.create') }}" class="bg-[#265478] hover:bg-[#a9c1d4ff] text-white px-4 py-2 rounded-lg flex items-center">
             <i class="fas fa-plus mr-2"></i>
             Add Vessel
         </a>
@@ -62,7 +62,7 @@
 
         <!-- Clear Filters -->
         <div class="mt-4">
-            <button id="clear-filters" class="text-[#265478] hover:text-[#1e4260] text-sm font-medium">
+            <button id="clear-filters" class="text-[#265478] hover:text-[#a9c1d4ff] text-sm font-medium">
                 <i class="fas fa-times mr-1"></i>Clear all filters
             </button>
         </div>
@@ -171,7 +171,7 @@
                             <i class="fas fa-ship text-4xl mb-4"></i>
                             <p class="text-lg font-medium">No vessels found</p>
                             <p class="text-sm">Get started by adding your first vessel.</p>
-                            <a href="{{ route('admin.vessels.create') }}" class="mt-4 inline-flex items-center px-4 py-2 bg-[#265478] text-white rounded-lg hover:bg-[#1e4260]">
+                            <a href="{{ route('admin.vessels.create') }}" class="mt-4 inline-flex items-center px-4 py-2 bg-[#265478] text-white rounded-lg hover:bg-[#a9c1d4ff]">
                                 <i class="fas fa-plus mr-2"></i>
                                 Add Vessel
                             </a>

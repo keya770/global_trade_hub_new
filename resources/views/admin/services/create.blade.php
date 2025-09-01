@@ -5,292 +5,82 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="flex justify-between items-center">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900">Create Service</h1>
-            <p class="text-gray-600">Add a new service for your company</p>
-        </div>
-        <a href="{{ route('admin.services.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center">
-            <i class="fas fa-arrow-left mr-2"></i>
-            Back to List
-        </a>
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900">Create Service</h1>
+        <p class="text-gray-600">Add a new service to your company offerings.</p>
     </div>
 
     <!-- Form -->
-    <div class="bg-white rounded-lg shadow-sm">
-        <form action="{{ route('admin.services.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+    <div class="bg-white shadow rounded-lg p-6">
+        <form action="{{ route('admin.services.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Left Column -->
-                <div class="space-y-6">
-                    <!-- Name -->
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Service Name *</label>
-                        <input type="text" name="name" id="name" value="{{ old('name') }}" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('name') border-red-500 @enderror"
-                               placeholder="Enter service name">
-                        @error('name')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    <!-- Slug -->
-                    <div>
-                        <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">Slug</label>
-                        <input type="text" name="slug" id="slug" value="{{ old('slug') }}" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('slug') border-red-500 @enderror"
-                               placeholder="service-slug (auto-generated if empty)">
-                        <p class="mt-1 text-sm text-gray-500">Leave empty to auto-generate from name</p>
-                        @error('slug')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+            <!-- Name -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" name="name" value="{{ old('name') }}" required
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#265478] focus:border-[#265478]">
+            </div>
 
-                    <!-- Description -->
-                    <div>
-                        <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Short Description *</label>
-                        <textarea name="description" id="description" rows="3" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('description') border-red-500 @enderror"
-                                  placeholder="Brief description of the service">{{ old('description') }}</textarea>
-                        @error('description')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+            <!-- Slug -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Slug</label>
+                <input type="text" name="slug" value="{{ old('slug') }}"
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+            </div>
 
-                    <!-- Icon -->
-                    <div>
-                        <label for="icon" class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                        <input type="text" name="icon" id="icon" value="{{ old('icon') }}" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('icon') border-red-500 @enderror"
-                               placeholder="fas fa-ship">
-                        <p class="mt-1 text-sm text-gray-500">Font Awesome icon class (e.g., fas fa-ship)</p>
-                        @error('icon')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- Right Column -->
-                <div class="space-y-6">
-                    <!-- Service Image Upload -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Service Image</label>
-                        <div id="image-upload-area" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#265478] transition-colors cursor-pointer">
-                            <div id="upload-content">
-                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
-                                <p class="text-sm text-gray-600 mb-2">Drag and drop an image here, or click to select</p>
-                                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 2MB</p>
-                                <input type="file" name="image" id="image" accept="image/*" class="hidden">
-                            </div>
-                            <div id="image-preview" class="hidden">
-                                <img id="preview-img" src="" alt="Preview" class="max-w-full h-auto rounded-lg mx-auto mb-4 max-h-64">
-                                <button type="button" id="remove-image" class="text-red-600 hover:text-red-800 text-sm">
-                                    <i class="fas fa-trash mr-1"></i>Remove Image
-                                </button>
-                            </div>
-                        </div>
-                        @error('image')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Sort Order -->
-                    <div>
-                        <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
-                        <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', 0) }}" min="0"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('sort_order') border-red-500 @enderror">
-                        <p class="mt-1 text-sm text-gray-500">Lower numbers appear first</p>
-                        @error('sort_order')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Active Status -->
-                    <div>
-                        <label class="flex items-center">
-                            <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active') ? 'checked' : '' }}
-                                   class="rounded border-gray-300 text-[#265478] focus:ring-[#265478]">
-                            <span class="ml-2 text-sm text-gray-700">Active</span>
-                        </label>
-                        <p class="mt-1 text-sm text-gray-500">Only active services will be displayed</p>
-                    </div>
-                </div>
+            <!-- Description -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Short Description</label>
+                <textarea name="description" rows="3"
+                          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">{{ old('description') }}</textarea>
             </div>
 
             <!-- Content -->
             <div>
-                <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Full Content *</label>
-                <textarea name="content" id="content" rows="8" 
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('content') border-red-500 @enderror"
-                          placeholder="Detailed description of the service...">{{ old('content') }}</textarea>
-                <p class="mt-1 text-sm text-gray-500">Full service description with details, features, and benefits</p>
-                @error('content')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
+                <label class="block text-sm font-medium text-gray-700">Full Content</label>
+                <textarea name="content" rows="5"
+                          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">{{ old('content') }}</textarea>
             </div>
 
-            <!-- SEO Section -->
-            <div class="border-t border-gray-200 pt-6">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">SEO Settings</h3>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div>
-                        <label for="meta_title" class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
-                        <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title') }}" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('meta_title') border-red-500 @enderror"
-                               placeholder="SEO title for search engines">
-                        @error('meta_title')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+            <!-- Icon -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Icon (FontAwesome class)</label>
+                <input type="text" name="icon" value="{{ old('icon') }}"
+                       placeholder="e.g. fas fa-cogs"
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+            </div>
 
-                    <div>
-                        <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
-                        <textarea name="meta_description" id="meta_description" rows="3" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('meta_description') border-red-500 @enderror"
-                                  placeholder="SEO description for search engines">{{ old('meta_description') }}</textarea>
-                        @error('meta_description')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+            <!-- Image -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Service Image</label>
+                <input type="file" name="image"
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+            </div>
+
+
+            <!-- Status & Order -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <select name="is_active" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+                        <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Active</option>
+                        <option value="0" {{ old('is_active') === 0 ? 'selected' : '' }}>Inactive</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Sort Order</label>
+                    <input type="number" name="sort_order" value="{{ old('sort_order', 0) }}"
+                           class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
                 </div>
             </div>
 
-            <!-- Form Actions -->
-            <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
-                <a href="{{ route('admin.services.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
-                    Cancel
-                </a>
-                <button type="submit" class="bg-[#265478] hover:bg-[#1e4260] text-white px-6 py-2 rounded-lg flex items-center">
-                    <i class="fas fa-save mr-2"></i>
-                    Create Service
-                </button>
+            <!-- Actions -->
+            <div class="flex justify-end space-x-3">
+                <a href="{{ route('admin.services.index') }}" class="px-4 py-2 border rounded-lg text-gray-700">Cancel</a>
+                <button type="submit" class="px-4 py-2 bg-[#265478] text-white rounded-lg hover:bg-[#1e4260]">Save</button>
             </div>
         </form>
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-$(document).ready(function() {
-    const uploadArea = $('#image-upload-area');
-    const uploadContent = $('#upload-content');
-    const imagePreview = $('#image-preview');
-    const previewImg = $('#preview-img');
-    const fileInput = $('#image');
-    const removeBtn = $('#remove-image');
-
-    // Click to upload
-    uploadArea.on('click', function() {
-        fileInput.click();
-    });
-
-    // Drag and drop functionality
-    uploadArea.on('dragover', function(e) {
-        e.preventDefault();
-        $(this).addClass('border-[#265478] bg-blue-50');
-    });
-
-    uploadArea.on('dragleave', function(e) {
-        e.preventDefault();
-        $(this).removeClass('border-[#265478] bg-blue-50');
-    });
-
-    uploadArea.on('drop', function(e) {
-        e.preventDefault();
-        $(this).removeClass('border-[#265478] bg-blue-50');
-        
-        const files = e.originalEvent.dataTransfer.files;
-        if (files.length > 0) {
-            handleFile(files[0]);
-        }
-    });
-
-    // File input change
-    fileInput.on('change', function() {
-        if (this.files.length > 0) {
-            handleFile(this.files[0]);
-        }
-    });
-
-    // Remove image
-    removeBtn.on('click', function(e) {
-        e.stopPropagation();
-        resetImageUpload();
-    });
-
-    function handleFile(file) {
-        // Validate file type
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file.');
-            return;
-        }
-
-        // Validate file size (2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            alert('File size must be less than 2MB.');
-            return;
-        }
-
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            previewImg.attr('src', e.target.result);
-            uploadContent.addClass('hidden');
-            imagePreview.removeClass('hidden');
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function resetImageUpload() {
-        fileInput.val('');
-        uploadContent.removeClass('hidden');
-        imagePreview.addClass('hidden');
-        previewImg.attr('src', '');
-    }
-
-    // Auto-generate slug from name
-    $('#name').on('keyup', function() {
-        const name = $(this).val();
-        const slug = name.toLowerCase()
-            .replace(/[^a-z0-9 -]/g, '')
-            .replace(/\s+/g, '-')
-            .replace(/-+/g, '-')
-            .trim('-');
-        
-        if ($('#slug').val() === '') {
-            $('#slug').val(slug);
-        }
-    });
-
-    // Form validation
-    $('form').on('submit', function(e) {
-        const name = $('#name').val().trim();
-        const description = $('#description').val().trim();
-        const content = $('#content').val().trim();
-        
-        if (!name) {
-            e.preventDefault();
-            alert('Please enter a service name.');
-            $('#name').focus();
-            return false;
-        }
-        
-        if (!description) {
-            e.preventDefault();
-            alert('Please enter a description.');
-            $('#description').focus();
-            return false;
-        }
-        
-        if (!content) {
-            e.preventDefault();
-            alert('Please enter the full content.');
-            $('#content').focus();
-            return false;
-        }
-    });
-});
-</script>
-@endpush

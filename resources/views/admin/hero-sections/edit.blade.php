@@ -133,7 +133,7 @@
                 <a href="{{ route('admin.hero-sections.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
                     Cancel
                 </a>
-                <button type="submit" class="bg-[#265478] hover:bg-[#1e4260] text-white px-6 py-2 rounded-lg flex items-center">
+                <button type="submit" class="bg-[#265478] hover:bg-[#a9c1d4ff] text-white px-6 py-2 rounded-lg flex items-center">
                     <i class="fas fa-save mr-2"></i>
                     Update Hero Section
                 </button>

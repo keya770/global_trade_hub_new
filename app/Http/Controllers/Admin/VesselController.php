@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Vessel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class VesselController extends Controller
 {
@@ -23,33 +22,21 @@ class VesselController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
-        $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'type'        => 'required|string|max:100',
-            'description' => 'required|string',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'capacity'    => 'nullable|numeric|min:0',
-            'length'      => 'nullable|numeric|min:0',
-            'width'       => 'nullable|numeric|min:0',
-            'draft'       => 'nullable|numeric|min:0',
-            'daily_rate'  => 'nullable|numeric|min:0',
-            'flag'        => 'nullable|string|max:100',
-            'built_year'  => 'nullable|integer|min:1900|max:' . (date('Y') + 1),
-            'imo_number'  => 'nullable|string|max:50',
-            'is_available'=> 'boolean',
-            'is_featured' => 'boolean',
-            'sort_order'  => 'nullable|integer|min:0',
-        ]);
+        $validated = $this->validateData($request);
 
-        // Handle image upload
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('vessels', 'public');
-        }
+            // get file
+            $file = $request->file('image');
 
-        $validated['is_available'] = $request->has('is_available');
-        $validated['is_featured'] = $request->has('is_featured');
-        $validated['sort_order'] = $validated['sort_order'] ?? 0;
+            // create unique name
+            $filename = time() . '-' . $file->getClientOriginalName();
+
+            // move to public/vessel-imgs
+            $file->move(public_path('vessel-imgs'), $filename);
+
+            // save only path or filename in db
+            $validated['image'] = 'vessel-imgs/' . $filename;
+        }
 
         Vessel::create($validated);
 
@@ -57,41 +44,21 @@ class VesselController extends Controller
             ->with('success', 'Vessel created successfully.');
     }
 
-    public function show(string $id)
+
+    public function show(Vessel $vessel)
     {
-        $vessel = Vessel::findOrFail($id);
         return view('admin.vessels.show', compact('vessel'));
     }
 
-    public function edit(string $id)
+    public function edit(Vessel $vessel)
     {
-        $vessel = Vessel::findOrFail($id);
         return view('admin.vessels.edit', compact('vessel'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Vessel $vessel)
     {
-        $vessel = Vessel::findOrFail($id);
+        $validated = $this->validateData($request, $vessel->id);
 
-        $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'type'        => 'required|string|max:100',
-            'description' => 'required|string',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'capacity'    => 'nullable|numeric|min:0',
-            'length'      => 'nullable|numeric|min:0',
-            'width'       => 'nullable|numeric|min:0',
-            'draft'       => 'nullable|numeric|min:0',
-            'daily_rate'  => 'nullable|numeric|min:0',
-            'flag'        => 'nullable|string|max:100',
-            'built_year'  => 'nullable|integer|min:1900|max:' . (date('Y') + 1),
-            'imo_number'  => 'nullable|string|max:50',
-            'is_available'=> 'boolean',
-            'is_featured' => 'boolean',
-            'sort_order'  => 'nullable|integer|min:0',
-        ]);
-
-        // Handle new image upload
         if ($request->hasFile('image')) {
             if ($vessel->image) {
                 Storage::disk('public')->delete($vessel->image);
@@ -99,33 +66,25 @@ class VesselController extends Controller
             $validated['image'] = $request->file('image')->store('vessels', 'public');
         }
 
-        $validated['is_available'] = $request->has('is_available');
-        $validated['is_featured'] = $request->has('is_featured');
-        $validated['sort_order'] = $validated['sort_order'] ?? 0;
-
         $vessel->update($validated);
 
         return redirect()->route('admin.vessels.index')
             ->with('success', 'Vessel updated successfully.');
     }
 
-    public function destroy(string $id)
+    public function destroy(Vessel $vessel)
     {
-        $vessel = Vessel::findOrFail($id);
-
         if ($vessel->image) {
             Storage::disk('public')->delete($vessel->image);
         }
-
         $vessel->delete();
 
         return redirect()->route('admin.vessels.index')
             ->with('success', 'Vessel deleted successfully.');
     }
 
-    public function toggleAvailability(string $id)
+    public function toggleAvailability(Vessel $vessel)
     {
-        $vessel = Vessel::findOrFail($id);
         $vessel->update(['is_available' => !$vessel->is_available]);
 
         return response()->json([
@@ -135,15 +94,35 @@ class VesselController extends Controller
         ]);
     }
 
-    public function toggleFeatured(string $id)
+    public function toggleFeatured(Vessel $vessel)
     {
-        $vessel = Vessel::findOrFail($id);
         $vessel->update(['is_featured' => !$vessel->is_featured]);
 
         return response()->json([
             'success' => true,
             'is_featured' => $vessel->is_featured,
             'message' => 'Featured status updated successfully.'
+        ]);
+    }
+
+    private function validateData(Request $request, $id = null)
+    {
+        return $request->validate([
+            'name'        => 'required|string|max:255',
+            'type'        => 'required|string|max:100',
+            'description' => 'required|string',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'capacity'    => 'nullable|numeric|min:0',
+            'length'      => 'nullable|numeric|min:0',
+            'width'       => 'nullable|numeric|min:0',
+            'draft'       => 'nullable|numeric|min:0',
+            'daily_rate'  => 'nullable|numeric|min:0',
+            'flag'        => 'nullable|string|max:100',
+            'built_year'  => 'nullable|integer|min:1900|max:' . (date('Y') + 1),
+            'imo_number'  => 'nullable|string|max:50',
+            'is_available'=> 'boolean',
+            'is_featured' => 'boolean',
+            'sort_order'  => 'nullable|integer|min:0',
         ]);
     }
 }

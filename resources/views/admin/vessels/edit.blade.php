@@ -1,125 +1,185 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Service Details')
+@section('title', 'Edit Vessel')
 
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
     <div class="flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">{{ $service->name }}</h1>
-            <p class="text-gray-600">Service details and information</p>
+            <h1 class="text-2xl font-bold text-gray-900">Edit Vessel</h1>
+            <p class="text-gray-600">Update vessel details</p>
         </div>
-        <div class="flex space-x-3">
-            <a href="{{ route('admin.services.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center">
-                <i class="fas fa-arrow-left mr-2"></i>
-                Back to List
-            </a>
-            <a href="{{ route('admin.services.edit', $service->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center">
-                <i class="fas fa-edit mr-2"></i>
-                Edit
-            </a>
-        </div>
+        <a href="{{ route('admin.vessels.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to List
+        </a>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Main Content -->
-        <div class="lg:col-span-2 space-y-6">
-            
-            <!-- Basic Information -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Basic Information</h2>
-                <div class="space-y-4">
-                    <x-admin.detail label="Service Name" :value="$service->name" />
-                    <x-admin.detail label="Slug" :value="$service->slug" mono />
-                    <x-admin.detail label="Short Description" :value="$service->description" />
+    <!-- Form -->
+    <div class="bg-white rounded-lg shadow-sm">
+        <form action="{{ route('admin.vessels.update', $vessel->id) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+            @csrf
+            @method('PUT')
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Left Column -->
+                <div class="space-y-6">
+                    <!-- Vessel Name -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-500">Icon</label>
-                        <div class="flex items-center space-x-2">
-                            @if($service->icon)
-                                <i class="{{ $service->icon }} text-2xl text-[#265478]"></i>
-                                <span class="text-gray-900 font-mono">{{ $service->icon }}</span>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Vessel Name *</label>
+                        <input type="text" name="name" id="name" value="{{ old('name', $vessel->name) }}" 
+                               class="w-full px-3 py-2 border rounded-lg @error('name') border-red-500 @enderror"
+                               placeholder="Enter vessel name">
+                        @error('name')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+                    </div>
+
+                    <!-- Vessel Type -->
+                    <div>
+                        <label for="type" class="block text-sm font-medium text-gray-700 mb-2">Vessel Type *</label>
+                        <select name="type" id="type" class="w-full px-3 py-2 border rounded-lg">
+                            <option value="">Select type</option>
+                            <option value="Cargo" {{ old('type', $vessel->type) == 'Cargo' ? 'selected' : '' }}>Cargo</option>
+                            <option value="Tanker" {{ old('type', $vessel->type) == 'Tanker' ? 'selected' : '' }}>Tanker</option>
+                            <option value="Passenger" {{ old('type', $vessel->type) == 'Passenger' ? 'selected' : '' }}>Passenger</option>
+                            <option value="Fishing" {{ old('type', $vessel->type) == 'Fishing' ? 'selected' : '' }}>Fishing</option>
+                            <option value="Other" {{ old('type', $vessel->type) == 'Other' ? 'selected' : '' }}>Other</option>
+                        </select>
+                        @error('type')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                        <textarea name="description" id="description" rows="3"
+                                  class="w-full px-3 py-2 border rounded-lg">{{ old('description', $vessel->description) }}</textarea>
+                        @error('description')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+                    </div>
+
+                    <!-- Capacity -->
+                    <div>
+                        <label for="capacity" class="block text-sm font-medium text-gray-700 mb-2">Capacity</label>
+                        <input type="text" name="capacity" id="capacity" value="{{ old('capacity', $vessel->capacity) }}"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+
+                    <!-- Length -->
+                    <div>
+                        <label for="length" class="block text-sm font-medium text-gray-700 mb-2">Length</label>
+                        <input type="text" name="length" id="length" value="{{ old('length', $vessel->length) }}"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+
+                    <!-- Width -->
+                    <div>
+                        <label for="width" class="block text-sm font-medium text-gray-700 mb-2">Width</label>
+                        <input type="text" name="width" id="width" value="{{ old('width', $vessel->width) }}"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+
+                    <!-- Draft -->
+                    <div>
+                        <label for="draft" class="block text-sm font-medium text-gray-700 mb-2">Draft</label>
+                        <input type="text" name="draft" id="draft" value="{{ old('draft', $vessel->draft) }}"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6">
+                    <!-- Image Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Vessel Image</label>
+                        <input type="file" name="image" id="image" accept="image/*"
+                               class="w-full px-3 py-2 border rounded-lg @error('image') border-red-500 @enderror">
+                        <div class="mt-2">
+                            @if($vessel->image)
+                                <img src="{{ asset($vessel->image) }}" 
+                                    id="preview-image" 
+                                    class="w-full h-48 object-cover rounded-lg border" />
                             @else
-                                <span class="text-gray-500">No icon set</span>
+                                <img id="preview-image" 
+                                    class="hidden w-full h-48 object-cover rounded-lg border" />
                             @endif
                         </div>
+                        @error('image')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+                    </div>
+
+                    <!-- Daily Rate -->
+                    <div>
+                        <label for="daily_rate" class="block text-sm font-medium text-gray-700 mb-2">Daily Rate</label>
+                        <input type="number" step="0.01" name="daily_rate" id="daily_rate" value="{{ old('daily_rate', $vessel->daily_rate) }}"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+
+                    <!-- Flag -->
+                    <div>
+                        <label for="flag" class="block text-sm font-medium text-gray-700 mb-2">Flag</label>
+                        <input type="text" name="flag" id="flag" value="{{ old('flag', $vessel->flag) }}"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+
+                    <!-- Built Year -->
+                    <div>
+                        <label for="built_year" class="block text-sm font-medium text-gray-700 mb-2">Built Year</label>
+                        <input type="number" name="built_year" id="built_year" value="{{ old('built_year', $vessel->built_year) }}"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+
+                    <!-- IMO Number -->
+                    <div>
+                        <label for="imo_number" class="block text-sm font-medium text-gray-700 mb-2">IMO Number</label>
+                        <input type="text" name="imo_number" id="imo_number" value="{{ old('imo_number', $vessel->imo_number) }}"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+
+                    <!-- Sort Order -->
+                    <div>
+                        <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                        <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', $vessel->sort_order) }}" min="0"
+                               class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+
+                    <!-- Availability -->
+                    <div class="flex items-center">
+                        <input type="checkbox" name="is_available" id="is_available" value="1" {{ old('is_available', $vessel->is_available) ? 'checked' : '' }}>
+                        <label for="is_available" class="ml-2">Available</label>
+                    </div>
+
+                    <!-- Featured -->
+                    <div class="flex items-center">
+                        <input type="checkbox" name="is_featured" id="is_featured" value="1" {{ old('is_featured', $vessel->is_featured) ? 'checked' : '' }}>
+                        <label for="is_featured" class="ml-2">Featured</label>
                     </div>
                 </div>
             </div>
 
-            <!-- Full Content -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Full Content</h2>
-                <div class="prose max-w-none">
-                    {!! nl2br(e($service->content)) !!}
-                </div>
+            <!-- Submit -->
+            <div class="flex justify-end space-x-4">
+                <a href="{{ route('admin.vessels.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
+                    Cancel
+                </a>
+                <button type="submit" class="bg-[#265478] hover:bg-[#a9c1d4] text-white px-6 py-2 rounded-lg">
+                    Update Vessel
+                </button>
             </div>
-
-            <!-- SEO Information -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">SEO Settings</h2>
-                <x-admin.detail label="Meta Title" :value="$service->meta_title ?: 'Not set'" />
-                <x-admin.detail label="Meta Description" :value="$service->meta_description ?: 'Not set'" />
-            </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="space-y-6">
-            
-            <!-- Service Image -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Service Image</h3>
-                @if($service->image)
-                    <img src="{{ Storage::url($service->image) }}" alt="{{ $service->name }}" class="w-full h-auto rounded-lg">
-                @else
-                    <div class="bg-gray-100 rounded-lg p-8 text-center">
-                        <i class="fas fa-image text-4xl text-gray-400 mb-2"></i>
-                        <p class="text-gray-500">No image uploaded</p>
-                    </div>
-                @endif
-            </div>
-
-            <!-- Status & Settings -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Status & Settings</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-gray-500">Status</span>
-                        <button type="button" 
-                            class="toggle-status-btn px-3 py-1 rounded-full text-sm font-medium {{ $service->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}"
-                            data-id="{{ $service->id }}"
-                            data-current-status="{{ $service->is_active }}">
-                            {{ $service->is_active ? 'Active' : 'Inactive' }}
-                        </button>
-                    </div>
-                    <x-admin.detail label="Sort Order" :value="$service->sort_order" />
-                    <x-admin.detail label="Created" :value="$service->created_at->format('M d, Y \a\t g:i A')" />
-                    <x-admin.detail label="Last Updated" :value="$service->updated_at->format('M d, Y \a\t g:i A')" />
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-                <div class="space-y-3">
-                    <a href="{{ route('admin.services.edit', $service->id) }}" 
-                        class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-edit mr-2"></i>
-                        Edit Service
-                    </a>
-                    <button type="button" 
-                        class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center justify-center delete-btn"
-                        data-id="{{ $service->id }}"
-                        data-name="{{ $service->name }}">
-                        <i class="fas fa-trash mr-2"></i>
-                        Delete Service
-                    </button>
-                </div>
-            </div>
-
-        </div>
+        </form>
     </div>
 </div>
 
-@include('admin.partials.delete-modal', ['entity' => 'service'])
+<!-- Image Preview JS -->
+<script>
+document.getElementById('image').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('preview-image');
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
 @endsection

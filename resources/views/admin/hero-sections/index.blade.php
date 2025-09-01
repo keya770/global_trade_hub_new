@@ -10,7 +10,7 @@
             <h1 class="text-2xl font-bold text-gray-900">Hero Sections</h1>
             <p class="text-gray-600">Manage your homepage hero sections and banners</p>
         </div>
-        <a href="{{ route('admin.hero-sections.create') }}" class="bg-[#265478] hover:bg-[#1e4260] text-white px-4 py-2 rounded-lg flex items-center">
+        <a href="{{ route('admin.hero-sections.create') }}" class="bg-[#265478] hover:bg-[#a9c1d4ff] text-white px-4 py-2 rounded-lg flex items-center">
             <i class="fas fa-plus mr-2"></i>
             Add Hero Section
         </a>
@@ -104,7 +104,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end space-x-2">
-                                    <a href="{{ route('admin.hero-sections.show', $heroSection) }}" class="text-[#265478] hover:text-[#1e4260]">
+                                    <a href="{{ route('admin.hero-sections.show', $heroSection) }}" class="text-[#265478] hover:text-[#a9c1d4ff]">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <a href="{{ route('admin.hero-sections.edit', $heroSection) }}" class="text-blue-600 hover:text-blue-900">
@@ -119,7 +119,7 @@
                     @empty
                         <tr>
                             <td colspan="6" class="px-6 py-4 text-center text-gray-500">
-                                No hero sections found. <a href="{{ route('admin.hero-sections.create') }}" class="text-[#265478] hover:text-[#1e4260]">Create your first one</a>
+                                No hero sections found. <a href="{{ route('admin.hero-sections.create') }}" class="text-[#265478] hover:text-[#a9c1d4ff]">Create your first one</a>
                             </td>
                         </tr>
                     @endforelse

@@ -88,27 +88,7 @@ $(document).ready(function() {
         }
     });
 
-    // Form handling
-    $('form').submit(function(e) {
-        e.preventDefault();
-        
-        // Show loading state
-        const submitBtn = $(this).find('button[type="submit"]');
-        const originalText = submitBtn.text();
-        submitBtn.text('Sending...').prop('disabled', true);
-        
-        // Simulate form submission
-        setTimeout(() => {
-            submitBtn.text('Message Sent!').removeClass('bg-blue-600 hover:bg-blue-700').addClass('bg-green-600');
-            
-            // Reset form
-            setTimeout(() => {
-                submitBtn.text(originalText).prop('disabled', false)
-                    .removeClass('bg-green-600').addClass('bg-blue-600 hover:bg-blue-700');
-                $(this)[0].reset();
-            }, 2000);
-        }, 1500);
-    });
+    
 
     // WhatsApp chat button
     $('#whatsapp-chat button').click(function() {
