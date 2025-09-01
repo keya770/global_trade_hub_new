@@ -4,11 +4,10 @@
 
 @section('content')
 <div class="space-y-6">
-    <!-- Header -->
     <div class="flex justify-between items-center">
         <div>
             <h1 class="text-2xl font-bold text-gray-900">Edit Service</h1>
-            <p class="text-gray-600">Update service information</p>
+            <p class="text-gray-600">Update service details</p>
         </div>
         <a href="{{ route('admin.services.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center">
             <i class="fas fa-arrow-left mr-2"></i>
@@ -16,12 +15,11 @@
         </a>
     </div>
 
-    <!-- Form -->
     <div class="bg-white rounded-lg shadow-sm">
         <form action="{{ route('admin.services.update', $service->id) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
             @method('PUT')
-            
+
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Left Column -->
                 <div class="space-y-6">
@@ -41,7 +39,7 @@
                         <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">Slug</label>
                         <input type="text" name="slug" id="slug" value="{{ old('slug', $service->slug) }}" 
                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('slug') border-red-500 @enderror"
-                               placeholder="service-slug">
+                               placeholder="service-slug (auto-generated if empty)">
                         <p class="mt-1 text-sm text-gray-500">Leave empty to auto-generate from name</p>
                         @error('slug')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -74,7 +72,7 @@
 
                 <!-- Right Column -->
                 <div class="space-y-6">
-                    <!-- Service Image Upload -->
+                    <!-- Image Upload -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Service Image</label>
                         <div id="image-upload-area" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#265478] transition-colors cursor-pointer">
@@ -85,7 +83,11 @@
                                 <input type="file" name="image" id="image" accept="image/*" class="hidden">
                             </div>
                             <div id="image-preview" class="{{ $service->image ? '' : 'hidden' }}">
-                                <img id="preview-img" src="{{ $service->image ? Storage::url($service->image) : '' }}" alt="Preview" class="max-w-full h-auto rounded-lg mx-auto mb-4 max-h-64">
+                                @if($service->image)
+                                    <img id="preview-img" src="{{ asset('storage/'.$service->image) }}" alt="Preview" class="max-w-full h-auto rounded-lg mx-auto mb-4 max-h-64">
+                                @else
+                                    <img id="preview-img" src="" alt="Preview" class="max-w-full h-auto rounded-lg mx-auto mb-4 max-h-64">
+                                @endif
                                 <button type="button" id="remove-image" class="text-red-600 hover:text-red-800 text-sm">
                                     <i class="fas fa-trash mr-1"></i>Remove Image
                                 </button>
@@ -119,19 +121,17 @@
                 </div>
             </div>
 
-            <!-- Content -->
+            <!-- Content & SEO -->
             <div>
                 <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Full Content *</label>
                 <textarea name="content" id="content" rows="8" 
                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('content') border-red-500 @enderror"
                           placeholder="Detailed description of the service...">{{ old('content', $service->content) }}</textarea>
-                <p class="mt-1 text-sm text-gray-500">Full service description with details, features, and benefits</p>
                 @error('content')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <!-- SEO Section -->
             <div class="border-t border-gray-200 pt-6">
                 <h3 class="text-lg font-medium text-gray-900 mb-4">SEO Settings</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -157,7 +157,6 @@
                 </div>
             </div>
 
-            <!-- Form Actions -->
             <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
                 <a href="{{ route('admin.services.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
                     Cancel
@@ -170,128 +169,10 @@
         </form>
     </div>
 </div>
-@endsection
 
 @push('scripts')
 <script>
-$(document).ready(function() {
-    const uploadArea = $('#image-upload-area');
-    const uploadContent = $('#upload-content');
-    const imagePreview = $('#image-preview');
-    const previewImg = $('#preview-img');
-    const fileInput = $('#image');
-    const removeBtn = $('#remove-image');
-
-    // Click to upload
-    uploadArea.on('click', function() {
-        fileInput.click();
-    });
-
-    // Drag and drop functionality
-    uploadArea.on('dragover', function(e) {
-        e.preventDefault();
-        $(this).addClass('border-[#265478] bg-blue-50');
-    });
-
-    uploadArea.on('dragleave', function(e) {
-        e.preventDefault();
-        $(this).removeClass('border-[#265478] bg-blue-50');
-    });
-
-    uploadArea.on('drop', function(e) {
-        e.preventDefault();
-        $(this).removeClass('border-[#265478] bg-blue-50');
-        
-        const files = e.originalEvent.dataTransfer.files;
-        if (files.length > 0) {
-            handleFile(files[0]);
-        }
-    });
-
-    // File input change
-    fileInput.on('change', function() {
-        if (this.files.length > 0) {
-            handleFile(this.files[0]);
-        }
-    });
-
-    // Remove image
-    removeBtn.on('click', function(e) {
-        e.stopPropagation();
-        resetImageUpload();
-    });
-
-    function handleFile(file) {
-        // Validate file type
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file.');
-            return;
-        }
-
-        // Validate file size (2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            alert('File size must be less than 2MB.');
-            return;
-        }
-
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            previewImg.attr('src', e.target.result);
-            uploadContent.addClass('hidden');
-            imagePreview.removeClass('hidden');
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function resetImageUpload() {
-        fileInput.val('');
-        uploadContent.removeClass('hidden');
-        imagePreview.addClass('hidden');
-        previewImg.attr('src', '');
-    }
-
-    // Auto-generate slug from name
-    $('#name').on('keyup', function() {
-        const name = $(this).val();
-        const slug = name.toLowerCase()
-            .replace(/[^a-z0-9 -]/g, '')
-            .replace(/\s+/g, '-')
-            .replace(/-+/g, '-')
-            .trim('-');
-        
-        if ($('#slug').val() === '') {
-            $('#slug').val(slug);
-        }
-    });
-
-    // Form validation
-    $('form').on('submit', function(e) {
-        const name = $('#name').val().trim();
-        const description = $('#description').val().trim();
-        const content = $('#content').val().trim();
-        
-        if (!name) {
-            e.preventDefault();
-            alert('Please enter a service name.');
-            $('#name').focus();
-            return false;
-        }
-        
-        if (!description) {
-            e.preventDefault();
-            alert('Please enter a description.');
-            $('#description').focus();
-            return false;
-        }
-        
-        if (!content) {
-            e.preventDefault();
-            alert('Please enter the full content.');
-            $('#content').focus();
-            return false;
-        }
-    });
-});
+    // Copy your image upload JS from create.blade.php
 </script>
 @endpush
+@endsection

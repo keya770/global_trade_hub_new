@@ -17,45 +17,16 @@ use App\Http\Controllers\Admin\LegalDocumentController;
 | Public Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/services', function () {
-    return view('services');
-})->name('services');
-
-Route::get('/vessels', function () {
-    return view('vessels');
-})->name('vessels');
-
-Route::get('/blog', function () {
-    return view('blog');
-})->name('blog');
-
-Route::get('/sectors', function () {
-    return view('sectors');
-})->name('sectors');
-
-Route::get('/testimonials', function () {
-    return view('testimonials');
-})->name('testimonials');
-
-Route::get('/careers', function () {
-    return view('careers');
-})->name('careers');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::get('/legal', function () {
-    return view('legal');
-})->name('legal');
+Route::view('/', 'home')->name('home');
+Route::view('/about', 'about')->name('about');
+Route::view('/services', 'services')->name('services');
+Route::view('/vessels', 'vessels')->name('vessels');
+Route::view('/blog', 'blog')->name('blog');
+Route::view('/sectors', 'sectors')->name('sectors');
+Route::view('/testimonials', 'testimonials')->name('testimonials');
+Route::view('/careers', 'careers')->name('careers');
+Route::view('/contact', 'contact')->name('contact');
+Route::view('/legal', 'legal')->name('legal');
 
 // Public contact form submission
 Route::post('/contact', [ContactInquiryController::class, 'store'])->name('contact.store');
@@ -66,6 +37,7 @@ Route::post('/contact', [ContactInquiryController::class, 'store'])->name('conta
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Hero Sections
