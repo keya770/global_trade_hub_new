@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Agriculture, Oil, Shipping, etc.
-            $table->string('slug')->unique();
             $table->text('description');
             $table->text('content'); // Full page content
             $table->string('icon')->nullable();

@@ -34,23 +34,30 @@ class HeroSectionController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:500',
-            'description' => 'nullable|string',
-            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'accent_text' => 'nullable|string|max:100',
+            'hero_description' => 'nullable|string|max:1000',
+            'background_video' => 'nullable|mimes:mp4,mov,avi|max:10240', // 10MB max for video
             'button_text' => 'nullable|string|max:100',
             'button_url' => 'nullable|url|max:255',
+            'secondary_button_text' => 'nullable|string|max:100',
+            'secondary_button_url' => 'nullable|url|max:255',
             'is_active' => 'boolean',
-            'sort_order' => 'nullable|integer|min:0',
+        ], [
+            'title.required' => 'The main title is required.',
+            'background_video.mimes' => 'The background video must be a file of type: mp4, mov, avi.',
+            'background_video.max' => 'The background video may not be greater than 10MB.',
+            'button_url.url' => 'The primary button URL must be a valid URL.',
+            'secondary_button_url.url' => 'The secondary button URL must be a valid URL.',
         ]);
 
-        // Handle file upload
-        if ($request->hasFile('background_image')) {
-            $imagePath = $request->file('background_image')->store('hero-sections', 'public');
-            $validated['background_image'] = $imagePath;
+        // Handle background video upload
+        if ($request->hasFile('background_video')) {
+            $videoPath = $request->file('background_video')->store('hero-sections', 'public');
+            $validated['background_video'] = $videoPath;
         }
 
         $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $validated['sort_order'] ?? 0;
+        $validated['sort_order'] = 0; // Default sort order
 
         HeroSection::create($validated);
 
@@ -85,28 +92,34 @@ class HeroSectionController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:500',
-            'description' => 'nullable|string',
-            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'accent_text' => 'nullable|string|max:100',
+            'hero_description' => 'nullable|string|max:1000',
+            'background_video' => 'nullable|mimes:mp4,mov,avi|max:10240',
             'button_text' => 'nullable|string|max:100',
             'button_url' => 'nullable|url|max:255',
+            'secondary_button_text' => 'nullable|string|max:100',
+            'secondary_button_url' => 'nullable|url|max:255',
             'is_active' => 'boolean',
-            'sort_order' => 'nullable|integer|min:0',
+        ], [
+            'title.required' => 'The main title is required.',
+            'background_video.mimes' => 'The background video must be a file of type: mp4, mov, avi.',
+            'background_video.max' => 'The background video may not be greater than 10MB.',
+            'button_url.url' => 'The primary button URL must be a valid URL.',
+            'secondary_button_url.url' => 'The secondary button URL must be a valid URL.',
         ]);
 
-        // Handle file upload
-        if ($request->hasFile('background_image')) {
-            // Delete old image if exists
-            if ($heroSection->background_image) {
-                Storage::disk('public')->delete($heroSection->background_image);
+        // Handle background video upload
+        if ($request->hasFile('background_video')) {
+            // Delete old video if exists
+            if ($heroSection->background_video) {
+                Storage::disk('public')->delete($heroSection->background_video);
             }
             
-            $imagePath = $request->file('background_image')->store('hero-sections', 'public');
-            $validated['background_image'] = $imagePath;
+            $videoPath = $request->file('background_video')->store('hero-sections', 'public');
+            $validated['background_video'] = $videoPath;
         }
 
         $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $validated['sort_order'] ?? 0;
 
         $heroSection->update($validated);
 
@@ -121,9 +134,9 @@ class HeroSectionController extends Controller
     {
         $heroSection = HeroSection::findOrFail($id);
 
-        // Delete image if exists
-        if ($heroSection->background_image) {
-            Storage::disk('public')->delete($heroSection->background_image);
+        // Delete video if exists
+        if ($heroSection->background_video) {
+            Storage::disk('public')->delete($heroSection->background_video);
         }
 
         $heroSection->delete();

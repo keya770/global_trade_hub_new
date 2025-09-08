@@ -38,7 +38,7 @@ class TestimonialController extends Controller
             'testimonial' => 'required|string',
             'client_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'rating' => 'required|integer|min:1|max:5',
+            'rating' => 'nullable|integer|min:1|max:5',
             'service_type' => 'nullable|string|max:100',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
@@ -99,7 +99,7 @@ class TestimonialController extends Controller
             'testimonial' => 'required|string',
             'client_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'rating' => 'required|integer|min:1|max:5',
+            'rating' => 'nullable|integer|min:1|max:5',
             'service_type' => 'nullable|string|max:100',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
@@ -108,7 +108,7 @@ class TestimonialController extends Controller
 
         // Handle client image upload
         if ($request->hasFile('client_image')) {
-            // Delete old client image if exists
+            // Delete old image if exists
             if ($testimonial->client_image) {
                 Storage::disk('public')->delete($testimonial->client_image);
             }
@@ -119,7 +119,7 @@ class TestimonialController extends Controller
 
         // Handle company logo upload
         if ($request->hasFile('company_logo')) {
-            // Delete old company logo if exists
+            // Delete old logo if exists
             if ($testimonial->company_logo) {
                 Storage::disk('public')->delete($testimonial->company_logo);
             }
@@ -130,7 +130,6 @@ class TestimonialController extends Controller
 
         $validated['is_featured'] = $request->has('is_featured');
         $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $validated['sort_order'] ?? 0;
 
         $testimonial->update($validated);
 
@@ -145,12 +144,10 @@ class TestimonialController extends Controller
     {
         $testimonial = Testimonial::findOrFail($id);
 
-        // Delete client image if exists
+        // Delete images if exist
         if ($testimonial->client_image) {
             Storage::disk('public')->delete($testimonial->client_image);
         }
-
-        // Delete company logo if exists
         if ($testimonial->company_logo) {
             Storage::disk('public')->delete($testimonial->company_logo);
         }
@@ -172,7 +169,7 @@ class TestimonialController extends Controller
         return response()->json([
             'success' => true,
             'is_active' => $testimonial->is_active,
-            'message' => 'Active status updated successfully.'
+            'message' => 'Status updated successfully.'
         ]);
     }
 

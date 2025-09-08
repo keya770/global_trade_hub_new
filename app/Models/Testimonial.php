@@ -67,4 +67,20 @@ class Testimonial extends Model
     {
         return str_repeat('★', $this->rating) . str_repeat('☆', 5 - $this->rating);
     }
+
+    /**
+     * Get the client image URL
+     */
+    public function getClientImageUrlAttribute()
+    {
+        return $this->client_image ? asset('storage/' . $this->client_image) : null;
+    }
+
+    /**
+     * Get the company logo URL
+     */
+    public function getCompanyLogoUrlAttribute()
+    {
+        return $this->company_logo ? asset('storage/' . $this->company_logo) : null;
+    }
 }

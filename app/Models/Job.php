@@ -20,7 +20,6 @@ class Job extends Model
      */
     protected $fillable = [
         'title',
-        'slug',
         'description',
         'requirements',
         'responsibilities',

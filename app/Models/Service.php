@@ -13,7 +13,6 @@ class Service extends Model
      */
     protected $fillable = [
         'name',
-        'slug',
         'description',
         'content',
         'icon',
@@ -38,7 +37,7 @@ class Service extends Model
      */
     public function getRouteKeyName()
     {
-        return 'slug';
+        return 'id';
     }
 
     /**
@@ -55,5 +54,21 @@ class Service extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('sort_order', 'asc');
+    }
+
+    /**
+     * Get the image URL
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? asset('storage/' . $this->image) : null;
+    }
+
+    /**
+     * Get the sub-services for this service.
+     */
+    public function subServices()
+    {
+        return $this->hasMany(SubService::class);
     }
 }

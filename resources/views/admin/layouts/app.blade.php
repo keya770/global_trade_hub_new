@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Global Trade Hub') }} - Admin Dashboard</title>
+    <title>{{ config('app.name', 'SMA Ship Brokers') }} - Admin Dashboard</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -153,7 +153,7 @@
                     <!-- Logo Image -->
                     <img src="/images/logo-main-without-background.png" alt="Logo" class="h-10 w-10 object-contain">
                     <!-- Dashboard Title -->
-                    <h1 class="text-xl font-bold text-white">Global Trade Hub</h1>
+                    <h1 class="text-xl font-bold text-white">SMA Ship Brokers</h1>
                 </div>
                 <button id="sidebar-close" class="md:hidden text-white hover:text-gray-300">
                     <i class="fas fa-times"></i>
@@ -209,15 +209,22 @@
                     Testimonials
                 </a>
                 
-                <a href="{{ route('admin.jobs.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.jobs.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
+                {{-- <a href="{{ route('admin.jobs.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.jobs.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-briefcase w-5 mr-3"></i>
                     Careers
-                </a>
+                </a> --}}
                 
                 <a href="{{ route('admin.site-settings.index') }}" 
                 class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.site-settings.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
                     <i class="fas fa-cogs w-5 mr-3"></i>
                     Site Settings
+                </a>
+
+                <!-- Sectors -->
+                <a href="{{ route('admin.sectors.index') }}" 
+                class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.sectors.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
+                    <i class="fas fa-industry mr-3 w-5 "></i>
+                    Sectors
                 </a>
 
                 <div class="px-4 mt-6 mb-4">
@@ -229,6 +236,14 @@
                     Contact Inquiries
                     @if($newInquiries = \App\Models\ContactInquiry::where('status', 'new')->count())
                         <span class="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">{{ $newInquiries }}</span>
+                    @endif
+                </a>
+                
+                <a href="{{ route('admin.jobs.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-[#a9c1d4ff] hover:text-white transition-colors {{ request()->routeIs('admin.jobs.*') ? 'bg-[#a9c1d4ff] text-white' : '' }}">
+                    <i class="fas fa-briefcase w-5 mr-3"></i>
+                    Career Applications
+                    @if($newApplications = \App\Models\CareerApplication::where('status', 'new')->count())
+                        <span class="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">{{ $newApplications }}</span>
                     @endif
                 </a>
                 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Careers - Global Trade Hub')
-@section('description', 'Join our team at Global Trade Hub. Explore current job openings, internship opportunities, and start your career in the maritime industry.')
+@section('title', 'Careers - SMA Ship Brokers')
+@section('description', 'Join our team at SMA Ship Brokers. Explore current job openings, internship opportunities, and start your career in the maritime industry.')
 
 @section('content')
     <!-- Careers Hero Section with Particles -->
@@ -88,53 +88,91 @@
                 </div>
                 
                 <div class="card">
-                    <form class="space-y-6">
+                    @if(session('success'))
+                        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                            <ul class="list-disc list-inside">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('careers.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                                <input type="text" name="first_name" value="{{ old('first_name') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('first_name') border-red-500 @enderror" required>
+                                @error('first_name')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                                <input type="text" name="last_name" value="{{ old('last_name') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('last_name') border-red-500 @enderror" required>
+                                @error('last_name')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                                <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                                <input type="email" name="email" value="{{ old('email') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('email') border-red-500 @enderror" required>
+                                @error('email')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                                <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
+                                <input type="tel" name="phone" value="{{ old('phone') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('phone') border-red-500 @enderror">
+                                @error('phone')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Position Applied For *</label>
-                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                            <select name="position_applied" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('position_applied') border-red-500 @enderror" required>
                                 <option value="">Select position</option>
-                                <option value="senior-chartering-manager">Senior Chartering Manager</option>
-                                <option value="vessel-valuator">Vessel Valuator</option>
-                                <option value="marine-operations-specialist">Marine Operations Specialist</option>
-                                <option value="business-development-manager">Business Development Manager</option>
-                                <option value="chartering-intern">Chartering Intern</option>
-                                <option value="market-research-intern">Market Research Intern</option>
-                                <option value="operations-intern">Operations Intern</option>
-                                <option value="other">Other</option>
+                                <option value="Senior Chartering Manager" {{ old('position_applied') == 'Senior Chartering Manager' ? 'selected' : '' }}>Senior Chartering Manager</option>
+                                <option value="Vessel Valuator" {{ old('position_applied') == 'Vessel Valuator' ? 'selected' : '' }}>Vessel Valuator</option>
+                                <option value="Marine Operations Specialist" {{ old('position_applied') == 'Marine Operations Specialist' ? 'selected' : '' }}>Marine Operations Specialist</option>
+                                <option value="Business Development Manager" {{ old('position_applied') == 'Business Development Manager' ? 'selected' : '' }}>Business Development Manager</option>
+                                <option value="Chartering Intern" {{ old('position_applied') == 'Chartering Intern' ? 'selected' : '' }}>Chartering Intern</option>
+                                <option value="Market Research Intern" {{ old('position_applied') == 'Market Research Intern' ? 'selected' : '' }}>Market Research Intern</option>
+                                <option value="Operations Intern" {{ old('position_applied') == 'Operations Intern' ? 'selected' : '' }}>Operations Intern</option>
+                                <option value="Other" {{ old('position_applied') == 'Other' ? 'selected' : '' }}>Other</option>
                             </select>
+                            @error('position_applied')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Cover Letter *</label>
-                            <textarea rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" placeholder="Tell us why you're interested in this position and what makes you a great candidate..." required></textarea>
+                            <textarea name="cover_letter" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('cover_letter') border-red-500 @enderror" placeholder="Tell us why you're interested in this position and what makes you a great candidate..." required>{{ old('cover_letter') }}</textarea>
+                            @error('cover_letter')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Resume/CV *</label>
-                            <input type="file" accept=".pdf,.doc,.docx" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                            <input type="file" name="resume" accept=".pdf,.doc,.docx" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('resume') border-red-500 @enderror" required>
                             <p class="text-sm text-gray-500 mt-1">Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
+                            @error('resume')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
@@ -152,7 +190,7 @@
             <div class="fade-in">
                 <h2 class="text-4xl font-bold mb-6">Ready to Join Our Team?</h2>
                 <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                    Start your journey with Global Trade Hub and be part of shaping the future of maritime services
+                    Start your journey with SMA Ship Brokers and be part of shaping the future of maritime services
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="#apply" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105 ">

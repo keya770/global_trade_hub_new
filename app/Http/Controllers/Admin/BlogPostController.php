@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -16,7 +17,7 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $blogPosts = BlogPost::with('author')->orderBy('created_at', 'desc')->paginate(10);
+        $blogPosts = BlogPost::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.blog-posts.index', compact('blogPosts'));
     }
 
@@ -43,34 +44,40 @@ class BlogPostController extends Controller
             'author_name' => 'nullable|string|max:255',
             'author_id' => 'nullable|exists:users,id',
             'category' => 'nullable|string|max:100',
-            'tags' => 'nullable|array',
-            'tags.*' => 'string|max:50',
+            'tags' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
-            'is_published' => 'boolean',
-            'published_at' => 'nullable|date',
+            'status' => 'nullable|in:draft,published',
         ]);
 
-        // Generate slug if not provided
+        // Generate slug from title if slug is empty
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
+        } else {
+            $validated['slug'] = Str::slug($validated['slug']);
         }
 
-        // Handle file upload
+        // Handle featured image upload
         if ($request->hasFile('featured_image')) {
             $imagePath = $request->file('featured_image')->store('blog-posts', 'public');
             $validated['featured_image'] = $imagePath;
         }
 
-        // Set author name if author_id is provided
-        if (!empty($validated['author_id'])) {
-            $author = User::find($validated['author_id']);
-            $validated['author_name'] = $author->name;
+        // Handle tags
+        if (!empty($validated['tags'])) {
+            $tags = array_map('trim', explode(',', $validated['tags']));
+            $validated['tags'] = $tags;
         }
 
-        $validated['is_published'] = $request->has('is_published');
-        $validated['published_at'] = $validated['is_published'] ? ($validated['published_at'] ?? now()) : null;
-        $validated['tags'] = $validated['tags'] ?? [];
+        // Set author if not provided
+        if (empty($validated['author_name']) && empty($validated['author_id'])) {
+            $validated['author_name'] = Auth::user()->name;
+            $validated['author_id'] = Auth::id();
+        }
+
+        // Set status
+        $validated['is_published'] = ($validated['status'] ?? 'draft') === 'published';
+        $validated['views_count'] = 0;
 
         BlogPost::create($validated);
 
@@ -83,7 +90,7 @@ class BlogPostController extends Controller
      */
     public function show(string $id)
     {
-        $blogPost = BlogPost::with('author')->findOrFail($id);
+        $blogPost = BlogPost::findOrFail($id);
         return view('admin.blog-posts.show', compact('blogPost'));
     }
 
@@ -113,20 +120,21 @@ class BlogPostController extends Controller
             'author_name' => 'nullable|string|max:255',
             'author_id' => 'nullable|exists:users,id',
             'category' => 'nullable|string|max:100',
-            'tags' => 'nullable|array',
-            'tags.*' => 'string|max:50',
+            'tags' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
-            'is_published' => 'boolean',
-            'published_at' => 'nullable|date',
+            'status' => 'nullable|in:draft,published',
         ]);
 
-        // Generate slug if not provided
+        // Generate slug from title if title changed or slug is empty
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
+        } elseif ($validated['title'] !== $blogPost->title) {
+            // If title changed but slug is provided, use the provided slug
+            $validated['slug'] = Str::slug($validated['slug']);
         }
 
-        // Handle file upload
+        // Handle featured image upload
         if ($request->hasFile('featured_image')) {
             // Delete old image if exists
             if ($blogPost->featured_image) {
@@ -137,15 +145,14 @@ class BlogPostController extends Controller
             $validated['featured_image'] = $imagePath;
         }
 
-        // Set author name if author_id is provided
-        if (!empty($validated['author_id'])) {
-            $author = User::find($validated['author_id']);
-            $validated['author_name'] = $author->name;
+        // Handle tags
+        if (!empty($validated['tags'])) {
+            $tags = array_map('trim', explode(',', $validated['tags']));
+            $validated['tags'] = $tags;
         }
 
-        $validated['is_published'] = $request->has('is_published');
-        $validated['published_at'] = $validated['is_published'] ? ($validated['published_at'] ?? now()) : null;
-        $validated['tags'] = $validated['tags'] ?? [];
+        // Set status
+        $validated['is_published'] = ($validated['status'] ?? 'draft') === 'published';
 
         $blogPost->update($validated);
 
@@ -160,7 +167,7 @@ class BlogPostController extends Controller
     {
         $blogPost = BlogPost::findOrFail($id);
 
-        // Delete featured image if exists
+        // Delete image if exists
         if ($blogPost->featured_image) {
             Storage::disk('public')->delete($blogPost->featured_image);
         }
@@ -177,29 +184,27 @@ class BlogPostController extends Controller
     public function togglePublished(string $id)
     {
         $blogPost = BlogPost::findOrFail($id);
-        $blogPost->update([
-            'is_published' => !$blogPost->is_published,
-            'published_at' => !$blogPost->is_published ? now() : null
-        ]);
+        $blogPost->update(['is_published' => !$blogPost->is_published]);
 
         return response()->json([
             'success' => true,
             'is_published' => $blogPost->is_published,
-            'message' => 'Publication status updated successfully.'
+            'message' => 'Published status updated successfully.'
         ]);
     }
 
     /**
-     * Increment the view count for a blog post.
+     * Increment the views count of a blog post.
      */
     public function incrementViews(string $id)
     {
         $blogPost = BlogPost::findOrFail($id);
-        $blogPost->incrementViews();
+        $blogPost->increment('views_count');
 
         return response()->json([
             'success' => true,
-            'views_count' => $blogPost->views_count
+            'views_count' => $blogPost->views_count,
+            'message' => 'Views count incremented successfully.'
         ]);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sectors We Serve - Global Trade Hub')
+@section('title', 'Sectors We Serve - SMA Ship Brokers')
 @section('description', 'Explore the maritime sectors we serve including Dry Bulk Carriers, Tankers, General Cargo, Container Ships, and Offshore Service Vessels.')
 
 @section('content')
@@ -16,6 +16,18 @@
                 <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
                     Comprehensive maritime services across all major shipping sectors
                 </p>
+                @if(isset($stats) && $stats['total_sectors'] > 0)
+                <div class="mt-8 flex flex-wrap justify-center gap-8 text-center">
+                    <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                        <div class="text-3xl font-bold">{{ $stats['total_sectors'] }}+</div>
+                        <div class="text-sm opacity-90">Sectors Served</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                        <div class="text-3xl font-bold">{{ $stats['active_sectors'] }}</div>
+                        <div class="text-sm opacity-90">Active Sectors</div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </section>
@@ -56,6 +68,90 @@
       background-size: 200% 200%;
       animation: gradient-slide 4s ease infinite;
     }
+
+    /* Scroll animations */
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .scroll-fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-slide-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s ease-out;
+    }
+
+    .scroll-slide-left.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .scroll-slide-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.8s ease-out;
+    }
+
+    .scroll-slide-right.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .scroll-scale {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.8s ease-out;
+    }
+
+    .scroll-scale.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Moving grid animation */
+    .moving-grid {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .moving-grid-container {
+      display: flex;
+      animation: moveLeft 20s linear infinite;
+      width: calc(100% * 2);
+    }
+
+    .moving-grid-item {
+      flex: 0 0 50%;
+      padding: 0 10px;
+    }
+
+    @keyframes moveLeft {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .moving-grid:hover .moving-grid-container {
+      animation-play-state: paused;
+    }
+
+    /* Staggered animation delays */
+    .scroll-fade:nth-child(1) { transition-delay: 0.1s; }
+    .scroll-fade:nth-child(2) { transition-delay: 0.2s; }
+    .scroll-fade:nth-child(3) { transition-delay: 0.3s; }
+    .scroll-fade:nth-child(4) { transition-delay: 0.4s; }
+    .scroll-fade:nth-child(5) { transition-delay: 0.5s; }
+    .scroll-fade:nth-child(6) { transition-delay: 0.6s; }
   </style>
 
   <!-- Expertise Grid Section -->
@@ -71,65 +167,59 @@
         </p>
       </div>
 
-      <!-- Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        <!-- Dry Bulk Card -->
-        <div class="card group fade-up">
-          <img src="https://maritime-executive.com/media/images/article/Photos/Vessels_Large/Emerald-Putuo.0a611b.jpg" alt="Dry Bulk Carriers" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-6 text-center">
-            <h3 class="text-2xl font-bold mb-4">Dry Bulk Carriers</h3>
-            <p class="text-gray-600 mb-6">
-              Specialized vessels for transporting dry cargo including grains, coal, iron ore, and other bulk commodities.
-            </p>
-            <ul class="text-left space-y-2 text-sm text-gray-600">
-              <li>• Handysize, Supramax, Panamax</li>
-              <li>• Capesize, Newcastlemax</li>
-              <li>• Chartering & S&P Services</li>
-              <li>• Market Analysis & Valuation</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- General Cargo Card -->
-        <div class="card group fade-up">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS-70-lS07S-59i5c9nxglCEuuMrj6xLcARA&s" alt="General Cargo" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-6 text-center">
-            <h3 class="text-2xl font-bold mb-4">General Cargo</h3>
-            <p class="text-gray-600 mb-6">
-              Versatile vessels designed to carry various types of cargo including project cargo and heavy lifts.
-            </p>
-            <ul class="text-left space-y-2 text-sm text-gray-600">
-              <li>• Multi-purpose Vessels</li>
-              <li>• Heavy Lift Carriers</li>
-              <li>• Project Cargo Specialists</li>
-              <li>• Breakbulk Operations</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Container Ships Card -->
-        <div class="card group fade-up">
-          <img src="https://mosacoshipping.com/wp-content/uploads/2024/09/cosco-shipping-universe-open-water.jpg" alt="Container Ships" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="p-6 text-center">
-            <h3 class="text-2xl font-bold mb-4">Container Ships</h3>
-            <p class="text-gray-600 mb-6">
-              Modern container vessels for efficient transportation of containerized cargo across global trade routes.
-            </p>
-            <ul class="text-left space-y-2 text-sm text-gray-600">
-              <li>• Platform Supply Vessels</li>
-              <li>• Anchor Handling Tugs</li>
-              <li>• Crew Transfer Vessels</li>
-              <li>• Offshore Support</li>
-            </ul>
-          </div>
+      <!-- Moving Grid -->
+      <div class="moving-grid">
+        <div class="moving-grid-container">
+          @if(isset($featuredSectors) && $featuredSectors->count() > 0)
+              @foreach($featuredSectors as $sector)
+              <div class="moving-grid-item">
+                  <div class="h-50 w-50 card group scroll-fade">
+                      @if($sector->image)
+                          <img src="{{ asset('storage/' . $sector->image) }}" alt="{{ $sector->title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                      @else
+                          <img src="https://maritime-executive.com/media/images/article/Photos/Vessels_Large/Emerald-Putuo.0a611b.jpg" alt="{{ $sector->title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                      @endif
+                      <div class="p-6 text-center">
+                          <h3 class="text-2xl font-bold mb-4">{{ $sector->title }}</h3>
+                          <p class="text-gray-600 mb-6">
+                              {{ $sector->description }}
+                          </p>
+                          @if($sector->services)
+                              <ul class="text-left space-y-2 text-sm text-gray-600">
+                                  @foreach(explode(',', $sector->services) as $service)
+                                      <li>• {{ trim($service) }}</li>
+                                  @endforeach
+                              </ul>
+                          @endif
+                      </div>
+                  </div>
+              </div>
+              @endforeach
+              
+          @else
+              <!-- Fallback static content if no sectors exist -->
+          @endif
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Detailed Sector Section -->
+  <style>
+    @keyframes slideInLeft {
+      0% { opacity: 0; transform: translateX(-50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInRight {
+      0% { opacity: 0; transform: translateX(50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    .slide-left { animation: slideInLeft 0.8s ease forwards; }
+    .slide-right { animation: slideInRight 0.8s ease forwards; }
+  </style>
+  
   <section class="section bg-gradient-to-b from-gray-50 via-white to-gray-100 py-16">
     <div class="container mx-auto px-6">
+      
       <!-- Section Title -->
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-extrabold mb-4 
@@ -141,75 +231,146 @@
           In-depth insights into each sector's market dynamics and our specialized services
         </p>
       </div>
-
-      <!-- Dry Bulk Carriers -->
-      <div class="fade-up grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
-        <div>
-          <h3 class="text-3xl font-bold mb-6 text-gray-800">Dry Bulk Carriers</h3>
-          <p class="text-gray-600 mb-6 leading-relaxed">
-            Dry bulk carriers form the backbone of global commodity trade, transporting essential raw materials 
-            that power the world's economies. Our expertise spans all vessel sizes and market segments.
-          </p>
-          <div class="space-y-4">
-            <div class="feature flex items-start group hover:translate-x-2 transition-transform duration-300">
-              <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-3 mt-1 shadow-md">
-                <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
-                        01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
-                        011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-              </div>
-              <div>
-                <h4 class="font-semibold mb-1">Vessel Sizes</h4>
-                <p class="text-sm text-gray-600">Handysize (10,000-35,000 DWT) to Capesize (180,000+ DWT)</p>
+  
+      @foreach($featuredSectors as $index => $sector)
+        @php
+          $isEven = $index % 2 === 0;
+        @endphp
+  
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24 scroll-fade">
+  
+          @if($isEven)
+            {{-- Description Left --}}
+            <div class="scroll-slide-left">
+              <h3 class="text-3xl font-bold mb-6 text-gray-800">{{ $sector->title }}</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">{{ $sector->description }}</p>
+  
+              <div class="space-y-4">
+                <div class="flex items-start group hover:translate-x-2 transition-transform duration-300 scroll-fade">
+                  <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-3 mt-1 shadow-md">
+                    <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                            01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                            011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">Vessel Sizes</h4>
+                    <p class="text-sm text-gray-600">{{ $sector->vessel_sizes }}</p>
+                  </div>
+                </div>
+                <div class="flex items-start group hover:translate-x-2 transition-transform duration-300 scroll-fade">
+                  <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-4 mt-1 shadow-md">
+                    <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                            01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                            011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">Cargo Types</h4>
+                    <p class="text-sm text-gray-600">{{ $sector->cargo_types }}</p>
+                  </div>
+                </div>
+                <div class="flex items-start group hover:translate-x-2 transition-transform duration-300 scroll-fade">
+                  <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-4 mt-1 shadow-md">
+                    <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                            01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                            011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">Our Services</h4>
+                    <p class="text-sm text-gray-600">{{ $sector->services }}</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="feature flex items-start group hover:translate-x-2 transition-transform duration-300">
-              <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-4 mt-1 shadow-md">
-                <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
-                        01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
-                        011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-              </div>
-              <div>
-                <h4 class="font-semibold mb-1">Cargo Types</h4>
-                <p class="text-sm text-gray-600">Iron ore, coal, grain, bauxite, phosphate, and more</p>
+  
+            {{-- Image Right --}}
+            <div class="bg-gradient-to-tr from-gray-200 to-gray-300 h-80 rounded-xl shadow-lg flex items-center justify-center scroll-slide-right hover:scale-105 transform transition duration-500">
+              @if($sector->image)
+                <img src="{{ asset('storage/' . $sector->image) }}" alt="{{ $sector->title }}" class="rounded-lg w-full h-full object-cover" />
+              @else
+                <img src="https://maritime-executive.com/media/images/article/Photos/Vessels_Large/Emerald-Putuo.0a611b.jpg" alt="{{ $sector->title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+              @endif
+            </div>
+  
+          @else
+            {{-- Image Left --}}
+            <div class="bg-gradient-to-tr from-gray-200 to-gray-300 h-80 rounded-xl shadow-lg flex items-center justify-center scroll-slide-left hover:scale-105 transform transition duration-500">
+              @if($sector->image)
+                <img src="{{ asset('storage/' . $sector->image) }}" alt="{{ $sector->title }}" class="rounded-lg w-full h-full object-cover" />
+              @else
+                <img src="https://maritime-executive.com/media/images/article/Photos/Vessels_Large/Emerald-Putuo.0a611b.jpg" alt="{{ $sector->title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+              @endif
+            </div>
+  
+            {{-- Description Right --}}
+            <div class="scroll-slide-right">
+              <h3 class="text-3xl font-bold mb-6 text-gray-800">{{ $sector->title }}</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">{{ $sector->description }}</p>
+  
+              <div class="space-y-4">
+                <div class="flex items-start group hover:translate-x-2 transition-transform duration-300 scroll-fade">
+                  <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-3 mt-1 shadow-md">
+                    <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                            01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                            011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">Vessel Sizes</h4>
+                    <p class="text-sm text-gray-600">{{ $sector->vessel_sizes }}</p>
+                  </div>
+                </div>
+                <div class="flex items-start group hover:translate-x-2 transition-transform duration-300 scroll-fade">
+                  <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-4 mt-1 shadow-md">
+                    <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                            01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                            011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">Cargo Types</h4>
+                    <p class="text-sm text-gray-600">{{ $sector->cargo_types }}</p>
+                  </div>
+                </div>
+                <div class="flex items-start group hover:translate-x-2 transition-transform duration-300 scroll-fade">
+                  <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-4 mt-1 shadow-md">
+                    <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
+                            01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
+                            011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">Our Services</h4>
+                    <p class="text-sm text-gray-600">{{ $sector->services }}</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="feature flex items-start group hover:translate-x-2 transition-transform duration-300">
-              <div class="w-8 h-8 bg-gradient-to-br from-gray-300 via-[#4d7dd9] to-gray-500 rounded-full flex items-center justify-center mr-4 mt-1 shadow-md">
-                <svg class="w-4 h-4 text-white animate-bounce" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 
-                        01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 
-                        011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-              </div>
-              <div>
-                <h4 class="font-semibold mb-1">Our Services</h4>
-                <p class="text-sm text-gray-600">Chartering, sale & purchase, valuation, market analysis</p>
-              </div>
-            </div>
-          </div>
+          @endif
+  
         </div>
-        <div class="bg-gradient-to-tr from-gray-200 to-gray-300 h-80 rounded-xl shadow-lg flex items-center justify-center hover:scale-105 transform transition duration-500">
-          <img src="https://www.lloydslist.com/-/media/lloyds-list/images/stock-images/dry-bulk-ships/bulk-carrier-at-port-unloading.jpg?rev=4a5f5ef31be64235953e344e5fdb6169" alt="Dry Bulk Carrier" class="rounded-lg w-full h-full object-cover" />
-        </div>
-      </div>
-
+      @endforeach
     </div>
   </section>
+  
 
   <!-- JS for scroll animation -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // Original fade-up animation
       const faders = document.querySelectorAll(".fade-up");
-
       const appearOptions = {
         threshold: 0.2,
         rootMargin: "0px 0px -50px 0px"
       };
-
       const appearOnScroll = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
@@ -217,10 +378,49 @@
           observer.unobserve(entry.target);
         });
       }, appearOptions);
-
       faders.forEach(fader => {
         appearOnScroll.observe(fader);
       });
+
+      // New scroll animations
+      const scrollElements = document.querySelectorAll('.scroll-fade, .scroll-slide-left, .scroll-slide-right, .scroll-scale');
+      const scrollOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px"
+      };
+
+      const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, scrollOptions);
+
+      scrollElements.forEach(element => {
+        scrollObserver.observe(element);
+      });
+
+      // Moving grid animation control
+      const movingGrid = document.querySelector('.moving-grid');
+      if (movingGrid) {
+        const container = movingGrid.querySelector('.moving-grid-container');
+        
+        // Pause on hover
+        movingGrid.addEventListener('mouseenter', () => {
+          container.style.animationPlayState = 'paused';
+        });
+        
+        movingGrid.addEventListener('mouseleave', () => {
+          container.style.animationPlayState = 'running';
+        });
+
+        // Pause on focus for accessibility
+        movingGrid.addEventListener('focus', () => {
+          container.style.animationPlayState = 'paused';
+        });
+      }
     });
   </script>
 
@@ -237,25 +437,25 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="card text-center fade-in">
+                <div class="card text-center scroll-scale">
                     <div class="text-4xl font-bold text-primary-color mb-2">2,500+</div>
                     <h3 class="text-lg font-semibold mb-2">Dry Bulk Vessels</h3>
                     <p class="text-gray-600">Handled in transactions</p>
                 </div>
                 
-                <div class="card text-center fade-in">
+                <div class="card text-center scroll-scale">
                     <div class="text-4xl font-bold text-primary-color mb-2">1,800+</div>
                     <h3 class="text-lg font-semibold mb-2">Tanker Deals</h3>
                     <p class="text-gray-600">Completed successfully</p>
                 </div>
                 
-                <div class="card text-center fade-in">
+                <div class="card text-center scroll-scale">
                     <div class="text-4xl font-bold text-primary-color mb-2">950+</div>
                     <h3 class="text-lg font-semibold mb-2">Container Ships</h3>
                     <p class="text-gray-600">Chartered annually</p>
                 </div>
                 
-                <div class="card text-center fade-in">
+                <div class="card text-center scroll-scale">
                     <div class="text-4xl font-bold text-primary-color mb-2">500+</div>
                     <h3 class="text-lg font-semibold mb-2">Specialized Vessels</h3>
                     <p class="text-gray-600">Expert consultations</p>

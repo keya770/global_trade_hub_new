@@ -13,11 +13,16 @@ class HeroSection extends Model
      */
     protected $fillable = [
         'title',
+        'accent_text',
         'subtitle',
         'description',
+        'hero_description',
         'background_image',
+        'background_video',
         'button_text',
         'button_url',
+        'secondary_button_text',
+        'secondary_button_url',
         'is_active',
         'sort_order',
     ];
@@ -45,5 +50,21 @@ class HeroSection extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('sort_order', 'asc');
+    }
+
+    /**
+     * Get the background image URL
+     */
+    public function getBackgroundImageUrlAttribute()
+    {
+        return $this->background_image ? asset('storage/' . $this->background_image) : null;
+    }
+
+    /**
+     * Get the background video URL
+     */
+    public function getBackgroundVideoUrlAttribute()
+    {
+        return $this->background_video ? asset('storage/' . $this->background_video) : null;
     }
 }

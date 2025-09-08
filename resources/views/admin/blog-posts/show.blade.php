@@ -42,22 +42,24 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-500">Excerpt</label>
-                        <p class="text-gray-900">{{ $blogPost->excerpt }}</p>
+                        <p class="text-gray-900">{{ $blogPost->excerpt ?: 'No excerpt provided' }}</p>
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-500">Category</label>
-                        <p class="text-gray-900">{{ $blogPost->category ?? 'Uncategorized' }}</p>
+                        <p class="text-gray-900">{{ $blogPost->category ?: 'Uncategorized' }}</p>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-500">Tags</label>
                         <div class="flex flex-wrap gap-2">
-                            @forelse($blogPost->tags as $tag)
-                                <span class="px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-sm">{{ $tag }}</span>
-                            @empty
+                            @if($blogPost->tags && count($blogPost->tags))
+                                @foreach($blogPost->tags as $tag)
+                                    <span class="px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-sm">{{ $tag }}</span>
+                                @endforeach
+                            @else
                                 <span class="text-gray-500">No tags</span>
-                            @endforelse
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -72,20 +74,6 @@
             </div>
 
             <!-- SEO Information -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">SEO Settings</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-500">Meta Title</label>
-                        <p class="text-gray-900">{{ $blogPost->meta_title ?: 'Not set' }}</p>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-500">Meta Description</label>
-                        <p class="text-gray-900">{{ $blogPost->meta_description ?: 'Not set' }}</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Sidebar -->
@@ -103,35 +91,25 @@
                 @endif
             </div>
 
-            <!-- Extra Images -->
-            @if($blogPost->images && count($blogPost->images))
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Additional Images</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    @foreach($blogPost->images as $image)
-                        <img src="{{ Storage::url($image->path) }}" alt="Blog Image" class="rounded-lg shadow">
-                    @endforeach
-                </div>
-            </div>
-            @endif
-
             <!-- Status & Settings -->
             <div class="bg-white rounded-lg shadow-sm p-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Status & Settings</h3>
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
                         <span class="text-sm font-medium text-gray-500">Status</span>
-                        <button type="button" 
-                                class="toggle-status-btn px-3 py-1 rounded-full text-sm font-medium {{ $blogPost->is_published ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}"
-                                data-id="{{ $blogPost->id }}"
-                                data-current-status="{{ $blogPost->is_published }}">
+                        <span class="px-3 py-1 rounded-full text-sm font-medium {{ $blogPost->is_published ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                             {{ $blogPost->is_published ? 'Published' : 'Draft' }}
-                        </button>
+                        </span>
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-500">Author</label>
-                        <p class="text-gray-900">{{ $blogPost->author_name ?? ($blogPost->author->name ?? 'Unknown') }}</p>
+                        <p class="text-gray-900">{{ $blogPost->author_name ?: ($blogPost->author->name ?? 'Unknown') }}</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-500">Views</label>
+                        <p class="text-gray-900">{{ $blogPost->views_count ?? 0 }}</p>
                     </div>
                     
                     <div>
@@ -198,36 +176,6 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    // Toggle status
-    $('.toggle-status-btn').on('click', function() {
-        const btn = $(this);
-        const postId = btn.data('id');
-        
-        $.ajax({
-            url: `/admin/blog-posts/${postId}/toggle-status`,
-            method: 'PATCH',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                if (response.success) {
-                    if (response.is_published) {
-                        btn.removeClass('bg-red-100 text-red-800').addClass('bg-green-100 text-green-800');
-                        btn.text('Published');
-                    } else {
-                        btn.removeClass('bg-green-100 text-green-800').addClass('bg-red-100 text-red-800');
-                        btn.text('Draft');
-                    }
-                    btn.data('current-status', response.is_published);
-                    showAlert('Status updated successfully!', 'success');
-                }
-            },
-            error: function() {
-                showAlert('Failed to update status. Please try again.', 'error');
-            }
-        });
-    });
-
     // Delete confirmation
     $('.delete-btn').on('click', function() {
         const postId = $(this).data('id');
@@ -249,17 +197,6 @@ $(document).ready(function() {
             $(this).addClass('hidden');
         }
     });
-
-    function showAlert(message, type) {
-        const alertClass = type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
-        const alert = $(`<div class="fixed top-4 right-4 ${alertClass} px-6 py-3 rounded-lg shadow-lg z-50">${message}</div>`);
-        $('body').append(alert);
-        setTimeout(function() {
-            alert.fadeOut(function() {
-                $(this).remove();
-            });
-        }, 3000);
-    }
 });
 </script>
 @endpush

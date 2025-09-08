@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'About Us - Global Trade Hub')
-@section('description', 'Learn about Global Trade Hub, our mission, vision, core values, and leadership team. Discover why we are the trusted partner in maritime solutions.')
+@section('title', 'About Us - SMA Ship Brokers')
+@section('description', 'Learn about SMA Ship Brokers, our mission, vision, core values, and leadership team. Discover why we are the trusted partner in maritime solutions.')
 
 @section('content')
     <!-- Hero Section with Particles -->
@@ -12,7 +12,7 @@
             <!-- Content -->
             <div class="container mx-auto px-4 text-center relative z-10">
                 <div class="fade-in">
-                    <h1 class="text-5xl md:text-6xl font-bold mb-6">About Global Trade Hub</h1>
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">About SMA Ship Brokers</h1>
                     <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
                         Leading the maritime industry with innovation, expertise, and unwavering commitment to excellence
                     </p>
@@ -29,7 +29,7 @@
                         bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
                         bg-clip-text text-transparent">Company Overview</h2>
                     <p class="text-lg text-gray-600 mb-6">
-                        Founded in 1998, Global Trade Hub has established itself as a premier maritime services 
+                        Founded in 1998, SMA Ship Brokers has established itself as a premier maritime services 
                         company, serving clients across the globe with comprehensive solutions in ship chartering, 
                         sale & purchase, valuation, and marine services.
                     </p>
@@ -154,7 +154,7 @@
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-extrabold mb-6 
                         bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
-                        bg-clip-text text-transparent">Why Choose Global Trade Hub?</h2>
+                        bg-clip-text text-transparent">Why Choose SMA Ship Brokers?</h2>
                 <p class="text-gray-600 text-lg fade-up delay-1">
                     Discover what sets us apart in the maritime industry
                 </p>
@@ -321,7 +321,7 @@
             <div class="fade-in">
                 <h2 class="text-4xl font-bold mb-6">Ready to Partner With Us?</h2>
                 <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                    Join hundreds of satisfied clients who trust Global Trade Hub for their maritime needs. 
+                    Join hundreds of satisfied clients who trust SMA Ship Brokers for their maritime needs. 
                     Let's discuss how we can help you achieve your goals.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">

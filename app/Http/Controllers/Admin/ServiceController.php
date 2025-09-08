@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
@@ -34,9 +33,8 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:services',
-            'description' => 'required|string',
-            'content' => 'required|string',
+            'description' => 'nullable|string',
+            'content' => 'nullable|string',
             'icon' => 'nullable|string|max:100',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'meta_title' => 'nullable|string|max:255',
@@ -45,14 +43,10 @@ class ServiceController extends Controller
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
-        // Generate slug if not provided
-        if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']);
-        }
-
         // Handle image upload
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('services', 'public');
+            $imagePath = $request->file('image')->store('services', 'public');
+            $validated['image'] = $imagePath;
         }
 
         $validated['is_active'] = $request->has('is_active');
@@ -74,15 +68,6 @@ class ServiceController extends Controller
     }
 
     /**
-     * Display a service category with sub-categories.
-     */
-    public function show_cat(string $id)
-    {
-        $service = Service::findOrFail($id);
-        return view('admin.services_cat.show', compact('service'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -100,9 +85,8 @@ class ServiceController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:services,slug,' . $id,
-            'description' => 'required|string',
-            'content' => 'required|string',
+            'description' => 'nullable|string',
+            'content' => 'nullable|string',
             'icon' => 'nullable|string|max:100',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'meta_title' => 'nullable|string|max:255',
@@ -111,21 +95,18 @@ class ServiceController extends Controller
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
-        if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']);
-        }
-
         // Handle image upload
         if ($request->hasFile('image')) {
-            // Delete old image
+            // Delete old image if exists
             if ($service->image) {
                 Storage::disk('public')->delete($service->image);
             }
-            $validated['image'] = $request->file('image')->store('services', 'public');
+            
+            $imagePath = $request->file('image')->store('services', 'public');
+            $validated['image'] = $imagePath;
         }
 
         $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $validated['sort_order'] ?? 0;
 
         $service->update($validated);
 
@@ -140,6 +121,7 @@ class ServiceController extends Controller
     {
         $service = Service::findOrFail($id);
 
+        // Delete image if exists
         if ($service->image) {
             Storage::disk('public')->delete($service->image);
         }

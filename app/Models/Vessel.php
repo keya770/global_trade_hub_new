@@ -48,4 +48,12 @@ class Vessel extends Model
     {
         return $query->orderBy('sort_order', 'asc');
     }
+
+    /**
+     * Get the image URL
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? asset('storage/' . $this->image) : null;
+    }
 }

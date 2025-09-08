@@ -62,7 +62,10 @@ class BlogPost extends Model
     public function scopePublished($query)
     {
         return $query->where('is_published', true)
-                    ->where('published_at', '<=', now());
+                    ->where(function($q) {
+                        $q->whereNull('published_at')
+                          ->orWhere('published_at', '<=', now());
+                    });
     }
 
     /**
@@ -70,7 +73,8 @@ class BlogPost extends Model
      */
     public function scopeLatest($query)
     {
-        return $query->orderBy('published_at', 'desc');
+        return $query->orderBy('published_at', 'desc')
+                    ->orderBy('created_at', 'desc');
     }
 
     /**
@@ -79,5 +83,13 @@ class BlogPost extends Model
     public function incrementViews()
     {
         $this->increment('views_count');
+    }
+
+    /**
+     * Get the featured image URL
+     */
+    public function getFeaturedImageUrlAttribute()
+    {
+        return $this->featured_image ? asset('storage/' . $this->featured_image) : null;
     }
 }

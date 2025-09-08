@@ -5,139 +5,167 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div>
-        <h1 class="text-2xl font-bold text-gray-900">Create Sub Service</h1>
-        <p class="text-gray-600">Add a new sub service under a main service, and optionally add sub–sub services.</p>
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Create Sub Service</h1>
+            <p class="text-gray-600">Add a new sub service or sub-sub service</p>
+        </div>
+        <a href="{{ route('admin.sub_services.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to Sub Services
+        </a>
     </div>
 
     <!-- Form -->
     <div class="bg-white shadow rounded-lg p-6">
-        <form action="{{ route('admin.sub_services.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('admin.sub_services.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-
-            <!-- Main Service -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Main Service</label>
-                <select name="service_id" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
-                    @foreach($services as $id => $name)
-                        <option value="{{ $id }}" {{ old('service_id') == $id ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- Name -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" name="name" value="{{ old('name') }}" required
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#265478] focus:border-[#265478]">
-            </div>
-
-            <!-- Short Description -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Short Description</label>
-                <textarea name="description" rows="3"
-                          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">{{ old('description') }}</textarea>
-            </div>
-
-            <!-- Full Content -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Full Content</label>
-                <textarea name="content" rows="5"
-                          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">{{ old('content') }}</textarea>
-            </div>
-
-            <!-- Icon -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Icon (FontAwesome class)</label>
-                <input type="text" name="icon" value="{{ old('icon') }}"
-                       placeholder="e.g. fas fa-layer-group"
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
-            </div>
-
-            <!-- Image -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Sub Service Image</label>
-                <input type="file" name="image"
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
-            </div>
-
-            <!-- Status & Order -->
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Service -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Status</label>
-                    <select name="is_active" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
-                        <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Active</option>
-                        <option value="0" {{ old('is_active') === 0 ? 'selected' : '' }}>Inactive</option>
+                    <label for="service_id" class="block text-sm font-medium text-gray-700 mb-2">Main Service *</label>
+                    <select name="service_id" id="service_id" 
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#265478] focus:border-transparent">
+                        <option value="">Select a service</option>
+                        @foreach($services as $service)
+                            <option value="{{ $service->id }}" {{ old('service_id') == $service->id ? 'selected' : '' }}>
+                                {{ $service->name }}
+                            </option>
+                        @endforeach
                     </select>
+                    @error('service_id')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
+                <!-- Parent Sub Service -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Sort Order</label>
-                    <input type="number" name="sort_order" value="{{ old('sort_order', 0) }}"
-                           class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+                    <label for="parent_id" class="block text-sm font-medium text-gray-700 mb-2">Parent Sub Service</label>
+                    <select name="parent_id" id="parent_id" 
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#265478] focus:border-transparent">
+                        <option value="">Top Level (No Parent)</option>
+                        @foreach($parentSubServices as $parentSubService)
+                            <option value="{{ $parentSubService->id }}" {{ old('parent_id') == $parentSubService->id ? 'selected' : '' }}>
+                                {{ $parentSubService->name }} ({{ $parentSubService->service->name }})
+                            </option>
+                        @endforeach
+                    </select>
+                    <p class="text-sm text-gray-500 mt-1">Leave empty for top-level sub service, or select to create a sub-sub service</p>
+                    @error('parent_id')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Name -->
+                <div class="md:col-span-2">
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
+                    <input type="text" name="name" id="name" value="{{ old('name') }}" 
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#265478] focus:border-transparent" 
+                           placeholder="e.g., Tanker Chartering">
+                    @error('name')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Description -->
+                <div class="md:col-span-2">
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea name="description" id="description" rows="3" 
+                              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#265478] focus:border-transparent" 
+                              placeholder="Brief description...">{{ old('description') }}</textarea>
+                    @error('description')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Content -->
+                <div class="md:col-span-2">
+                    <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                    <textarea name="content" id="content" rows="6" 
+                              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#265478] focus:border-transparent" 
+                              placeholder="Detailed content...">{{ old('content') }}</textarea>
+                    @error('content')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Icon -->
+                <div>
+                    <label for="icon" class="block text-sm font-medium text-gray-700 mb-2">Icon</label>
+                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" 
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#265478] focus:border-transparent" 
+                           placeholder="e.g., fas fa-ship">
+                    <p class="text-sm text-gray-500 mt-1">FontAwesome icon class</p>
+                    @error('icon')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Sort Order -->
+                <div>
+                    <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                    <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', 0) }}" 
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#265478] focus:border-transparent" 
+                           min="0">
+                    @error('sort_order')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Image -->
+                <div class="md:col-span-2">
+                    <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Image</label>
+                    <input type="file" name="image" id="image" 
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#265478] focus:border-transparent" 
+                           accept="image/*">
+                    <p class="text-sm text-gray-500 mt-1">Upload an image for this sub service (optional)</p>
+                    @error('image')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Status -->
+                <div class="md:col-span-2">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }} 
+                               class="rounded border-gray-300 text-[#265478] focus:ring-[#265478]">
+                        <span class="ml-2 text-sm text-gray-700">Active</span>
+                    </label>
                 </div>
             </div>
 
-            <!-- Sub-Sub Services -->
-            <div class="border-t pt-4">
-                <label class="inline-flex items-center">
-                    <input type="checkbox" id="has_sub_sub_services" name="has_sub_sub_services" value="1"
-                           class="form-checkbox h-4 w-4 text-[#265478]" {{ old('has_sub_sub_services') ? 'checked' : '' }}>
-                    <span class="ml-2 text-gray-700">This sub service has Sub–Sub Services</span>
-                </label>
-
-                <div id="subSubServicesWrapper" class="{{ old('has_sub_sub_services') ? '' : 'hidden' }} mt-4 space-y-3">
-                    <p class="text-sm text-gray-600">Add sub–sub service names and details.</p>
-                    <div id="subSubServicesList" class="space-y-3">
-                        <div class="flex gap-3">
-                            <input type="text" name="sub_sub_services[0][name]" placeholder="Name"
-                                   class="w-1/3 border-gray-300 rounded-lg shadow-sm">
-
-                                   
-            <!-- Short Description -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Short Description</label>
-                <textarea name="description" rows="3"
-                          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">{{ old('description') }}</textarea>
-            </div>
-
-            <!-- Full Content -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Full Content</label>
-                <textarea name="content" rows="5"
-                          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">{{ old('content') }}</textarea>
-            </div>
-
-                        </div>
-                    </div>
-                    <button type="button" id="addSubSubService" class="mt-2 px-3 py-1 bg-green-500 text-white rounded-lg">+ Add More</button>
-                </div>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex justify-end space-x-3">
-                <a href="{{ route('admin.sub_services.index') }}" class="px-4 py-2 border rounded-lg text-gray-700">Cancel</a>
-                <button type="submit" class="px-4 py-2 bg-[#265478] text-white rounded-lg hover:bg-[#1e4260]">Save</button>
+            <!-- Submit Button -->
+            <div class="flex justify-end mt-6">
+                <button type="submit" class="bg-[#265478] hover:bg-[#1e4260] text-white px-6 py-2 rounded-lg">
+                    <i class="fas fa-save mr-2"></i>
+                    Create Sub Service
+                </button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- JS for dynamic sub-sub services -->
+@push('scripts')
 <script>
-document.getElementById('has_sub_sub_services').addEventListener('change', function() {
-    document.getElementById('subSubServicesWrapper').classList.toggle('hidden', !this.checked);
-});
-
-document.getElementById('addSubSubService').addEventListener('click', function() {
-    const list = document.getElementById('subSubServicesList');
-    const index = list.children.length;
-    const div = document.createElement('div');
-    div.classList.add('flex', 'gap-3');
-    div.innerHTML = `
-        <input type="text" name="sub_sub_services[${index}][name]" placeholder="Name" class="w-1/3 border-gray-300 rounded-lg shadow-sm">
-        <input type="text" name="sub_sub_services[${index}][description]" placeholder="Description" class="w-2/3 border-gray-300 rounded-lg shadow-sm">
-    `;
-    list.appendChild(div);
-});
+    // Dynamic parent sub services loading based on selected service
+    document.getElementById('service_id').addEventListener('change', function() {
+        const serviceId = this.value;
+        const parentSelect = document.getElementById('parent_id');
+        
+        if (serviceId) {
+            fetch(`{{ route('admin.sub_services.get-by-service') }}?service_id=${serviceId}`)
+                .then(response => response.json())
+                .then(data => {
+                    parentSelect.innerHTML = '<option value="">Top Level (No Parent)</option>';
+                    data.forEach(item => {
+                        parentSelect.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                    });
+                });
+        } else {
+            parentSelect.innerHTML = '<option value="">Top Level (No Parent)</option>';
+        }
+    });
 </script>
+@endpush
 @endsection

@@ -30,8 +30,31 @@
                         <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
                         <input type="text" name="title" id="title" value="{{ old('title') }}" 
                                class="w-full px-3 py-2 border rounded-lg @error('title') border-red-500 @enderror"
-                               placeholder="Enter blog title">
+                               placeholder="Enter blog title" required>
                         @error('title')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+                    </div>
+
+                    <!-- Author -->
+                    <div>
+                        <label for="author_id" class="block text-sm font-medium text-gray-700 mb-2">Author</label>
+                        <select name="author_id" id="author_id" 
+                                class="w-full px-3 py-2 border rounded-lg @error('author_id') border-red-500 @enderror">
+                            <option value="">Select Author</option>
+                            @foreach($authors as $author)
+                                <option value="{{ $author->id }}" {{ old('author_id') == $author->id ? 'selected' : '' }}>
+                                    {{ $author->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('author_id')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+                    </div>
+
+                    <!-- Category -->
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <input type="text" name="category" id="category" value="{{ old('category') }}"
+                               class="w-full px-3 py-2 border rounded-lg"
+                               placeholder="e.g. Shipping, Logistics">
                     </div>
 
                     <!-- Blog Content -->
@@ -39,8 +62,34 @@
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
                         <textarea name="content" id="content" rows="6"
                                   class="w-full px-3 py-2 border rounded-lg @error('content') border-red-500 @enderror"
-                                  placeholder="Write your blog content...">{{ old('content') }}</textarea>
+                                  placeholder="Write your blog content..." required>{{ old('content') }}</textarea>
                         @error('content')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6">
+                    <!-- Excerpt -->
+                    <div>
+                        <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
+                        <textarea name="excerpt" id="excerpt" rows="3"
+                                  class="w-full px-3 py-2 border rounded-lg"
+                                  placeholder="Brief summary of the blog post...">{{ old('excerpt') }}</textarea>
+                    </div>
+
+                    <!-- Featured Image -->
+                    <div>
+                        <label for="featured_image" class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
+                        <input type="file" name="featured_image" id="featured_image" accept="image/*"
+                               class="w-full px-3 py-2 border rounded-lg @error('featured_image') border-red-500 @enderror">
+                    
+                        <div class="mt-2">
+                            <img id="preview-featured" class="hidden w-full h-48 object-cover rounded-lg border" />
+                        </div>
+                    
+                        @error('featured_image')
+                            <p class="text-red-600 text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- Tags -->
@@ -51,32 +100,8 @@
                                placeholder="e.g. shipping, logistics, marine">
                         <p class="text-gray-500 text-sm mt-1">Separate tags with commas.</p>
                     </div>
-                </div>
 
-                <!-- Right Column -->
-                <div class="space-y-6">
-                    <!-- Featured Image -->
-                    <div>
-                        <label for="featured_image" class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
-                        <input type="file" name="featured_image" id="featured_image" accept="image/*"
-                               class="w-full px-3 py-2 border rounded-lg @error('featured_image') border-red-500 @enderror">
-                        <div class="mt-2">
-                            <img id="preview-featured" class="hidden w-full h-48 object-cover rounded-lg border" />
-                        </div>
-                        @error('featured_image')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
-                    </div>
-
-                    <!-- Multiple Images -->
-                    <div>
-                        <label for="images" class="block text-sm font-medium text-gray-700 mb-2">Gallery Images</label>
-                        <input type="file" name="images[]" id="images" accept="image/*" multiple
-                               class="w-full px-3 py-2 border rounded-lg @error('images') border-red-500 @enderror">
-                        <div id="preview-multiple" class="mt-3 grid grid-cols-2 md:grid-cols-3 gap-3"></div>
-                        @error('images')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
-                        @error('images.*')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
-                    </div>
-
-                    <!-- Publish Status -->
+                    <!-- Status -->
                     <div>
                         <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                         <select name="status" id="status" class="w-full px-3 py-2 border rounded-lg">
@@ -84,6 +109,7 @@
                             <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published</option>
                         </select>
                     </div>
+
                 </div>
             </div>
 
@@ -116,25 +142,6 @@
         } else {
             preview.src = '';
             preview.classList.add('hidden');
-        }
-    });
-
-    // Multiple Images Preview
-    document.getElementById('images').addEventListener('change', function (event) {
-        const files = event.target.files;
-        const previewContainer = document.getElementById('preview-multiple');
-        previewContainer.innerHTML = '';
-        if (files.length > 0) {
-            Array.from(files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('w-full', 'h-32', 'object-cover', 'rounded-lg', 'border');
-                    previewContainer.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            });
         }
     });
 </script>

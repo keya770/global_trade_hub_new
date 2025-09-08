@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Legal & Resources - Global Trade Hub')
-@section('description', 'Access legal documents, compliance information, and useful maritime resources from Global Trade Hub.')
+@section('title', 'Legal & Resources - SMA Ship Brokers')
+@section('description', 'Access legal documents, compliance information, and useful maritime resources from SMA Ship Brokers.')
 
 @section('content')
    <!-- Legal & Resources Hero Section with Particles -->
@@ -40,7 +40,7 @@
                     </div>
                     <h3 class="text-xl font-bold mb-4 text-center">Terms & Conditions</h3>
                     <p class="text-gray-600 mb-6 text-center">
-                        Our terms of service and conditions for using Global Trade Hub services.
+                        Our terms of service and conditions for using SMA Ship Brokers services.
                     </p>
                     <div class="text-center">
                         <a href="#" class="btn-primary">Read Terms</a>
@@ -96,7 +96,7 @@
                 <div class="fade-in">
                     <h3 class="text-2xl font-bold mb-6">Regulatory Compliance</h3>
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        Global Trade Hub maintains strict compliance with international maritime regulations, 
+                        SMA Ship Brokers maintains strict compliance with international maritime regulations, 
                         including IMO standards, SOLAS, MARPOL, and other relevant conventions. Our operations 
                         adhere to the highest industry standards and best practices.
                     </p>

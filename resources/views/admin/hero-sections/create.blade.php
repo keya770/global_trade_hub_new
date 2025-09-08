@@ -26,55 +26,35 @@
                 <div class="space-y-6">
                     <!-- Title -->
                     <div>
-                        <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+                        <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Main Title *</label>
                         <input type="text" name="title" id="title" value="{{ old('title') }}" 
                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('title') border-red-500 @enderror"
-                               placeholder="Enter hero section title">
+                               placeholder="e.g., Leading Maritime">
+                        <p class="mt-1 text-sm text-gray-500">The main title text (before accent text)</p>
                         @error('title')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <!-- Subtitle -->
+                    <!-- Accent Text -->
                     <div>
-                        <label for="subtitle" class="block text-sm font-medium text-gray-700 mb-2">Subtitle</label>
-                        <input type="text" name="subtitle" id="subtitle" value="{{ old('subtitle') }}" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('subtitle') border-red-500 @enderror"
-                               placeholder="Enter subtitle">
-                        @error('subtitle')
+                        <label for="accent_text" class="block text-sm font-medium text-gray-700 mb-2">Accent Text</label>
+                        <input type="text" name="accent_text" id="accent_text" value="{{ old('accent_text') }}" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('accent_text') border-red-500 @enderror"
+                               placeholder="e.g., Solutions">
+                        <p class="mt-1 text-sm text-gray-500">This will be highlighted with accent color</p>
+                        @error('accent_text')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <!-- Description -->
+                    <!-- Hero Description -->
                     <div>
-                        <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea name="description" id="description" rows="4" 
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('description') border-red-500 @enderror"
-                                  placeholder="Enter description">{{ old('description') }}</textarea>
-                        @error('description')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Button Text -->
-                    <div>
-                        <label for="button_text" class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
-                        <input type="text" name="button_text" id="button_text" value="{{ old('button_text') }}" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('button_text') border-red-500 @enderror"
-                               placeholder="e.g., Learn More, Get Started">
-                        @error('button_text')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Button URL -->
-                    <div>
-                        <label for="button_url" class="block text-sm font-medium text-gray-700 mb-2">Button URL</label>
-                        <input type="url" name="button_url" id="button_url" value="{{ old('button_url') }}" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('button_url') border-red-500 @enderror"
-                               placeholder="https://example.com">
-                        @error('button_url')
+                        <label for="hero_description" class="block text-sm font-medium text-gray-700 mb-2">Hero Description</label>
+                        <textarea name="hero_description" id="hero_description" rows="3" 
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('hero_description') border-red-500 @enderror"
+                                  placeholder="Main description text for the hero section">{{ old('hero_description') }}</textarea>
+                        @error('hero_description')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -82,38 +62,80 @@
 
                 <!-- Right Column -->
                 <div class="space-y-6">
-                    <!-- Background Image Upload -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Background Image</label>
-                        <div id="image-upload-area" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#265478] transition-colors cursor-pointer">
-                            <div id="upload-content">
-                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
-                                <p class="text-sm text-gray-600 mb-2">Drag and drop an image here, or click to select</p>
-                                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 2MB</p>
-                                <input type="file" name="background_image" id="background_image" accept="image/*" class="hidden">
+                    <!-- Primary Button -->
+                    <div class="border-b border-gray-200 pb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Primary Button</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="button_text" class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
+                                <input type="text" name="button_text" id="button_text" value="{{ old('button_text') }}" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('button_text') border-red-500 @enderror"
+                                       placeholder="e.g., Request a Quote">
+                                @error('button_text')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <div id="image-preview" class="hidden">
-                                <img id="preview-img" src="" alt="Preview" class="max-w-full h-auto rounded-lg mx-auto mb-4 max-h-64">
-                                <button type="button" id="remove-image" class="text-red-600 hover:text-red-800 text-sm">
-                                    <i class="fas fa-trash mr-1"></i>Remove Image
+                            <div>
+                                <label for="button_url" class="block text-sm font-medium text-gray-700 mb-2">Button URL</label>
+                                <input type="url" name="button_url" id="button_url" value="{{ old('button_url') }}" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('button_url') border-red-500 @enderror"
+                                       placeholder="https://example.com or leave empty for contact page">
+                                @error('button_url')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Secondary Button -->
+                    <div class="border-b border-gray-200 pb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Secondary Button</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="secondary_button_text" class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
+                                <input type="text" name="secondary_button_text" id="secondary_button_text" value="{{ old('secondary_button_text') }}" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('secondary_button_text') border-red-500 @enderror"
+                                       placeholder="e.g., Contact Us">
+                                @error('secondary_button_text')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="secondary_button_url" class="block text-sm font-medium text-gray-700 mb-2">Button URL</label>
+                                <input type="url" name="secondary_button_url" id="secondary_button_url" value="{{ old('secondary_button_url') }}" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('secondary_button_url') border-red-500 @enderror"
+                                       placeholder="https://example.com or leave empty for contact page">
+                                @error('secondary_button_url')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Background Video Upload -->
+                    {{-- <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Background Video</label>
+                        <div id="video-upload-area" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#265478] transition-colors cursor-pointer">
+                            <div id="video-upload-content">
+                                <i class="fas fa-video text-4xl text-gray-400 mb-4"></i>
+                                <p class="text-sm text-gray-600 mb-2">Drag and drop a video here, or click to select</p>
+                                <p class="text-xs text-gray-500">MP4, MOV, AVI up to 10MB</p>
+                                <input type="file" name="background_video" id="background_video" accept="video/*" class="hidden">
+                            </div>
+                            <div id="video-preview" class="hidden">
+                                <video id="preview-video" controls class="max-w-full h-auto rounded-lg mx-auto mb-4 max-h-64">
+                                    <source src="" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <button type="button" id="remove-video" class="text-red-600 hover:text-red-800 text-sm">
+                                    <i class="fas fa-trash mr-1"></i>Remove Video
                                 </button>
                             </div>
                         </div>
-                        @error('background_image')
+                        @error('background_video')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                    </div>
-
-                    <!-- Sort Order -->
-                    <div>
-                        <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
-                        <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', 0) }}" min="0"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent @error('sort_order') border-red-500 @enderror">
-                        <p class="mt-1 text-sm text-gray-500">Lower numbers appear first</p>
-                        @error('sort_order')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    </div> --}}
 
                     <!-- Active Status -->
                     <div>
@@ -144,90 +166,80 @@
 
 @push('scripts')
 <script>
-$(document).ready(function() {
-    const uploadArea = $('#image-upload-area');
-    const uploadContent = $('#upload-content');
-    const imagePreview = $('#image-preview');
-    const previewImg = $('#preview-img');
-    const fileInput = $('#background_image');
-    const removeBtn = $('#remove-image');
+document.addEventListener('DOMContentLoaded', function () {
+    const uploadArea = document.getElementById('video-upload-area');
+    const input = document.getElementById('background_video');
+    const preview = document.getElementById('video-preview');
+    const previewVideo = document.getElementById('preview-video');
+    const removeBtn = document.getElementById('remove-video');
+    const uploadContent = document.getElementById('video-upload-content');
 
-    // Click to upload
-    uploadArea.on('click', function() {
-        fileInput.click();
+    // Click to open file selector
+    uploadArea.addEventListener('click', () => input.click());
+
+    // Drag & Drop
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('border-[#265478]', 'bg-blue-50');
     });
 
-    // Drag and drop functionality
-    uploadArea.on('dragover', function(e) {
+    uploadArea.addEventListener('dragleave', (e) => {
         e.preventDefault();
-        $(this).addClass('border-[#265478] bg-blue-50');
+        uploadArea.classList.remove('border-[#265478]', 'bg-blue-50');
     });
 
-    uploadArea.on('dragleave', function(e) {
+    uploadArea.addEventListener('drop', (e) => {
         e.preventDefault();
-        $(this).removeClass('border-[#265478] bg-blue-50');
-    });
-
-    uploadArea.on('drop', function(e) {
-        e.preventDefault();
-        $(this).removeClass('border-[#265478] bg-blue-50');
-        
-        const files = e.originalEvent.dataTransfer.files;
-        if (files.length > 0) {
-            handleFile(files[0]);
+        uploadArea.classList.remove('border-[#265478]', 'bg-blue-50');
+        if (e.dataTransfer.files.length) {
+            input.files = e.dataTransfer.files;
+            showPreview(e.dataTransfer.files[0]);
         }
     });
 
-    // File input change
-    fileInput.on('change', function() {
-        if (this.files.length > 0) {
-            handleFile(this.files[0]);
+    // File selected
+    input.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            showPreview(e.target.files[0]);
         }
     });
 
-    // Remove image
-    removeBtn.on('click', function(e) {
+    // Remove video
+    removeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        resetImageUpload();
+        input.value = '';
+        previewVideo.src = '';
+        preview.classList.add('hidden');
+        uploadContent.classList.remove('hidden');
     });
 
-    function handleFile(file) {
+    function showPreview(file) {
         // Validate file type
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file.');
+        if (!file.type.startsWith('video/')) {
+            alert('Please select a video file.');
             return;
         }
 
-        // Validate file size (2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            alert('File size must be less than 2MB.');
+        // Validate file size (10MB)
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size must be less than 10MB.');
             return;
         }
 
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            previewImg.attr('src', e.target.result);
-            uploadContent.addClass('hidden');
-            imagePreview.removeClass('hidden');
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function resetImageUpload() {
-        fileInput.val('');
-        uploadContent.removeClass('hidden');
-        imagePreview.addClass('hidden');
-        previewImg.attr('src', '');
+        const url = URL.createObjectURL(file);
+        previewVideo.src = url;
+        preview.classList.remove('hidden');
+        uploadContent.classList.add('hidden');
     }
 
     // Form validation
-    $('form').on('submit', function(e) {
-        const title = $('#title').val().trim();
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const title = document.getElementById('title').value.trim();
         if (!title) {
             e.preventDefault();
             alert('Please enter a title for the hero section.');
-            $('#title').focus();
+            document.getElementById('title').focus();
             return false;
         }
     });
