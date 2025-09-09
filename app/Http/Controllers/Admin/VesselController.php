@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vessel;
+use App\Models\VesselInquiry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -174,5 +175,82 @@ class VesselController extends Controller
             'is_featured' => $vessel->is_featured,
             'message' => 'Featured status updated successfully.'
         ]);
+    }
+
+    /**
+     * Show form data management page
+     */
+    public function formData(Request $request)
+    {
+        try {
+            $query = VesselInquiry::with(['vessel', 'assignedUser']);
+
+            // Apply filters
+            if ($request->filled('search')) {
+                $searchTerm = $request->search;
+                $query->where(function($q) use ($searchTerm) {
+                    $q->where('full_name', 'like', "%{$searchTerm}%")
+                      ->orWhere('email', 'like', "%{$searchTerm}%")
+                      ->orWhere('company_name', 'like', "%{$searchTerm}%")
+                      ->orWhere('vessel_type', 'like', "%{$searchTerm}%");
+                });
+            }
+
+            if ($request->filled('status')) {
+                $query->where('status', $request->status);
+            }
+
+            if ($request->filled('inquiry_type')) {
+                $query->where('inquiry_type', $request->inquiry_type);
+            }
+
+            if ($request->filled('date_range')) {
+                switch ($request->date_range) {
+                    case 'today':
+                        $query->whereDate('created_at', today());
+                        break;
+                    case 'week':
+                        $query->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                        break;
+                    case 'month':
+                        $query->whereMonth('created_at', now()->month);
+                        break;
+                    case 'quarter':
+                        $query->whereBetween('created_at', [now()->startOfQuarter(), now()->endOfQuarter()]);
+                        break;
+                }
+            }
+
+            $inquiries = $query->latest()->paginate(10);
+
+            // Get statistics
+            $totalInquiries = VesselInquiry::count();
+            $pendingInquiries = VesselInquiry::pending()->count();
+            $processedInquiries = VesselInquiry::completed()->count();
+            $todayInquiries = VesselInquiry::today()->count();
+
+            return view('admin.vessels.form-data', compact(
+                'inquiries',
+                'totalInquiries',
+                'pendingInquiries', 
+                'processedInquiries',
+                'todayInquiries'
+            ));
+        } catch (\Exception $e) {
+            // If there's an error (like table doesn't exist), show empty data
+            $inquiries = collect([]);
+            $totalInquiries = 0;
+            $pendingInquiries = 0;
+            $processedInquiries = 0;
+            $todayInquiries = 0;
+
+            return view('admin.vessels.form-data', compact(
+                'inquiries',
+                'totalInquiries',
+                'pendingInquiries', 
+                'processedInquiries',
+                'todayInquiries'
+            ))->with('error', 'Unable to load form data. Please check database connection.');
+        }
     }
 }

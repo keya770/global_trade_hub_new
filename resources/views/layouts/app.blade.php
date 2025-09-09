@@ -225,6 +225,7 @@ html {
     overflow: hidden;
 }
 
+/* Footer links */
 .footer-link {
     color: #ffffff;
     transition: color 0.3s ease;
@@ -243,7 +244,7 @@ html {
     height: 160px;
     overflow: hidden;
     line-height: 0;
-    z-index: 0;
+    z-index: 1; /* Keep waves behind content but above background */
 }
 
 .waves {
@@ -262,6 +263,76 @@ html {
 @keyframes moveWaves {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
+}
+
+/* Ensure container content is above waves */
+.footer .container {
+    position: relative;
+    z-index: 10; /* Higher than waves */
+}
+
+/* Footer text styling */
+.footer h3, .footer h4, .footer p, .footer ul li {
+    color: white;
+}
+
+.footer-link {
+    color: #d1d5db;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-color);
+}
+
+/* Footer responsive improvements */
+@media (max-width: 768px) {
+    .footer {
+        padding: 40px 20px 20px;
+    }
+    
+    .footer .grid {
+        gap: 2rem;
+    }
+    
+    .footer h3, .footer h4 {
+        font-size: 1.1rem;
+    }
+    
+    .footer p, .footer li {
+        font-size: 0.9rem;
+    }
+}
+
+/* Footer social icons hover effect */
+.footer .bg-\[#285566\]:hover {
+    background-color: var(--accent-color) !important;
+    transform: translateY(-2px);
+}
+
+/* Bottom footer styling */
+.footer .text-gray-300 {
+    color: #d1d5db !important;
+}
+
+.footer .text-gray-300:hover {
+    color: white !important;
+}
+
+/* Bottom footer specific styling */
+.footer .bg-primary-dark {
+    background-color: var(--primary-dark) !important;
+    position: relative;
+    z-index: 20;
+}
+
+.footer .text-black {
+    color: #000000 !important;
+    font-weight: 500;
+}
+
+.footer .text-black:hover {
+    color: #374151 !important;
 }
 
 /* WhatsApp Floating Button */
@@ -419,12 +490,27 @@ html {
 
     <!-- Footer -->
     <footer class="footer relative overflow-hidden">
+        <div class="footer-wave">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <defs>
+                    <path id="gentle-wave" d="M0,60 C150,90 300,30 450,60 C600,90 750,30 900,60 C1050,90 1200,30 1350,60 L1350,120 L0,120 Z"></path>
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="0" y="0" fill="rgba(255, 255, 255, 0.46)"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="10" fill="rgba(255,255,255,0.5)"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="20" fill="rgba(255,255,255,0.3)"></use>
+                    <use xlink:href="#gentle-wave" x="0" y="30" fill="#ffffffd2"></use>
+                </g>
+            </svg>
+        </div>
+    
+        
         <div class="container mx-auto px-4 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <!-- Company Info -->
                 <div class="col-span-1 md:col-span-1">
                     <h3 class="text-xl font-bold mb-4 text-white">SMA Ship Brokers</h3>
-                    <p class="text-gray-300 mb-4">
+                    <p class="text-gray-300 mb-4 leading-relaxed">
                         Leading maritime solutions provider specializing in ship chartering,
                         sale & purchase, valuation, and marine services worldwide.
                     </p>
@@ -476,10 +562,17 @@ html {
                 <div>
                     <h4 class="text-lg font-semibold mb-4 text-white">Services</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('services') }}#chartering" class="footer-link">Ship Chartering</a></li>
-                        <li><a href="{{ route('services') }}#sale-purchase" class="footer-link">Sale & Purchase</a></li>
-                        <li><a href="{{ route('services') }}#valuation" class="footer-link">Valuation</a></li>
-                        <li><a href="{{ route('services') }}#marine-services" class="footer-link">Marine Services</a></li>
+                        @php
+                            $footerServices = \App\Models\Service::active()->ordered()->limit(4)->get();
+                        @endphp
+                        @forelse($footerServices as $service)
+                            <li><a href="{{ route('services') }}#{{ Str::slug($service->name) }}" class="footer-link">{{ $service->name }}</a></li>
+                        @empty
+                            <li><a href="{{ route('services') }}#chartering" class="footer-link">Ship Chartering</a></li>
+                            <li><a href="{{ route('services') }}#sale-purchase" class="footer-link">Sale & Purchase</a></li>
+                            <li><a href="{{ route('services') }}#valuation" class="footer-link">Valuation</a></li>
+                            <li><a href="{{ route('services') }}#marine-services" class="footer-link">Marine Services</a></li>
+                        @endforelse
                     </ul>
                 </div>
 
@@ -490,42 +583,42 @@ html {
                         $siteSettings = \App\Models\SiteSetting::first();
                     @endphp
                     @if($siteSettings && $siteSettings->address)
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-map-marker-alt"></i>
+                        <li class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-map-marker-alt text-accent-color"></i>
                             <span>{{ $siteSettings->address }}</span>
                         </li>
                     @else
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-map-marker-alt"></i>
+                        <li class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-map-marker-alt text-accent-color"></i>
                             <span>Dubai Maritime City, UAE</span>
                         </li>
                     @endif
                     
                     @if($siteSettings && $siteSettings->phone)
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-phone"></i>
+                        <li class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-phone text-accent-color"></i>
                             <span>{{ $siteSettings->phone }}</span>
                         </li>
                     @else
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-phone"></i>
+                        <li class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-phone text-accent-color"></i>
                             <span>+971 4 123 4567</span>
                         </li>
                     @endif
                     
                     @if($siteSettings && $siteSettings->email)
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-envelope"></i>
+                        <li class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-envelope text-accent-color"></i>
                             <span>{{ $siteSettings->email }}</span>
                         </li>
                     @else
-                        <li class="flex items-center space-x-2">
-                            <i class="fas fa-envelope"></i>
+                        <li class="flex items-center space-x-2 text-gray-300">
+                            <i class="fas fa-envelope text-accent-color"></i>
                             <span>info@globaltradehub.com</span>
                         </li>
                     @endif
                 </ul>
-                <a href="{{ route('contact') }}" class="mt-4 px-4 py-2 bg-[#285566] text-white rounded-lg hover:bg-accent transition inline-block">
+                <a href="{{ route('contact') }}" class="mt-4 px-4 py-2 bg-accent-color text-white rounded-lg hover:bg-yellow-500 transition-colors duration-300 inline-block">
                     Get In Touch
                 </a>
                 </div>
@@ -533,30 +626,17 @@ html {
             </div>
 
             <!-- Bottom Footer -->
-            <div class="pt-8 flex flex-col md:flex-row justify-between items-center bottom-footer-link text-sm">
-                <p>© {{ date('Y') }} SMA Ship Brokers. All rights reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="{{ route('legal') }}#terms" class="bottom-footer-link">Terms & Conditions</a>
-                    <a href="{{ route('legal') }}#privacy" class="bottom-footer-link">Privacy Policy</a>
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center text-sm relative z-20">
+                <p class="text-black mb-4 md:mb-0 font-medium">© {{ date('Y') }} SMA Ship Brokers. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="{{ route('legal') }}#terms" class="text-black hover:text-gray-800 transition-colors duration-300 font-medium">Terms & Conditions</a>
+                    <a href="{{ route('legal') }}#privacy" class="text-black hover:text-gray-800 transition-colors duration-300 font-medium">Privacy Policy</a>
                 </div>
             </div>
         </div>
-
-        <!-- Waves Animation -->
-        <div class="footer-wave">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <defs>
-                    <path id="gentle-wave" d="M0,60 C150,90 300,30 450,60 C600,90 750,30 900,60 C1050,90 1200,30 1350,60 L1350,120 L0,120 Z"></path>
-                </defs>
-                <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="0" y="0" fill="rgba(255, 255, 255, 0.46)"></use>
-                    <use xlink:href="#gentle-wave" x="0" y="10" fill="rgba(255,255,255,0.5)"></use>
-                    <use xlink:href="#gentle-wave" x="0" y="20" fill="rgba(255,255,255,0.3)"></use>
-                    <use xlink:href="#gentle-wave" x="0" y="30" fill="#ffffffd2"></use>
-                </g>
-            </svg>
-        </div>
+        
     </footer>
+    
 
 
 

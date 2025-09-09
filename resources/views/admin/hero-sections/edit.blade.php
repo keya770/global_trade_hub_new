@@ -114,7 +114,7 @@
                     </div>
 
                     <!-- Background Video Upload -->
-                    {{-- <div>
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Background Video</label>
                         <div id="video-upload-area" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#265478] transition-colors cursor-pointer">
                             <div id="video-upload-content" class="{{ $heroSection->background_video ? 'hidden' : '' }}">
@@ -140,7 +140,7 @@
                                 </button>
                             </div>
                         </div>
-                        @error('background_video') --}}
+                        @error('background_video')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

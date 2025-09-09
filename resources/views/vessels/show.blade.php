@@ -191,6 +191,7 @@
                 <div class="bg-white rounded-lg shadow-lg p-8">
                     <form action="{{ route('vessels.purchase-sale.submit') }}" method="POST" class="space-y-6">
                         @csrf
+                        <input type="hidden" name="vessel_id" value="{{ $vessel->id }}">
 
                         <!-- Personal Information -->
                         <div class="border-b border-gray-200 pb-6">

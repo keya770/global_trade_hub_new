@@ -8,14 +8,14 @@
     <!-- Hero Section -->
     <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
         <!-- Background Video -->
-        @if($heroSection && $heroSection->background_video)
+        {{-- @if($heroSection && $heroSection->background_video)
             <div class="absolute inset-0 z-0">
                 <video autoplay muted loop playsinline class="w-full h-full object-cover">
                     <source src="{{ asset('storage/' . $heroSection->background_video) }}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
-        @endif
+        @endif --}}
 
         <!-- Gradient Overlay -->
         <div class="absolute inset-0 bg-gradient-to-br from-primary-color to-primary-dark opacity-90 z-0 animate-gradient"></div>
@@ -65,10 +65,11 @@
         </div>
 
         <!-- Fallback Video (if no background video) -->
-        @if(!$heroSection || !$heroSection->background_video)
+        @if($heroSection && $heroSection->background_video)
             <div class="video-container relative overflow-hidden rounded-3xl shadow-2xl z-10 mx-auto">
                 <video autoplay muted loop playsinline class="video-zoom object-cover">
-                    <source src="/images/ship.mp4" type="video/mp4">
+                    <source src="{{ asset('storage/' . $heroSection->background_video) }}" type="video/mp4">
+                    {{-- <source src="/images/ship.mp4" type="video/mp4"> --}}
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -110,6 +111,106 @@
             from { text-shadow: 0 0 5px #ffae00ff, 0 0 10px #ff9900ff, 0 0 20px #ffae00ff; }
             to { text-shadow: 0 0 10px #ffae00ff, 0 0 20px #ffae00ff, 0 0 40px #ffae00ff; }
         }
+
+        /* Services Horizontal Scrolling */
+        .services-scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 20px 0;
+            margin: 0 -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .services-scroll-wrapper {
+            display: flex;
+            gap: 70px;
+            width: max-content;
+        }
+
+        .service-card {
+            min-width: 320px;
+            width: 320px;
+            flex-shrink: 0;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .service-card:nth-child(5) { animation-delay: 0.5s; }
+        .service-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Custom Scrollbar Styling */
+        .services-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .services-scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .services-scroll-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #499974, #6d83d5, #33978d);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .services-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5aa984, #7d93e5, #43a79d);
+        }
+
+        /* Firefox Scrollbar */
+        .services-scroll-container {
+            scrollbar-width: thin;
+            scrollbar-color: #7a8f852b rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .service-card {
+                min-width: 280px;
+                width: 280px;
+            }
+
+            .services-scroll-container {
+                margin: 0 -16px;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .services-scroll-wrapper {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-card {
+                min-width: 260px;
+                width: 260px;
+            }
+
+            .services-scroll-wrapper {
+                gap: 20px;
+            }
+        }
+
+        /* Smooth scrolling */
+        .services-scroll-container {
+            scroll-behavior: smooth;
+        }
+
     </style>
 
     <script>
@@ -142,19 +243,22 @@
         }, 0);
     </script>
 
-    <!-- Services Overview -->
-    <section id="services-overview" class="py-20 relative z-10">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 fade-in-up">
-                <h2 class="text-4xl font-extrabold mb-6 
-                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
-                        bg-clip-text text-transparent">Our Services</h2>
-                <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-50">
-                    Comprehensive maritime solutions tailored to meet your shipping and trading needs
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+<!-- Services Overview -->
+<section id="services-overview" class="py-20 relative z-10">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16 fade-in-up">
+            <h2 class="text-4xl font-extrabold mb-6 
+                    bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                    bg-clip-text text-transparent">Our Services</h2>
+            <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-50">
+                Comprehensive maritime solutions tailored to meet your shipping and trading needs
+            </p>
+        </div>
+        
+        <!-- Horizontal Scrolling Services Container -->
+        <div class="services-scroll-container">
+            <div class="services-scroll-wrapper">
                 @forelse($services as $service)
                     <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
                         @if($service->icon)
@@ -171,87 +275,187 @@
                     </div>
                 @empty
                     <!-- Fallback services if none in database -->
-                   
-                @endforelse
-            </div>
-        </div>
-    </section>
-
-    <!-- Company Highlights -->
-    <section id="highlights" class="py-20 relative z-10">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center fade-in-up">
-                    <div class="text-5xl font-bold text-blue-400 mb-2 counter" data-target="{{ $highlights['years_experience'] }}">0</div>
-                    <p class="text-xl text-blue-100">Years Experience</p>
-                </div>
-                <div class="text-center fade-in-up">
-                    <div class="text-5xl font-bold text-blue-400 mb-2 counter" data-target="{{ $highlights['deals_completed'] }}">0</div>
-                    <p class="text-xl text-blue-100">Deals Completed</p>
-                </div>
-                <div class="text-center fade-in-up">
-                    <div class="text-5xl font-bold text-blue-400 mb-2 counter" data-target="{{ $highlights['global_partners'] }}">0</div>
-                    <p class="text-xl text-blue-100">Global Partners</p>
-                </div>
-                <div class="text-center fade-in-up">
-                    <div class="text-5xl font-bold text-blue-400 mb-2 counter" data-target="{{ $highlights['countries_served'] }}">0</div>
-                    <p class="text-xl text-blue-100">Countries Served</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Vessels -->
-    <section id="vessels" class="py-20 relative z-10">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 fade-in-up">
-                <h2 class="text-4xl font-extrabold mb-6 
-                    bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
-                    bg-clip-text text-transparent">Featured Vessels</h2>
-                <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-100">
-                    Discover our current selection of premium vessels for sale and charter
-                </p>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-8">
-                @forelse($featuredVessels as $vessel)
-                    <div class="vessel-card" style="--bg-image:url('{{ $vessel->image ? asset('storage/' . $vessel->image) : 'https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/155/aquitaine-sea-trial-1webz.png' }}')">
-                        <div class="content">
-                            <h3 class="title">{{ $vessel->name }}</h3>
-                            <p class="copy">Built: {{ $vessel->built_year }} | {{ $vessel->type }}<br>{{ $vessel->description }}</p>
-                            <a href="{{ route('vessels.show', $vessel) }}" class="btn">View Details</a>
+                    <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] rounded-lg flex items-center justify-center mb-6 mx-auto">
+                            <i class="fas fa-ship text-white text-2xl"></i>
                         </div>
+                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">Ship Chartering</h3>
+                        <p class="text-center opacity-90 text-blue-100">Expert vessel chartering services for all types of maritime operations</p>
                     </div>
-                @empty
-                    <!-- Fallback vessels if none in database -->
-                    <div class="vessel-card" style="--bg-image:url('https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/155/aquitaine-sea-trial-1webz.png')">
-                        <div class="content">
-                            <h3 class="title">VLCC Tanker</h3>
-                            <p class="copy">Built: 2018 | DWT: 320,000<br>Premium crude oil carrier available for long-term charter</p>
-                            <a href="#" class="btn">View Details</a>
+                    <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] rounded-lg flex items-center justify-center mb-6 mx-auto">
+                            <i class="fas fa-handshake text-white text-2xl"></i>
                         </div>
+                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">Sale & Purchase</h3>
+                        <p class="text-center opacity-90 text-blue-100">Professional vessel trading and acquisition services</p>
                     </div>
-
-                    <div class="vessel-card" style="--bg-image:url('https://atlantic-pacific.com/wp-content/uploads/2023/06/apgl-largest-ship1.jpg')">
-                        <div class="content">
-                            <h3 class="title">Container Vessel</h3>
-                            <p class="copy">Built: 2020 | TEU: 14,000<br>Modern container ship for sale with excellent condition</p>
-                            <a href="#" class="btn">View Details</a>
+                    <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] rounded-lg flex items-center justify-center mb-6 mx-auto">
+                            <i class="fas fa-chart-line text-white text-2xl"></i>
                         </div>
+                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">Valuation</h3>
+                        <p class="text-center opacity-90 text-blue-100">Accurate vessel valuation and market analysis</p>
                     </div>
-
-                    <div class="vessel-card" style="--bg-image:url('https://www.norsepower.com/app/uploads/2023/08/Camellia_Dream_with_NRS_V03_packed.webp')">
-                        <div class="content">
-                            <h3 class="title">Bulk Carrier</h3>
-                            <p class="copy">Built: 2019 | DWT: 180,000<br>Capesize bulk carrier available for voyage charter</p>
-                            <a href="#" class="btn">View Details</a>
+                    <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] rounded-lg flex items-center justify-center mb-6 mx-auto">
+                            <i class="fas fa-tools text-white text-2xl"></i>
                         </div>
+                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">Marine Services</h3>
+                        <p class="text-center opacity-90 text-blue-100">Comprehensive marine technical and operational support</p>
                     </div>
                 @endforelse
             </div>
         </div>
-        </section>
+    </div>
+</section>
 
+<!-- Company Highlights -->
+<section id="highlights" class="py-20 relative z-10">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center fade-in-up">
+                <div class="text-5xl font-bold text-blue-400 mb-2 counter" data-target="{{ $highlights['years_experience'] }}">0</div>
+                <p class="text-xl text-blue-100">Years Experience</p>
+            </div>
+            <div class="text-center fade-in-up">
+                <div class="text-5xl font-bold text-blue-400 mb-2 counter" data-target="{{ $highlights['deals_completed'] }}">0</div>
+                <p class="text-xl text-blue-100">Deals Completed</p>
+            </div>
+            <div class="text-center fade-in-up">
+                <div class="text-5xl font-bold text-blue-400 mb-2 counter" data-target="{{ $highlights['global_partners'] }}">0</div>
+                <p class="text-xl text-blue-100">Global Partners</p>
+            </div>
+            <div class="text-center fade-in-up">
+                <div class="text-5xl font-bold text-blue-400 mb-2 counter" data-target="{{ $highlights['countries_served'] }}">0</div>
+                <p class="text-xl text-blue-100">Countries Served</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .vessel-card {
+    width: 480px;
+    height: 310px;
+    /* background-color: rgba(255, 255, 255, 0); */
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: 0.5s;
+    }
+
+    .vessel-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+    z-index: -1;
+    }
+    .vessel-card:hover::before {
+    opacity: 0.2;
+    }
+
+    .vessel-card .content {
+    padding: 20px;
+    transform: translateY(200px);
+    opacity: 0;
+    transition: 0.8s all ease;
+    color: #fff;
+    }
+
+    .vessel-card:hover .content {
+    transform: translateY(0);
+    opacity: 1;
+    }
+
+    .vessel-card .title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    }
+
+    .vessel-card .copy {
+    font-size: 1rem;
+    line-height: 1.5;
+    }
+
+    .vessel-card .btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 30px;
+    border: 2px solid #fff;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s;
+    }
+
+    .vessel-card .btn:hover {
+    background: linear-gradient(to bottom right, #0dd3f3, #6b6c00);
+    }
+
+
+</style>
+<!-- Featured Vessels -->
+<section id="vessels" class="py-20 relative z-10">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16 fade-in-up">
+            <h2 class="text-4xl font-extrabold mb-6 
+                bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                bg-clip-text text-transparent">Featured Vessels</h2>
+            <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-100">
+                Discover our current selection of premium vessels for sale and charter
+            </p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-8">
+            @forelse($featuredVessels as $vessel)
+                <div class="vessel-card" style="--bg-image:url('{{ $vessel->image ? asset('storage/' . $vessel->image) : 'https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/155/aquitaine-sea-trial-1webz.png' }}')">
+                    <div class="content">
+                        <h3 class="title">{{ $vessel->name }}</h3>
+                        <p class="copy">Built: {{ $vessel->built_year }} | {{ $vessel->type }}<br>{{ $vessel->description }}</p>
+                        <a href="{{ route('vessels.show', $vessel) }}" class="btn">View Details</a>
+                    </div>
+                </div>
+            @empty
+                <!-- Fallback vessels if none in database -->
+                <div class="vessel-card" style="--bg-image:url('https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/155/aquitaine-sea-trial-1webz.png')">
+                    <div class="content">
+                        <h3 class="title">VLCC Tanker</h3>
+                        <p class="copy">Built: 2018 | DWT: 320,000<br>Premium crude oil carrier available for long-term charter</p>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+
+                <div class="vessel-card" style="--bg-image:url('https://atlantic-pacific.com/wp-content/uploads/2023/06/apgl-largest-ship1.jpg')">
+                    <div class="content">
+                        <h3 class="title">Container Vessel</h3>
+                        <p class="copy">Built: 2020 | TEU: 14,000<br>Modern container ship for sale with excellent condition</p>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+
+                <div class="vessel-card" style="--bg-image:url('https://www.norsepower.com/app/uploads/2023/08/Camellia_Dream_with_NRS_V03_packed.webp')">
+                    <div class="content">
+                        <h3 class="title">Bulk Carrier</h3>
+                        <p class="copy">Built: 2019 | DWT: 180,000<br>Capesize bulk carrier available for voyage charter</p>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+            @endforelse
+        </div>
+    </div>
+    </section>
+    
     <!-- Testimonials -->
     <section id="testimonials" class="py-20 relative z-10">
   <div class="container mx-auto px-4">
@@ -448,13 +652,13 @@
         <div class="grid md:grid-cols-2 gap-12">
             <!-- Contact Information -->
             <div class="fade-in-up">
-                <h3 class="text-2xl font-bold mb-6 text-blue-50">Contact Information</h3>
+                <h3 class="text-2xl font-bold mb-8 text-blue-50">Contact Information</h3>
                 
                 <div class="space-y-6">
                     <!-- Phone -->
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4 mt-1">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                       d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 
                                       1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 
@@ -462,17 +666,15 @@
                                       21 3 14.284 3 6V5z"></path>
                             </svg>
                         </div>
-                        <div>
-                            <h4 class="font-semibold mb-2 text-blue-50">Phone</h4>
-                            <p class="text-blue-100">{{ $siteSettings->phone ?? '+971 4 123 4567' }}</p>
-                            <p class="text-sm text-blue-200">Available 24/7</p>
-                        </div>
+                        <h4 class="font-semibold mb-2 text-blue-50 text-xl">Phone</h4>
+                        <p class="text-blue-100 text-lg">{{ $siteSettings->phone ?? '+971 4 123 4567' }}</p>
+                        <p class="text-sm text-blue-200">Available 24/7</p>
                     </div>
 
                     <!-- Email -->
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4 mt-1">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                       d="M3 8l7.89 4.26a2 2 0 002.22 0L21 
                                       8M5 19h14a2 2 0 002-2V7a2 2 
@@ -480,17 +682,15 @@
                                       0 002 2z"></path>
                             </svg>
                         </div>
-                        <div>
-                            <h4 class="font-semibold mb-2 text-blue-50">Email</h4>
-                            <p class="text-blue-100">{{ $siteSettings->email ?? 'info@globaltradehub.com' }}</p>
-                            <p class="text-sm text-blue-200">Response within 24 hours</p>
-                        </div>
+                        <h4 class="font-semibold mb-2 text-blue-50 text-xl">Email</h4>
+                        <p class="text-blue-100 text-lg">{{ $siteSettings->email ?? 'info@globaltradehub.com' }}</p>
+                        <p class="text-sm text-blue-200">Response within 24 hours</p>
                     </div>
 
                     <!-- WhatsApp -->
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4 mt-1">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                       d="M8 12h.01M12 12h.01M16 12h.01M21 
                                       12c0 4.418-4.03 8-9 8a9.863 
@@ -500,17 +700,15 @@
                                       9-8s9 3.582 9 8z"></path>
                             </svg>
                         </div>
-                        <div>
-                            <h4 class="font-semibold mb-2 text-blue-50">WhatsApp</h4>
-                            <p class="text-blue-100">{{ $siteSettings->whatsapp ?? '+971 50 123 4567' }}</p>
-                            <p class="text-sm text-blue-200">Quick responses</p>
-                        </div>
+                        <h4 class="font-semibold mb-2 text-blue-50 text-xl">WhatsApp</h4>
+                        <p class="text-blue-100 text-lg">{{ $siteSettings->whatsapp ?? '+971 50 123 4567' }}</p>
+                        <p class="text-sm text-blue-200">Quick responses</p>
                     </div>
 
                     <!-- Skype -->
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4 mt-1">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {{-- <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                       d="M15 10l4.553-2.276A1 1 0 0121 
                                       8.618v6.764a1 1 0 01-1.447.894L15 
@@ -519,171 +717,174 @@
                                       2v8a2 2 0 002 2z"></path>
                             </svg>
                         </div>
-                        <div>
-                            <h4 class="font-semibold mb-2 text-blue-50">Skype</h4>
-                            <p class="text-blue-100">global.trade.hub</p>
-                            <p class="text-sm text-blue-200">Video calls available</p>
-                        </div>
-                    </div>
+                        <h4 class="font-semibold mb-2 text-blue-50 text-xl">Skype</h4>
+                        <p class="text-blue-100 text-lg">global.trade.hub</p>
+                        <p class="text-sm text-blue-200">Video calls available</p>
+                    </div> --}}
                 </div>
             </div>
 
             <!-- Contact Form -->
             <div class="fade-in-up">
-                <form class="space-y-6" action="{{ route('contact.store') }}" method="POST">
+                <h3 class="text-2xl font-bold mb-8 text-blue-50">Send us a Message</h3>
+                <form class="contact-form space-y-6 bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl shadow-lg" 
+                    action="{{ route('contact.store') }}" method="POST">
                     @csrf
+
+                    <!-- Inquiry Type Dropdown -->
                     <div>
-                        <select name="inquiry_type" class="w-full bg-white bg-opacity-10 backdrop-blur-md border border-blue-400 rounded-lg px-4 py-3 text-white">
-                            <option value="">Select Inquiry Type</option>
-                            <option value="chartering">Chartering</option>
-                            <option value="sp">Sale & Purchase</option>
-                            <option value="valuation">Valuation</option>
-                            <option value="services">Marine Services</option>
+                        <label for="inquiry_type" class="block text-blue-100 font-semibold mb-2">Inquiry Type</label>
+                        <select name="inquiry_type" id="inquiry_type" 
+                                class="w-full bg-transparent border border-blue-200 text-blue-100 rounded-lg px-4 py-3 
+                                    focus:outline-none focus:ring-2 focus:ring-[#499974] hover:border-[#499974] transition">
+                            <option value="" class="text-gray-800">Select Inquiry Type</option>
+                            <option value="chartering" class="text-gray-800">Chartering</option>
+                            <option value="sp" class="text-gray-800">Sale & Purchase</option>
+                            <option value="valuation" class="text-gray-800">Valuation</option>
+                            <option value="services" class="text-gray-800">Marine Services</option>
                         </select>
                     </div>
+
+                    <!-- Name & Email -->
                     <div class="grid md:grid-cols-2 gap-4">
-                        <input type="text" name="name" placeholder="Your Name" class="w-full bg-white bg-opacity-10 backdrop-blur-md border border-blue-400 rounded-lg px-4 py-3 text-white placeholder-gray-300">
-                        <input type="email" name="email" placeholder="Your Email" class="w-full bg-white bg-opacity-10 backdrop-blur-md border border-blue-400 rounded-lg px-4 py-3 text-white placeholder-gray-300">
+                        <div>
+                            <label for="name" class="block text-blue-100 font-semibold mb-2">Your Name</label>
+                            <input type="text" name="name" id="name" placeholder="John Doe" required
+                                class="w-full bg-transparent border border-blue-200 text-blue-100 rounded-lg px-4 py-3 
+                                        focus:outline-none focus:ring-2 focus:ring-[#499974] hover:border-[#499974] transition">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-blue-100 font-semibold mb-2">Your Email</label>
+                            <input type="email" name="email" id="email" placeholder="you@example.com" required
+                                class="w-full bg-transparent border border-blue-200 text-blue-100 rounded-lg px-4 py-3 
+                                        focus:outline-none focus:ring-2 focus:ring-[#499974] hover:border-[#499974] transition">
+                        </div>
                     </div>
-                    <input type="text" name="subject" placeholder="Subject" class="w-full bg-white bg-opacity-10 backdrop-blur-md border border-blue-400 rounded-lg px-4 py-3 text-white placeholder-gray-300">
-                    <textarea name="message" rows="5" placeholder="Your Message" class="w-full bg-white bg-opacity-10 backdrop-blur-md border border-blue-400 rounded-lg px-4 py-3 text-white placeholder-gray-300"></textarea>
-                    <button type="submit" class="btn-primary w-full py-3">
+
+                    <!-- Subject -->
+                    <div>
+                        <label for="subject" class="block text-blue-100 font-semibold mb-2">Subject</label>
+                        <input type="text" name="subject" id="subject" placeholder="Subject" required
+                            class="w-full bg-transparent border border-blue-200 text-blue-100 rounded-lg px-4 py-3 
+                                    focus:outline-none focus:ring-2 focus:ring-[#499974] hover:border-[#499974] transition">
+                    </div>
+
+                    <!-- Message -->
+                    <div>
+                        <label for="message" class="block text-blue-100 font-semibold mb-2">Message</label>
+                        <textarea name="message" id="message" rows="5" placeholder="Your Message" required
+                                class="w-full bg-transparent border border-blue-200 text-blue-100 rounded-lg px-4 py-3 
+                                        focus:outline-none focus:ring-2 focus:ring-[#499974] hover:border-[#499974] transition"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full py-4 text-lg font-semibold rounded-lg bg-gradient-to-r from-[#499974] to-[#33978d] text-white 
+                                hover:opacity-90 transition flex items-center justify-center">
+                        <i class="fas fa-paper-plane mr-2"></i>
                         Send Message
                     </button>
                 </form>
+
             </div>
         </div>
     </div>
 </section>
 
     <style>
-        .vessel-card {
-        width: 480px;
-        height: 310px;
-        border-radius: 25px;
-        overflow: hidden;
-        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(5px);
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        transition: 0.5s;
-        }
-
-        .vessel-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: var(--bg-image);
-        background-size: cover;
-        background-position: center;
-        opacity: 0.7;
-        z-index: -1;
-        }
-
-        .vessel-card:hover::before {
-        opacity: 0.2;
-        }
-
-        .vessel-card .content {
-        padding: 20px;
-        transform: translateY(200px);
-        opacity: 0;
-        transition: 0.8s all ease;
-        color: #fff;
-        }
-
-        .vessel-card:hover .content {
-        transform: translateY(0);
-        opacity: 1;
-        }
-
-        .vessel-card .title {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-        }
-
-        .vessel-card .copy {
-        font-size: 1rem;
-        line-height: 1.5;
-        }
-
-        .vessel-card .btn {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 8px 30px;
-        border: 2px solid #fff;
-        color: #fff;
-        text-transform: uppercase;
-        border-radius: 50px;
-        text-decoration: none;
-        transition: 0.3s;
-        }
-
-        .vessel-card .btn:hover {
-        background: linear-gradient(to bottom right, #0dd3f3, #6b6c00);
-        }
-
-        .service-card {
-        transform: translateY(50px);
-        opacity: 0;
-        animation: slideUp 0.8s ease forwards;
-        }
-
-        .service-card:nth-child(1) { animation-delay: 0.1s; }
-        .service-card:nth-child(2) { animation-delay: 0.2s; }
-        .service-card:nth-child(3) { animation-delay: 0.3s; }
-        .service-card:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes slideUp {
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        }
-
+        /* Additional Styles */
         .fade-in-up {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
         }
 
         @keyframes fadeInUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .btn-primary {
-        background: linear-gradient(135deg, #499974 0%, #6d83d5 50%, #33978d 100%);
-        border: none;
-        color: white;
-        font-weight: 600;
-        border-radius: 8px;
-        transition: all 0.3s ease;
+            background: linear-gradient(135deg, #499974 0%, #6d83d5 50%, #33978d 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .primary-color {
-        --tw-bg-opacity: 1;
-        background-color: rgb(38 84 120 / var(--tw-bg-opacity));
+            --tw-bg-opacity: 1;
+            background-color: rgb(38 84 120 / var(--tw-bg-opacity));
         }
 
         .primary-dark {
-        --tw-bg-opacity: 1;
-        background-color: rgb(30 66 96 / var(--tw-bg-opacity));
+            --tw-bg-opacity: 1;
+            background-color: rgb(30 66 96 / var(--tw-bg-opacity));
         }
 
         .accent-color {
-        --tw-text-opacity: 1;
-        color: rgb(73 153 116 / var(--tw-text-opacity));
+            --tw-text-opacity: 1;
+            color: rgb(73 153 116 / var(--tw-text-opacity));
+        }
+
+        /* Contact Section Enhancements */
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 12px;
+            padding: 16px 20px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(73, 153, 116, 0.8) !important;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(73, 153, 116, 0.2);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-info-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .contact-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #499974, #6d83d5, #33978d);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
         }
     </style>
 

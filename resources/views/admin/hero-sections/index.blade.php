@@ -34,7 +34,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Accent Text</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Primary Button</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Secondary Button</th>
-                            {{-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Video</th> --}}
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Video</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
@@ -60,7 +60,7 @@
                                         {{ $heroSection->secondary_button_text ?: 'N/A' }}
                                     </div>
                                 </td>
-                                {{-- <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     @if($heroSection->background_video)
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                             <i class="fas fa-video mr-1"></i>
@@ -71,7 +71,7 @@
                                             No
                                         </span>
                                     @endif
-                                </td> --}}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <button onclick="toggleStatus({{ $heroSection->id }})" class="status-toggle-{{ $heroSection->id }}">
                                         @if($heroSection->is_active)

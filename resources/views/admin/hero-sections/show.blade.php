@@ -95,7 +95,7 @@
                 </div>
 
                 <!-- Background Video -->
-                {{-- <div>
+                <div>
                     <h3 class="text-lg font-medium text-gray-900 mb-2">Background Video</h3>
                     <div class="bg-gray-50 p-4 rounded-lg">
                         @if($heroSection->background_video)
@@ -108,7 +108,7 @@
                             <p class="text-gray-500 italic">No background video uploaded</p>
                         @endif
                     </div>
-                </div> --}}
+                </div>
 
                 <!-- Status -->
                 <div>

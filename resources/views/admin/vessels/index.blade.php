@@ -10,10 +10,16 @@
             <h1 class="text-2xl font-bold text-gray-900">Vessels Management</h1>
             <p class="text-gray-600">Manage your fleet of vessels and ships</p>
         </div>
-        <a href="{{ route('admin.vessels.create') }}" class="bg-[#265478] hover:bg-[#a9c1d4ff] text-white px-4 py-2 rounded-lg flex items-center">
-            <i class="fas fa-plus mr-2"></i>
-            Add Vessel
-        </a>
+        <div class="flex gap-3">
+            <a href="{{ route('admin.vessels.form-data') }}" class="bg-[#265478] hover:bg-[#a9c1d4ff] text-white px-4 py-2 rounded-lg flex items-center">
+                <i class="fas fa-list-alt mr-2"></i>
+                View Form Data
+            </a>
+            <a href="{{ route('admin.vessels.create') }}" class="bg-[#265478] hover:bg-[#a9c1d4ff] text-white px-4 py-2 rounded-lg flex items-center">
+                <i class="fas fa-plus mr-2"></i>
+                Add Vessel
+            </a>
+        </div>
     </div>
 
     <!-- Filters and Search -->

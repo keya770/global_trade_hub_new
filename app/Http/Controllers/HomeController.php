@@ -22,7 +22,7 @@ class HomeController extends Controller
         // Fetch services for overview section
         $services = Service::active()
             ->ordered()
-            ->take(4)
+            // ->take(4)
             ->get();
         
         // Fetch featured vessels
@@ -35,7 +35,7 @@ class HomeController extends Controller
         // Fetch active testimonials
         $testimonials = Testimonial::active()
             ->ordered()
-            ->take(3)
+            // ->take(3)
             ->get();
         
         // Fetch site settings for contact information

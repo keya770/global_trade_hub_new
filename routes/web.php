@@ -44,6 +44,16 @@ Route::post('/vessels/inquiry', [App\Http\Controllers\VesselController::class, '
 Route::get('/vessels/purchase-sale', [App\Http\Controllers\VesselController::class, 'showPurchaseSaleForm'])->name('vessels.purchase-sale');
 Route::post('/vessels/purchase-sale', [App\Http\Controllers\VesselController::class, 'purchaseSaleInquiry'])->name('vessels.purchase-sale.submit');
 
+// Dynamic vessel form routes
+Route::get('/vessels/dynamic-form', [App\Http\Controllers\VesselController::class, 'showDynamicForm'])->name('vessels.dynamic-form');
+Route::post('/vessels/dynamic-form', [App\Http\Controllers\VesselController::class, 'submitDynamicForm'])->name('vessels.dynamic-form.submit');
+
+// Database render route
+Route::get('/vessels/database', [App\Http\Controllers\VesselController::class, 'databaseRender'])->name('vessels.database');
+
+// Form data route (moved to admin)
+Route::get('/admin/vessels/form-data', [App\Http\Controllers\Admin\VesselController::class, 'formData'])->name('admin.vessels.form-data');
+
 Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{blogPost:slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
 Route::get('/blog/category/{category}', [App\Http\Controllers\BlogController::class, 'category'])->name('blog.category');
