@@ -91,6 +91,17 @@
                     @enderror
                 </div>
 
+                <!-- Rich Content Editor -->
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Rich Content Editor</label>
+                    <div id="editor" contenteditable="true" 
+                         class="w-full min-h-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#265478] focus:border-transparent bg-white"
+                         style="outline: none;">
+                        {!! old('content', $subService->content) ?: '<p>Start writing here...</p>' !!}
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">Use this editor for rich text formatting. Content will be saved to the content field above.</p>
+                </div>
+
                 <!-- Icon -->
                 <div>
                     <label for="icon" class="block text-sm font-medium text-gray-700 mb-2">Icon</label>
@@ -154,4 +165,57 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    // Rich Content Editor functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const editor = document.getElementById('editor');
+        const contentTextarea = document.getElementById('content');
+        
+        // Sync content from textarea to rich editor on page load
+        if (contentTextarea.value.trim()) {
+            editor.innerHTML = contentTextarea.value;
+        }
+        
+        // Sync content from rich editor to textarea on input
+        editor.addEventListener('input', function() {
+            contentTextarea.value = this.innerHTML;
+        });
+        
+        // Sync content from textarea to rich editor when textarea changes
+        contentTextarea.addEventListener('input', function() {
+            editor.innerHTML = this.value;
+        });
+        
+        // Add some basic formatting buttons
+        const toolbar = document.createElement('div');
+        toolbar.className = 'mb-2 flex gap-2';
+        toolbar.innerHTML = `
+            <button type="button" onclick="formatText('bold')" class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
+                <strong>B</strong>
+            </button>
+            <button type="button" onclick="formatText('italic')" class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
+                <em>I</em>
+            </button>
+            <button type="button" onclick="formatText('underline')" class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
+                <u>U</u>
+            </button>
+            <button type="button" onclick="formatText('insertUnorderedList')" class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
+                • List
+            </button>
+            <button type="button" onclick="formatText('insertOrderedList')" class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
+                1. List
+            </button>
+        `;
+        
+        editor.parentNode.insertBefore(toolbar, editor);
+    });
+
+    function formatText(command) {
+        document.execCommand(command, false, null);
+        document.getElementById('editor').focus();
+    }
+</script>
+@endpush
 @endsection

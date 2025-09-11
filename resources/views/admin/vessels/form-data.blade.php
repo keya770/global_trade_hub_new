@@ -73,10 +73,8 @@
                             <label for="type-filter" class="block text-sm font-medium text-gray-700 mb-2">Inquiry Type</label>
                             <select id="type-filter" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
                                 <option value="">All Types</option>
-                                <option value="purchase">Purchase</option>
-                                <option value="sale">Sale</option>
-                                <option value="charter">Charter</option>
-                                <option value="both">Both</option>
+                                <option value="sale_purchase">Sale & Purchase</option>
+                                <option value="chartering">Chartering</option>
                             </select>
                         </div>
 
@@ -153,21 +151,22 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @php
                                                 $typeColors = [
-                                                    'purchase' => 'bg-blue-100 text-blue-800',
-                                                    'sale' => 'bg-green-100 text-green-800',
-                                                    'charter' => 'bg-purple-100 text-purple-800',
-                                                    'both' => 'bg-orange-100 text-orange-800'
+                                                    'sale_purchase' => 'bg-blue-100 text-blue-800',
+                                                    'chartering' => 'bg-purple-100 text-purple-800'
                                                 ];
                                             @endphp
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $typeColors[$inquiry->inquiry_type] ?? 'bg-gray-100 text-gray-800' }}">
-                                                {{ ucfirst($inquiry->inquiry_type) }}
+                                                {{ $inquiry->inquiry_type_label }}
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">{{ $inquiry->vessel_type }}</div>
                                             <div class="text-sm text-gray-500">{{ $inquiry->vessel_specs }}</div>
-                                            @if($inquiry->budget_range !== 'Not specified')
-                                                <div class="text-sm text-gray-500">{{ $inquiry->budget_range }}</div>
+                                            @if($inquiry->formatted_budget !== 'Not specified')
+                                                <div class="text-sm text-gray-500">{{ $inquiry->formatted_budget }}</div>
+                                            @endif
+                                            @if($inquiry->organisation_type)
+                                                <div class="text-sm text-gray-500">{{ ucfirst(str_replace('_', ' ', $inquiry->organisation_type)) }}</div>
                                             @endif
                                             @if($inquiry->vessel)
                                                 <div class="text-sm text-blue-600 font-semibold mt-1">

@@ -36,20 +36,18 @@ Route::get('/services/{service}', [App\Http\Controllers\ServiceController::class
 Route::get('/services/sub/{subService}', [App\Http\Controllers\ServiceController::class, 'showSubService'])->name('services.sub.details');
 
 Route::get('/vessels', [App\Http\Controllers\VesselController::class, 'index'])->name('vessels');
-Route::get('/vessels/{vessel}', [App\Http\Controllers\VesselController::class, 'show'])->name('vessels.show');
 Route::get('/vessels/inquiry', [App\Http\Controllers\VesselController::class, 'showInquiryForm'])->name('vessels.inquiry');
 Route::post('/vessels/inquiry', [App\Http\Controllers\VesselController::class, 'inquiry'])->name('vessels.inquiry.store');
-
-// Add the new purchase-sale route
 Route::get('/vessels/purchase-sale', [App\Http\Controllers\VesselController::class, 'showPurchaseSaleForm'])->name('vessels.purchase-sale');
 Route::post('/vessels/purchase-sale', [App\Http\Controllers\VesselController::class, 'purchaseSaleInquiry'])->name('vessels.purchase-sale.submit');
-
-// Dynamic vessel form routes
 Route::get('/vessels/dynamic-form', [App\Http\Controllers\VesselController::class, 'showDynamicForm'])->name('vessels.dynamic-form');
 Route::post('/vessels/dynamic-form', [App\Http\Controllers\VesselController::class, 'submitDynamicForm'])->name('vessels.dynamic-form.submit');
-
-// Database render route
 Route::get('/vessels/database', [App\Http\Controllers\VesselController::class, 'databaseRender'])->name('vessels.database');
+Route::get('/vessels/{vessel}', [App\Http\Controllers\VesselController::class, 'show'])->name('vessels.show');
+
+// Vessel Inquiry Routes
+Route::post('/vessels/sale-purchase', [App\Http\Controllers\VesselInquiryController::class, 'storeSalePurchase'])->name('vessels.sale-purchase.store');
+Route::post('/vessels/chartering', [App\Http\Controllers\VesselInquiryController::class, 'storeChartering'])->name('vessels.chartering.store');
 
 // Form data route (moved to admin)
 Route::get('/admin/vessels/form-data', [App\Http\Controllers\Admin\VesselController::class, 'formData'])->name('admin.vessels.form-data');
@@ -142,5 +140,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 });
 
 require __DIR__.'/auth.php';
+
+// Admin Inquiry Management Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::resource('inquiries', App\Http\Controllers\Admin\InquiryController::class);
+    Route::patch('inquiries/{inquiry}/mark-processed', [App\Http\Controllers\Admin\InquiryController::class, 'markProcessed'])->name('admin.inquiries.mark-processed');
+});
 
 

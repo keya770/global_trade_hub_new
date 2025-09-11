@@ -15,8 +15,22 @@ class VesselController extends Controller
      */
     public function index()
     {
-        $vessels = Vessel::orderBy('sort_order', 'asc')->paginate(10);
-        return view('admin.vessels.index', compact('vessels'));
+        // Get inquiry data only
+        try {
+            $inquiries = VesselInquiry::with(['vessel', 'assignedUser'])->latest()->paginate(10);
+            $totalInquiries = VesselInquiry::count();
+            $pendingInquiries = VesselInquiry::pending()->count();
+            $processedInquiries = VesselInquiry::completed()->count();
+            $todayInquiries = VesselInquiry::today()->count();
+        } catch (\Exception $e) {
+            $inquiries = collect([]);
+            $totalInquiries = 0;
+            $pendingInquiries = 0;
+            $processedInquiries = 0;
+            $todayInquiries = 0;
+        }
+        
+        return view('admin.vessels.index', compact('inquiries', 'totalInquiries', 'pendingInquiries', 'processedInquiries', 'todayInquiries'));
     }
 
     /**

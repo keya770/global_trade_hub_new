@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'SMA Ship Brokers - Leading Maritime Solutions')</title>
@@ -26,6 +26,11 @@
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js -->
+    <script src="//unpkg.com/alpinejs" defer></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -395,18 +400,113 @@ html {
 @media (max-width: 992px) {
     .section-title { font-size: 2rem; }
     .section { padding: 60px 0; }
+    
+    /* Header responsive */
+    .header .container { padding: 0 1rem; }
+    .header img { height: 60px; }
 }
 
 @media (max-width: 768px) {
     .section-title { font-size: 1.8rem; }
     .section { padding: 50px 0; }
     .whatsapp-float { width: 50px; height: 50px; font-size: 24px; bottom: 20px; right: 20px; }
+    
+    /* Header mobile */
+    .header { padding: 0.5rem 0; }
+    .header img { height: 50px; }
+    .header nav { padding: 0.75rem 1rem; }
+    
+    /* Mobile menu improvements */
+    #mobile-menu { 
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    #mobile-menu .nav-link {
+        color: var(--text-dark);
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    #mobile-menu .nav-link:last-child {
+        border-bottom: none;
+    }
 }
 
 @media (max-width: 480px) {
     .section-title { font-size: 1.6rem; }
     .section { padding: 40px 0; }
     .footer { padding: 30px 10px; }
+    
+    /* Header extra small */
+    .header img { height: 40px; }
+    .header nav { padding: 0.5rem 0.75rem; }
+    
+    /* Container padding */
+    .container { padding-left: 0.75rem; padding-right: 0.75rem; }
+    
+    /* Global mobile improvements */
+    .section-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 1rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem !important;
+        margin-bottom: 2rem;
+    }
+    
+    /* Button responsive */
+    .btn-primary, .btn-secondary {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Card responsive */
+    .card {
+        padding: 1.5rem;
+    }
+    
+    /* Grid responsive */
+    .grid {
+        gap: 1rem;
+    }
+    
+    /* Text responsive */
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    h4 { font-size: 1.1rem; }
+    h5 { font-size: 1rem; }
+    h6 { font-size: 0.9rem; }
+    
+    /* Additional mobile utilities */
+    .hidden-mobile { display: none !important; }
+    .visible-mobile { display: block !important; }
+    
+    /* Prevent horizontal scroll */
+    body { overflow-x: hidden; }
+    
+    /* Touch-friendly buttons */
+    button, .btn, a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Form elements mobile-friendly */
+    input, select, textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Additional responsive utilities */
+@media (min-width: 481px) {
+    .hidden-mobile { display: block !important; }
+    .visible-mobile { display: none !important; }
 }
 
     </style>
@@ -443,10 +543,10 @@ html {
                     <a href="{{ route('home') }}" class="nav-link">Home</a>
                     <a href="{{ route('about') }}" class="nav-link">About Us</a>
                     <a href="{{ route('services') }}" class="nav-link">Services</a>
-                    <a href="{{ route('vessels') }}" class="nav-link">Vessel Listings</a>
+                    <a href="{{ route('vessels') }}" class="nav-link">Vessel Inquiries</a>
                     <a href="{{ route('blog') }}" class="nav-link">Blog</a>
                     <a href="{{ route('sectors') }}" class="nav-link">Sectors</a>
-                    <a href="{{ route('testimonials') }}" class="nav-link">Testimonials</a>
+                    {{-- <a href="{{ route('testimonials') }}" class="nav-link">Testimonials</a> --}}
                     <a href="{{ route('careers') }}" class="nav-link">Careers</a>
                     <a href="{{ route('contact') }}" class="nav-link">Contact</a>
                     <!-- <a href="{{ route('legal') }}" class="nav-link">Legal</a> -->

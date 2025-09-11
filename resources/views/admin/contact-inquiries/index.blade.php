@@ -57,10 +57,6 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-medium space-x-2">
-                            <a href="{{ route('admin.contact-inquiries.show', $inquiry) }}" 
-                               class="text-indigo-600 hover:text-indigo-900">View</a>
-                            <a href="{{ route('admin.contact-inquiries.edit', $inquiry) }}" 
-                               class="text-yellow-600 hover:text-yellow-900">Edit</a>
                             <form action="{{ route('admin.contact-inquiries.destroy', $inquiry) }}" 
                                   method="POST" class="inline">
                                 @csrf

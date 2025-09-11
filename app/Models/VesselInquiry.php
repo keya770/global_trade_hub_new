@@ -8,23 +8,52 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class VesselInquiry extends Model
 {
     protected $fillable = [
+        // Basic Contact Information
         'full_name',
         'email',
         'phone',
         'company_name',
-        'vessel_type',
-        'vessel_dwt',
-        'built_year_from',
-        'built_year_to',
-        'flag',
-        'length',
-        'width',
-        'draft',
+        
+        // Organisation Details
+        'organisation_type',
+        'address',
+        
+        // Inquiry Type and Status
         'inquiry_type',
-        'budget_from',
-        'budget_to',
-        'additional_notes',
         'status',
+        
+        // Vessel Details (Common)
+        'vessel_type',
+        'year_of_build',
+        'dwt',
+        
+        // Sale & Purchase Specific Fields
+        'ship_type',
+        'build_nation',
+        'budget',
+        'trading_area',
+        'delivery_location',
+        'timeline',
+        'action',
+        
+        // Chartering Specific Fields
+        'charter_type',
+        'laycan_date',
+        'delivery_date',
+        'start_date',
+        'budget_per_ton',
+        'budget_per_day',
+        
+        // Freight Details
+        'port_of_loading',
+        'port_of_discharge',
+        'cargo_type',
+        'cargo_quantity',
+        'load_rate',
+        'discharge_rate',
+        
+        // Additional Information
+        'additional_notes',
         'admin_notes',
         'assigned_to',
         'processed_at',
@@ -32,12 +61,17 @@ class VesselInquiry extends Model
     ];
 
     protected $casts = [
-        'budget_from' => 'decimal:2',
-        'budget_to' => 'decimal:2',
-        'vessel_dwt' => 'decimal:2',
-        'length' => 'decimal:2',
-        'width' => 'decimal:2',
-        'draft' => 'decimal:2',
+        'budget' => 'decimal:2',
+        'budget_per_ton' => 'decimal:2',
+        'budget_per_day' => 'decimal:2',
+        'dwt' => 'decimal:2',
+        'cargo_quantity' => 'decimal:2',
+        'load_rate' => 'decimal:2',
+        'discharge_rate' => 'decimal:2',
+        'timeline' => 'date',
+        'laycan_date' => 'date',
+        'delivery_date' => 'date',
+        'start_date' => 'date',
         'processed_at' => 'datetime',
     ];
 
@@ -82,16 +116,28 @@ class VesselInquiry extends Model
     }
 
     /**
-     * Get formatted budget range
+     * Scope for sale & purchase inquiries
      */
-    public function getBudgetRangeAttribute(): string
+    public function scopeSalePurchase($query)
     {
-        if ($this->budget_from && $this->budget_to) {
-            return '$' . number_format($this->budget_from) . ' - $' . number_format($this->budget_to);
-        } elseif ($this->budget_from) {
-            return '$' . number_format($this->budget_from) . '+';
-        } elseif ($this->budget_to) {
-            return 'Up to $' . number_format($this->budget_to);
+        return $query->where('inquiry_type', 'sale_purchase');
+    }
+
+    /**
+     * Scope for chartering inquiries
+     */
+    public function scopeChartering($query)
+    {
+        return $query->where('inquiry_type', 'chartering');
+    }
+
+    /**
+     * Get formatted budget
+     */
+    public function getFormattedBudgetAttribute(): string
+    {
+        if ($this->budget) {
+            return '$' . number_format($this->budget);
         }
         return 'Not specified';
     }
@@ -103,20 +149,40 @@ class VesselInquiry extends Model
     {
         $specs = [];
         
-        if ($this->vessel_dwt) {
-            $specs[] = number_format($this->vessel_dwt) . ' DWT';
+        if ($this->dwt) {
+            $specs[] = number_format($this->dwt) . ' DWT';
         }
         
-        if ($this->built_year_from && $this->built_year_to) {
-            $specs[] = 'Built: ' . $this->built_year_from . '-' . $this->built_year_to;
-        } elseif ($this->built_year_from) {
-            $specs[] = 'Built: ' . $this->built_year_from . '+';
-        }
-        
-        if ($this->length && $this->width) {
-            $specs[] = $this->length . 'm × ' . $this->width . 'm';
+        if ($this->year_of_build) {
+            $specs[] = 'Built: ' . $this->year_of_build;
         }
         
         return implode(', ', $specs);
+    }
+
+    /**
+     * Get inquiry type label
+     */
+    public function getInquiryTypeLabelAttribute(): string
+    {
+        return match($this->inquiry_type) {
+            'sale_purchase' => 'Sale & Purchase',
+            'chartering' => 'Chartering',
+            default => ucfirst($this->inquiry_type)
+        };
+    }
+
+    /**
+     * Get status badge class
+     */
+    public function getStatusBadgeClassAttribute(): string
+    {
+        return match($this->status) {
+            'pending' => 'bg-yellow-100 text-yellow-800',
+            'processing' => 'bg-blue-100 text-blue-800',
+            'completed' => 'bg-green-100 text-green-800',
+            'cancelled' => 'bg-red-100 text-red-800',
+            default => 'bg-gray-100 text-gray-800'
+        };
     }
 }

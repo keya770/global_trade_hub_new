@@ -6,26 +6,34 @@
 @section('content')
     <!-- Vessel Hero Section -->
     <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0">
+            
+        </div>
+        
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto">
-                <div class="fade-in">
-                    <div class="mb-4">
-                        <span class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                            {{ $vessel->type }}
-                        </span>
+                <div class="hero-content">
+                    <div class="vessel-badge">
+                        <i class="fas fa-ship mr-2"></i>
+                        {{ $vessel->type }}
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-bold mb-6">{{ $vessel->name }}</h1>
-                    <div class="flex items-center text-white opacity-90">
-                        <div class="flex items-center mr-6">
-                            <i class="fas fa-flag mr-2"></i>
+                    <h1 class="hero-title">{{ $vessel->name }}</h1>
+                    <div class="hero-meta">
+                        <div class="meta-item">
+                            <div class="meta-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
                             <span>{{ $vessel->flag ?: 'Flag not specified' }}</span>
                         </div>
-                        <div class="flex items-center mr-6">
-                            <i class="fas fa-calendar mr-2"></i>
+                        <div class="meta-item">
+                            <div class="meta-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
                             <span>Built {{ $vessel->built_year ?: 'Year not specified' }}</span>
                         </div>
-                        <div class="flex items-center">
-                            <span class="bg-{{ $vessel->daily_rate ? 'green' : 'blue' }}-100 text-{{ $vessel->daily_rate ? 'green' : 'blue' }}-800 px-3 py-1 rounded-full text-sm font-semibold">
+                        <div class="meta-item">
+                            <span class="vessel-status {{ $vessel->daily_rate ? 'charter' : 'sale' }}">
                                 {{ $vessel->daily_rate ? 'For Charter' : 'For Sale' }}
                             </span>
                         </div>
@@ -36,110 +44,105 @@
     </section>
 
     <!-- Vessel Details -->
-    <section class="section bg-white">
+    <section class="section bg-gradient-to-br from-gray-50 to-white">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="vessel-layout">
                     <!-- Main Content -->
-                    <div class="lg:col-span-2">
-                        @if($vessel->image)
-                        <div class="mb-8">
-                            <img src="{{ asset('storage/' . $vessel->image) }}" 
-                                 alt="{{ $vessel->name }}" 
-                                 class="w-full h-64 md:h-96 object-cover rounded-lg">
+                    <div class="vessel-main">
+                        <div class="vessel-image-container">
+                            @if($vessel->image)
+                                <img src="{{ asset('storage/' . $vessel->image) }}" 
+                                     alt="{{ $vessel->name }}" 
+                                     class="vessel-image">
+                            @else
+                                <div class="vessel-placeholder">
+                                    <i class="fas fa-ship"></i>
+                                </div>
+                            @endif
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="overlay-title">{{ $vessel->name }}</h3>
+                                    <p class="overlay-desc">{{ $vessel->type }} Vessel</p>
+                                </div>
+                            </div>
                         </div>
-                        @else
-                        <div class="mb-8 bg-gray-200 h-64 md:h-96 rounded-lg flex items-center justify-center">
-                            <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        @endif
 
-                        <div class="prose prose-lg max-w-none">
-                            <h2 class="text-3xl font-bold mb-6">Vessel Description</h2>
-                            <p class="text-gray-700 leading-relaxed">{{ $vessel->description }}</p>
+                        <div class="vessel-description">
+                            <div class="description-header">
+                                <h2 class="description-title">Vessel Description</h2>
+                                <div class="description-divider"></div>
+                            </div>
+                            <div class="description-content">
+                                <p class="description-text">{{ $vessel->description }}</p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Sidebar -->
-                    <div class="lg:col-span-1">
-                        <div class="card sticky top-8 flex flex-col justify-between h-full p-6">
-                            <div>
-                                <h3 class="text-2xl font-bold mb-6">Vessel Specifications</h3>
-                                
-                                <div class="space-y-4">
-                                    @if($vessel->capacity)
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">Capacity:</span>
-                                        <span class="font-semibold">{{ number_format($vessel->capacity) }} DWT</span>
-                                    </div>
-                                    @endif
+                    <div class="vessel-sidebar">
+                        <div class="specs-card">
+                            <h3 class="specs-title">Vessel Specifications</h3>
+                            <div class="specs-divider"></div>
                     
-                                    @if($vessel->length && $vessel->width)
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">Length:</span>
-                                        <span class="font-semibold">{{ $vessel->length }}m</span>
+                            <div class="specs-content">
+                                @if($vessel->capacity)
+                                    <div class="spec-item"><i class="fas fa-weight"></i>
+                                        <span>Capacity:</span> {{ number_format($vessel->capacity) }} DWT
                                     </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">Width:</span>
-                                        <span class="font-semibold">{{ $vessel->width }}m</span>
-                                    </div>
-                                    @endif
+                                @endif
                     
-                                    @if($vessel->draft)
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">Draft:</span>
-                                        <span class="font-semibold">{{ $vessel->draft }}m</span>
+                                @if($vessel->length) 
+                                    <div class="spec-item"><i class="fas fa-ruler-combined"></i>
+                                        <span>Length:</span> {{ $vessel->length }}m
                                     </div>
-                                    @endif
+                                @endif
                     
-                                    @if($vessel->built_year)
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">Built Year:</span>
-                                        <span class="font-semibold">{{ $vessel->built_year }}</span>
+                                @if($vessel->width)
+                                    <div class="spec-item"><i class="fas fa-arrows-alt-h"></i>
+                                        <span>Width:</span> {{ $vessel->width }}m
                                     </div>
-                                    @endif
+                                @endif
                     
-                                    @if($vessel->flag)
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">Flag:</span>
-                                        <span class="font-semibold">{{ $vessel->flag }}</span>
+                                @if($vessel->draft)
+                                    <div class="spec-item"><i class="fas fa-water"></i>
+                                        <span>Draft:</span> {{ $vessel->draft }}m
                                     </div>
-                                    @endif
+                                @endif
                     
-                                    @if($vessel->imo_number)
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">IMO Number:</span>
-                                        <span class="font-semibold">{{ $vessel->imo_number }}</span>
+                                @if($vessel->built_year)
+                                    <div class="spec-item"><i class="fas fa-calendar"></i>
+                                        <span>Built Year:</span> {{ $vessel->built_year }}
                                     </div>
-                                    @endif
+                                @endif
                     
-                                    <div class="pt-4 border-t border-gray-200">
-                                        @if($vessel->daily_rate)
-                                            <div class="text-center">
-                                                <div class="text-3xl font-bold text-primary-color">${{ number_format($vessel->daily_rate) }}</div>
-                                                <div class="text-gray-600">per day</div>
-                                            </div>
-                                        @else
-                                            <div class="text-center">
-                                                <div class="text-2xl font-bold text-primary-color">Price on Request</div>
-                                                <div class="text-gray-600">Contact us for details</div>
-                                            </div>
-                                        @endif
+                                @if($vessel->flag)
+                                    <div class="spec-item"><i class="fas fa-flag"></i>
+                                        <span>Flag:</span> {{ $vessel->flag }}
                                     </div>
+                                @endif
+                    
+                                @if($vessel->imo_number)
+                                    <div class="spec-item"><i class="fas fa-hashtag"></i>
+                                        <span>IMO:</span> {{ $vessel->imo_number }}
+                                    </div>
+                                @endif
+                    
+                                <div class="price-section">
+                                    @if($vessel->daily_rate)
+                                        <div>${{ number_format($vessel->daily_rate) }} <small>/ day</small></div>
+                                    @else
+                                        <div>Price on Request</div>
+                                    @endif
                                 </div>
                             </div>
                     
-                            <!-- Buttons at bottom with equal height -->
-                            <div class="mt-6 flex flex-col gap-3">
-                                <a href="{{ route('vessels.inquiry') }}?vessel_id={{ $vessel->id }}" 
-                                   class="btn-primary w-full py-4 text-center text-lg font-semibold rounded-lg">
-                                    Send Inquiry
+                            <div class="action-buttons">
+                                <a href="{{ route('vessels.inquiry') }}?vessel_id={{ $vessel->id }}" class="action-button action-primary">
+                                    <i class="fas fa-paper-plane"></i> Send Inquiry
                                 </a>
-                                <a href="{{ route('vessels') }}" 
-                                   class="btn-secondary w-full py-4 text-center text-lg font-semibold rounded-lg">
-                                    Back to Vessels
+                                <a href="{{ route('vessels') }}" class="action-button action-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back
                                 </a>
                             </div>
                         </div>
@@ -481,14 +484,628 @@
                     Contact us for more information, inspection requests, or to discuss charter/sale terms.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('vessels.inquiry') }}?vessel_id={{ $vessel->id }}" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105">
+                    <a href="{{ route('vessels.inquiry') }}?vessel_id={{ $vessel->id }}" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105 ">
                         Send Inquiry
                     </a>
                     <a href="{{ route('contact') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors">
-                        Contact Us
+                        Get in Touch
                     </a>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+    /* Hero Section Animations */
+    .hero-content {
+        animation: fadeInUp 1s ease forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .vessel-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        animation: slideInLeft 0.8s ease forwards 0.2s;
+        opacity: 0;
+        transform: translateX(-30px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 32px;
+        background: linear-gradient(135deg, #ffffff, #e0f2fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: slideInUp 0.8s ease forwards 0.4s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .hero-meta {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        flex-wrap: wrap;
+        animation: slideInUp 0.8s ease forwards 0.6s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+    }
+
+    .meta-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .vessel-status {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 8px 16px;
+        border-radius: 25px;
+    }
+
+    .vessel-status.sale {
+        background: rgba(59, 130, 246, 0.2);
+        color: #93c5fd;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .vessel-status.charter {
+        background: rgba(34, 197, 94, 0.2);
+        color: #86efac;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    /* Hero Background Animations */
+    .hero-particles {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+    }
+
+    .hero-particles .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-particles .particle-1 {
+        width: 20px;
+        height: 20px;
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .hero-particles .particle-2 {
+        width: 15px;
+        height: 15px;
+        top: 60%;
+        left: 80%;
+        animation-delay: 2s;
+    }
+
+    .hero-particles .particle-3 {
+        width: 25px;
+        height: 25px;
+        top: 80%;
+        left: 20%;
+        animation-delay: 4s;
+    }
+
+    .hero-particles .particle-4 {
+        width: 18px;
+        height: 18px;
+        top: 30%;
+        left: 70%;
+        animation-delay: 6s;
+    }
+
+    .hero-particles .particle-5 {
+        width: 22px;
+        height: 22px;
+        top: 70%;
+        left: 50%;
+        animation-delay: 8s;
+    }
+
+    .floating-shapes {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+    }
+
+    .shape {
+        position: absolute;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        border-radius: 20px;
+        animation: floatShape 12s ease-in-out infinite;
+    }
+
+    .shape-1 {
+        width: 100px;
+        height: 100px;
+        top: 10%;
+        right: 10%;
+        animation-delay: 0s;
+    }
+
+    .shape-2 {
+        width: 80px;
+        height: 80px;
+        bottom: 20%;
+        left: 15%;
+        animation-delay: 4s;
+    }
+
+    .shape-3 {
+        width: 120px;
+        height: 120px;
+        top: 50%;
+        right: 30%;
+        animation-delay: 8s;
+    }
+
+    /* Vessel Layout */
+    .vessel-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 48px;
+        animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .vessel-main {
+        animation: fadeInUp 0.8s ease forwards 0.2s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .vessel-sidebar {
+        animation: fadeInUp 0.8s ease forwards 0.4s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    /* Vessel Image */
+    .vessel-image-container {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        margin-bottom: 32px;
+    }
+
+    .vessel-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .vessel-image-container:hover .vessel-image {
+        transform: scale(1.05);
+    }
+
+    .vessel-placeholder {
+        width: 100%;
+        height: 400px;
+        background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9ca3af;
+        font-size: 64px;
+    }
+
+    .image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        padding: 32px;
+        color: white;
+    }
+
+    .overlay-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .overlay-desc {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    /* Vessel Description */
+    .vessel-description {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .description-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .description-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: #1f2937;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .description-divider {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        border-radius: 2px;
+        margin: 0 auto;
+    }
+
+    .description-content {
+        font-size: 18px;
+        line-height: 1.8;
+        color: #374151;
+    }
+
+    .description-text {
+        margin: 0;
+    }
+
+    /* Specifications Card */
+    .specs-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 32px;
+        position: sticky;
+        top: 32px;
+    }
+
+    .specs-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .specs-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: #1f2937;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .specs-divider {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        border-radius: 2px;
+        margin: 0 auto;
+    }
+
+    .specs-content {
+        margin-bottom: 32px;
+    }
+
+    .spec-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    .spec-item:last-child {
+        border-bottom: none;
+    }
+
+    .spec-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    .spec-details {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .spec-label {
+        font-size: 14px;
+        color: #6b7280;
+        font-weight: 500;
+    }
+
+    .spec-value {
+        font-size: 16px;
+        color: #1f2937;
+        font-weight: 700;
+    }
+
+    .price-section {
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        border-radius: 16px;
+        padding: 24px;
+        text-align: center;
+        margin-top: 24px;
+    }
+
+    .price-display {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .price-amount {
+        font-size: 32px;
+        font-weight: 800;
+        color: #499974;
+    }
+
+    .price-period {
+        font-size: 16px;
+        color: #6b7280;
+        font-weight: 500;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .action-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .action-primary {
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        color: white;
+    }
+
+    .action-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(73, 153, 116, 0.3);
+    }
+
+    .action-secondary {
+        background: white;
+        color: #6b7280;
+        border: 2px solid #e5e7eb;
+    }
+
+    .action-secondary:hover {
+        background: #f9fafb;
+        border-color: #d1d5db;
+    }
+
+    /* CTA Section */
+    .cta-content {
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .cta-title {
+        font-size: 40px;
+        font-weight: 800;
+        margin-bottom: 24px;
+    }
+
+    .cta-description {
+        font-size: 20px;
+        opacity: 0.9;
+        margin-bottom: 32px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 16px 32px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 16px;
+    }
+
+    .cta-primary {
+        background: #1f2937;
+        color: white;
+        transform: scale(1.05);
+    }
+
+    .cta-primary:hover {
+        background: #374151;
+        transform: scale(1.1);
+    }
+
+    .cta-secondary {
+        border: 2px solid white;
+        color: white;
+    }
+
+    .cta-secondary:hover {
+        background: white;
+        color: #1f2937;
+    }
+
+    .cta-particles {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+    }
+
+    .cta-particles .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .cta-particles .particle-1 {
+        width: 15px;
+        height: 15px;
+        top: 20%;
+        left: 20%;
+        animation-delay: 0s;
+    }
+
+    .cta-particles .particle-2 {
+        width: 20px;
+        height: 20px;
+        top: 60%;
+        right: 20%;
+        animation-delay: 2s;
+    }
+
+    .cta-particles .particle-3 {
+        width: 12px;
+        height: 12px;
+        bottom: 30%;
+        left: 50%;
+        animation-delay: 4s;
+    }
+
+    /* Keyframes */
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInLeft {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-20px) rotate(180deg);
+        }
+    }
+
+    @keyframes floatShape {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-30px) rotate(180deg);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .vessel-layout {
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        
+        .specs-card {
+            position: static;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-meta {
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        
+        .vessel-image {
+            height: 300px;
+        }
+        
+        .vessel-placeholder {
+            height: 300px;
+        }
+        
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    </style>
 @endsection

@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\Vessel;
 use App\Models\Testimonial;
 use App\Models\SiteSetting;
+use App\Models\Sector;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,6 +33,11 @@ class HomeController extends Controller
             ->take(3)
             ->get();
         
+        // Fetch featured sectors
+        $featuredSectors = Sector::active()
+            ->take(3)
+            ->get();
+        
         // Fetch active testimonials
         $testimonials = Testimonial::active()
             ->ordered()
@@ -53,6 +59,7 @@ class HomeController extends Controller
             'heroSection',
             'services', 
             'featuredVessels',
+            'featuredSectors',
             'testimonials',
             'siteSettings',
             'highlights'

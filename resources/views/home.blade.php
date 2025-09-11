@@ -205,6 +205,55 @@
                 gap: 20px;
             }
         }
+        
+        /* Hero section responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem !important;
+                line-height: 1.2;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem !important;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-buttons .btn-primary {
+                width: 100%;
+                text-align: center;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem !important;
+            }
+            
+            .service-card {
+                min-width: 240px;
+                width: 240px;
+                padding: 1.5rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.25rem;
+            }
+            
+            .service-card p {
+                font-size: 0.9rem;
+            }
+        }
 
         /* Smooth scrolling */
         .services-scroll-container {
@@ -274,35 +323,7 @@
                         <p class="text-center opacity-90 text-blue-100">{{ $service->description }}</p>
                     </div>
                 @empty
-                    <!-- Fallback services if none in database -->
-                    <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] rounded-lg flex items-center justify-center mb-6 mx-auto">
-                            <i class="fas fa-ship text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">Ship Chartering</h3>
-                        <p class="text-center opacity-90 text-blue-100">Expert vessel chartering services for all types of maritime operations</p>
-                    </div>
-                    <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] rounded-lg flex items-center justify-center mb-6 mx-auto">
-                            <i class="fas fa-handshake text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">Sale & Purchase</h3>
-                        <p class="text-center opacity-90 text-blue-100">Professional vessel trading and acquisition services</p>
-                    </div>
-                    <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] rounded-lg flex items-center justify-center mb-6 mx-auto">
-                            <i class="fas fa-chart-line text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">Valuation</h3>
-                        <p class="text-center opacity-90 text-blue-100">Accurate vessel valuation and market analysis</p>
-                    </div>
-                    <div class="service-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl hover:bg-opacity-20 transition-all">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] rounded-lg flex items-center justify-center mb-6 mx-auto">
-                            <i class="fas fa-tools text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">Marine Services</h3>
-                        <p class="text-center opacity-90 text-blue-100">Comprehensive marine technical and operational support</p>
-                    </div>
+                    
                 @endforelse
             </div>
         </div>
@@ -333,309 +354,531 @@
     </div>
 </section>
 
-<style>
-    .vessel-card {
-    width: 480px;
-    height: 310px;
-    /* background-color: rgba(255, 255, 255, 0); */
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transition: 0.5s;
-    }
+    <style>
+        /* Sectors Grid Styles */
+        .sectors-grid-container {
+            position: relative;
+            padding: 0 20px;
+        }
 
-    .vessel-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: var(--bg-image);
-    background-size: cover;
-    background-position: center;
-    opacity: 0.7;
-    z-index: -1;
-    }
-    .vessel-card:hover::before {
-    opacity: 0.2;
-    }
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    .vessel-card .content {
-    padding: 20px;
-    transform: translateY(200px);
-    opacity: 0;
-    transition: 0.8s all ease;
-    color: #fff;
-    }
+        .sector-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
 
-    .vessel-card:hover .content {
-    transform: translateY(0);
-    opacity: 1;
-    }
+        .sector-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(73, 153, 116, 0.5);
+        }
 
-    .vessel-card .title {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    }
+        .card-image-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
 
-    .vessel-card .copy {
-    font-size: 1rem;
-    line-height: 1.5;
-    }
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
 
-    .vessel-card .btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 8px 30px;
-    border: 2px solid #fff;
-    color: #fff;
-    text-transform: uppercase;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: 0.3s;
-    }
+        .sector-card:hover .card-image {
+            transform: scale(1.05);
+        }
 
-    .vessel-card .btn:hover {
-    background: linear-gradient(to bottom right, #0dd3f3, #6b6c00);
-    }
+        .card-content {
+            padding: 24px;
+            color: white;
+        }
 
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
 
-</style>
-<!-- Featured Vessels -->
-<section id="vessels" class="py-20 relative z-10">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16 fade-in-up">
-            <h2 class="text-4xl font-extrabold mb-6 
-                bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
-                bg-clip-text text-transparent">Featured Vessels</h2>
-            <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-100">
-                Discover our current selection of premium vessels for sale and charter
-            </p>
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin: 0;
+        }
+
+        .card-indicator {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #499974, #6d83d5);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .card-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .service-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #499974, #6d83d5);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .service-icon i {
+            font-size: 12px;
+            color: white;
+        }
+
+        .service-item span {
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sectors-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .sectors-grid-container {
+                padding: 0 16px;
+            }
+            
+            .card-content {
+                padding: 20px;
+            }
+            
+            .card-title {
+                font-size: 1.25rem;
+            }
+            
+            .card-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sectors-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .sectors-grid-container {
+                padding: 0 12px;
+            }
+            
+            .card-image-container {
+                height: 180px;
+            }
+            
+            .card-content {
+                padding: 16px;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-description {
+                font-size: 0.85rem;
+            }
+            
+            .service-item span {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+   
+    <!-- Featured Sectors -->
+    <section id="sectors" class="py-20 relative z-10">
+        <style>
+            .vessel-card {
+                width: 100%;
+                height: 310px;
+                border-radius: 25px;
+                overflow: hidden;
+                box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(5px);
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                transition: 0.5s;
+            }
+    
+            .vessel-card::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-image: var(--bg-image);
+                background-size: cover;
+                background-position: center;
+                opacity: 0.7;
+                z-index: -1;
+            }
+    
+            .vessel-card:hover::before {
+                opacity: 0.2;
+            }
+    
+            .vessel-card .content {
+                padding: 20px;
+                transform: translateY(200px);
+                opacity: 0;
+                transition: 0.8s all ease;
+                color: #fff;
+            }
+    
+            .vessel-card:hover .content {
+                transform: translateY(0);
+                opacity: 1;
+            }
+    
+            .vessel-card .title {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+    
+            .vessel-card .copy {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+    
+            .vessel-card .btn {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 8px 30px;
+                border: 2px solid #fff;
+                color: #fff;
+                text-transform: uppercase;
+                border-radius: 50px;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+    
+            .vessel-card .btn:hover {
+                background: linear-gradient(to bottom right, #0dd3f3, #6b6c00);
+            }
+    
+            /* Grid container */
+            .sectors-grid-container {
+                display: flex;
+                justify-content: center;
+            }
+    
+            .sectors-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                width: 100%;
+                max-width: 1440px;
+            }
+    
+            @media (max-width: 1024px) {
+                .sectors-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+    
+            @media (max-width: 768px) {
+                .sectors-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-4xl font-extrabold mb-6 
+                    bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                    bg-clip-text text-transparent">
+                    Our Expertise Across Maritime Sectors
+                </h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-100">
+                    Discover our specialized knowledge and services across key maritime industries
+                </p>
+            </div>
+    
+            <div class="sectors-grid-container">
+                <div class="sectors-grid">
+                    @forelse($featuredSectors as $sector)
+                        <div class="vessel-card" style="--bg-image:url('{{ $sector->image ? asset('storage/' . $sector->image) : 'https://maritime-executive.com/media/images/article/Photos/Vessels_Large/Emerald-Putuo.0a611b.jpg' }}')">
+                            <div class="content">
+                                <h3 class="title">{{ $sector->title }}</h3>
+                                <p class="copy">{{ $sector->description }}</p>
+                                <a href="{{ route('sectors') }}" class="btn">View Details</a>
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-center text-gray-400">No sectors available at the moment.</p>
+                    @endforelse
+                </div>
+            </div>
         </div>
-
-        <div class="flex flex-wrap justify-center gap-8">
-            @forelse($featuredVessels as $vessel)
-                <div class="vessel-card" style="--bg-image:url('{{ $vessel->image ? asset('storage/' . $vessel->image) : 'https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/155/aquitaine-sea-trial-1webz.png' }}')">
-                    <div class="content">
-                        <h3 class="title">{{ $vessel->name }}</h3>
-                        <p class="copy">Built: {{ $vessel->built_year }} | {{ $vessel->type }}<br>{{ $vessel->description }}</p>
-                        <a href="{{ route('vessels.show', $vessel) }}" class="btn">View Details</a>
-                    </div>
-                </div>
-            @empty
-                <!-- Fallback vessels if none in database -->
-                <div class="vessel-card" style="--bg-image:url('https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/155/aquitaine-sea-trial-1webz.png')">
-                    <div class="content">
-                        <h3 class="title">VLCC Tanker</h3>
-                        <p class="copy">Built: 2018 | DWT: 320,000<br>Premium crude oil carrier available for long-term charter</p>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-
-                <div class="vessel-card" style="--bg-image:url('https://atlantic-pacific.com/wp-content/uploads/2023/06/apgl-largest-ship1.jpg')">
-                    <div class="content">
-                        <h3 class="title">Container Vessel</h3>
-                        <p class="copy">Built: 2020 | TEU: 14,000<br>Modern container ship for sale with excellent condition</p>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-
-                <div class="vessel-card" style="--bg-image:url('https://www.norsepower.com/app/uploads/2023/08/Camellia_Dream_with_NRS_V03_packed.webp')">
-                    <div class="content">
-                        <h3 class="title">Bulk Carrier</h3>
-                        <p class="copy">Built: 2019 | DWT: 180,000<br>Capesize bulk carrier available for voyage charter</p>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-            @endforelse
-        </div>
-    </div>
     </section>
+    
     
     <!-- Testimonials -->
     <section id="testimonials" class="py-20 relative z-10">
-  <div class="container mx-auto px-4">
-    <!-- Title -->
-    <div class="text-center mb-16 fade-in-up">
-      <h2 class="text-4xl font-extrabold mb-6 
-          bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
-          bg-clip-text text-transparent">
-        Client Testimonials
-      </h2>
-      <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-50">
-        Hear what our global clients say about our maritime services
-      </p>
-    </div>
-
-    <!-- Wrapper -->
-    <div class="relative max-w-3xl mx-auto">
-      <!-- Testimonials -->
-      <div id="testimonialWrapper" class="relative overflow-hidden">
-        @forelse($testimonials as $index => $testimonial)
-            <div class="testimonial-card {{ $index === 0 ? '' : 'hidden' }} bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl absolute inset-0">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                        @if($testimonial->client_image)
-                            <img src="{{ asset('storage/' . $testimonial->client_image) }}" alt="{{ $testimonial->client_name }}" class="w-12 h-12 rounded-full object-cover">
-                        @else
-                            <i class="fas fa-user text-white"></i>
-                        @endif
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-blue-100">{{ $testimonial->client_name }}</h4>
-                        <p class="text-blue-400">{{ $testimonial->client_position }}</p>
-                        @if($testimonial->company_name)
-                            <p class="text-blue-300 text-sm">{{ $testimonial->company_name }}</p>
-                        @endif
-                    </div>
-                </div>
-                <p class="opacity-90 text-blue-100">
-                    "{{ $testimonial->testimonial }}"
-                </p>
-                @if($testimonial->rating)
-                    <div class="mt-3 text-yellow-400">
-                        {{ $testimonial->star_rating }}
-                    </div>
-                @endif
+        <div class="container mx-auto px-4">
+          <!-- Title -->
+          <div class="text-center mb-16 fade-in-up">
+            <h2 class="text-4xl font-extrabold mb-6 
+                bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                bg-clip-text text-transparent">
+              Client Testimonials
+            </h2>
+            <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-50">
+              Hear what our global clients say about our maritime services
+            </p>
+          </div>
+      
+          <!-- Wrapper -->
+          <div class="relative max-w-3xl mx-auto">
+            <!-- Testimonials -->
+            <div id="testimonialWrapper" class="relative overflow-hidden">
+              @forelse($testimonials as $index => $testimonial)
+                  <div class="testimonial-card {{ $index === 0 ? '' : 'hidden' }} bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl transition-all duration-500 ease-in-out">
+                      <div class="flex items-center mb-4">
+                          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                              @if($testimonial->client_image)
+                                  <img src="{{ asset('storage/' . $testimonial->client_image) }}" alt="{{ $testimonial->client_name }}" class="w-12 h-12 rounded-full object-cover">
+                              @else
+                                  <i class="fas fa-user text-white"></i>
+                              @endif
+                          </div>
+                          <div>
+                              <h4 class="font-bold text-blue-100">{{ $testimonial->client_name }}</h4>
+                              <p class="text-blue-400">{{ $testimonial->client_position }}</p>
+                              @if($testimonial->company_name)
+                                  <p class="text-blue-300 text-sm">{{ $testimonial->company_name }}</p>
+                              @endif
+                          </div>
+                      </div>
+                      <p class="opacity-90 text-blue-100">
+                          "{{ $testimonial->testimonial }}"
+                      </p>
+                      @if($testimonial->rating)
+                          <div class="mt-3 text-yellow-400">
+                              {{ $testimonial->star_rating }}
+                          </div>
+                      @endif
+                  </div>
+              @empty
+                <p class="text-center text-blue-200">No testimonials found.</p>
+              @endforelse
             </div>
-        @empty
-            <!-- Fallback testimonials if none in database -->
-            <div class="testimonial-card bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl absolute inset-0">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                        <i class="fas fa-user text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-blue-100">John Maritime</h4>
-                        <p class="text-blue-400">Shipping Manager</p>
-                    </div>
-                </div>
-                <p class="opacity-90 text-blue-100">
-                    "Exceptional service and expertise in tanker chartering. SMA Ship Brokers delivered exactly what we needed."
-                </p>
+      
+            <!-- Navigation -->
+            <div class="flex justify-between items-center mt-10">
+              <button id="prevBtn" class="px-5 py-2 rounded-full bg-white bg-opacity-20 text-blue-100 hover:bg-opacity-40 transition">
+                ◀ Prev
+              </button>
+              <button id="nextBtn" class="px-5 py-2 rounded-full bg-white bg-opacity-20 text-blue-100 hover:bg-opacity-40 transition">
+                Next ▶
+              </button>
             </div>
-
-            <div class="testimonial-card hidden bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl absolute inset-0">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                        <i class="fas fa-user text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-blue-100">Sarah Ocean</h4>
-                        <p class="text-blue-400">Fleet Director</p>
-                    </div>
-                </div>
-                <p class="opacity-90 text-blue-100">
-                    "Professional vessel valuation services that helped us make informed investment decisions. Highly recommended."
-                </p>
-            </div>
-
-            <div class="testimonial-card hidden bg-white bg-opacity-10 backdrop-blur-md p-8 rounded-xl absolute inset-0">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
-                        <i class="fas fa-user text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-blue-100">Mike Anchor</h4>
-                        <p class="text-blue-400">Operations Chief</p>
-                    </div>
-                </div>
-                <p class="opacity-90 text-blue-100">
-                    "Outstanding marine services and technical support. Their team resolved our challenges quickly and efficiently."
-                </p>
-            </div>
-        @endforelse
-      </div>
-
-      <!-- Navigation -->
-      <div class="flex justify-between items-center mt-10">
-        <button id="prevBtn" class="px-5 py-2 rounded-full bg-white bg-opacity-20 text-blue-100 hover:bg-opacity-40 transition">
-          ◀ Prev
-        </button>
-        <button id="nextBtn" class="px-5 py-2 rounded-full bg-white bg-opacity-20 text-blue-100 hover:bg-opacity-40 transition">
-          Next ▶
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Script -->
-<script>
-  const testimonials = document.querySelectorAll("#testimonialWrapper .testimonial-card");
-  let current = 0;
-  let autoSlide;
-
-  function showTestimonial(index) {
-    testimonials.forEach((card, i) => {
-      card.classList.add("hidden", "opacity-0");
-      card.classList.remove("fade-in");
-      if (i === index) {
-        card.classList.remove("hidden");
-        setTimeout(() => card.classList.add("fade-in"), 50);
-      }
-    });
-  }
-
-  function nextTestimonial() {
-    current = (current + 1) % testimonials.length;
-    showTestimonial(current);
-  }
-
-  function prevTestimonial() {
-    current = (current - 1 + testimonials.length) % testimonials.length;
-    showTestimonial(current);
-  }
-
-  document.getElementById("nextBtn").addEventListener("click", () => {
-    nextTestimonial();
-    resetAutoSlide();
-  });
-
-  document.getElementById("prevBtn").addEventListener("click", () => {
-    prevTestimonial();
-    resetAutoSlide();
-  });
-
-  function startAutoSlide() {
-    autoSlide = setInterval(nextTestimonial, 5000); // change every 5s
-  }
-
-  function resetAutoSlide() {
-    clearInterval(autoSlide);
-    startAutoSlide();
-  }
-
-  // Init
-  showTestimonial(current);
-  startAutoSlide();
-</script>
-
-<!-- CSS -->
-<style>
-  .fade-in {
-    animation: fadeIn 0.9s ease forwards;
-  }
-  @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-
-  /* Responsive */
-  #testimonialWrapper {
-    min-height: 250px; /* keeps height stable */
-  }
-
-  @media (max-width: 768px) {
-    #testimonialWrapper .testimonial-card {
-      padding: 1.5rem;
-    }
-  }
-</style>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Script -->
+      <script>
+        const testimonials = document.querySelectorAll("#testimonialWrapper .testimonial-card");
+        let current = 0;
+        let autoSlide;
+      
+        function showTestimonial(index) {
+          testimonials.forEach((card, i) => {
+            card.classList.add("hidden", "opacity-0");
+            card.classList.remove("fade-in");
+            if (i === index) {
+              card.classList.remove("hidden", "opacity-0");
+              setTimeout(() => card.classList.add("fade-in"), 50);
+            }
+          });
+        }
+      
+        function nextTestimonial() {
+          current = (current + 1) % testimonials.length;
+          showTestimonial(current);
+        }
+      
+        function prevTestimonial() {
+          current = (current - 1 + testimonials.length) % testimonials.length;
+          showTestimonial(current);
+        }
+      
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextTestimonial();
+          resetAutoSlide();
+        });
+      
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevTestimonial();
+          resetAutoSlide();
+        });
+      
+        function startAutoSlide() {
+          autoSlide = setInterval(nextTestimonial, 5000); // change every 5s
+        }
+      
+        function resetAutoSlide() {
+          clearInterval(autoSlide);
+          startAutoSlide();
+        }
+      
+        // Init
+        showTestimonial(current);
+        startAutoSlide();
+      </script>
+      
+      <!-- CSS -->
+      <style>
+        .fade-in {
+          animation: fadeIn 0.9s ease forwards;
+        }
+        @keyframes fadeIn {
+          from {opacity: 0; transform: translateY(20px);}
+          to {opacity: 1; transform: translateY(0);}
+        }
+      
+        #testimonialWrapper {
+          min-height: 250px; /* keeps height stable */
+        }
+      
+        /* Responsive */
+        @media (max-width: 768px) {
+          #testimonialWrapper .testimonial-card {
+            padding: 1.5rem;
+          }
+          
+          #testimonialWrapper {
+            min-height: 200px;
+          }
+          
+          .testimonial-card .flex {
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .testimonial-card .flex .mr-4 {
+            margin-right: 0;
+            margin-bottom: 1rem;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          #testimonialWrapper .testimonial-card {
+            padding: 1rem;
+          }
+          
+          #testimonialWrapper {
+            min-height: 180px;
+          }
+          
+          .testimonial-card h4 {
+            font-size: 1rem;
+          }
+          
+          .testimonial-card p {
+            font-size: 0.9rem;
+          }
+          
+          .testimonial-card .text-blue-400 {
+            font-size: 0.85rem;
+          }
+          
+          .testimonial-card .text-blue-300 {
+            font-size: 0.8rem;
+          }
+          
+          #prevBtn, #nextBtn {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+          }
+        }
+        
+        @media (max-width: 360px) {
+          #testimonialWrapper .testimonial-card {
+            padding: 0.75rem;
+          }
+          
+          .testimonial-card h4 {
+            font-size: 0.9rem;
+          }
+          
+          .testimonial-card p {
+            font-size: 0.8rem;
+          }
+          
+          #prevBtn, #nextBtn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+          }
+        }
+      </style>
+      
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 relative z-10">
@@ -797,6 +1040,60 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* Contact section responsive */
+        @media (max-width: 768px) {
+            .contact-form {
+                padding: 1.5rem !important;
+            }
+            
+            .contact-form .grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .contact-info-item {
+                padding: 1rem;
+            }
+            
+            .contact-info-item h4 {
+                font-size: 1.1rem !important;
+            }
+            
+            .contact-info-item p {
+                font-size: 0.9rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .contact-form {
+                padding: 1rem !important;
+            }
+            
+            .contact-form input,
+            .contact-form select,
+            .contact-form textarea {
+                padding: 0.75rem !important;
+                font-size: 0.9rem;
+            }
+            
+            .contact-form button {
+                padding: 0.75rem !important;
+                font-size: 1rem !important;
+            }
+            
+            .contact-info-item {
+                padding: 0.75rem;
+            }
+            
+            .contact-info-item h4 {
+                font-size: 1rem !important;
+            }
+            
+            .contact-info-item p {
+                font-size: 0.85rem !important;
+            }
         }
 
         @keyframes fadeInUp {
