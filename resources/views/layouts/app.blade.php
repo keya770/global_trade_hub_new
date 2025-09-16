@@ -116,6 +116,59 @@ html {
     transition: all 0.3s ease;
 }
 
+/* Logo and Company Name Styling */
+.logo-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(48, 91, 115, 0.1), rgba(48, 91, 115, 0.05));
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.logo-container:hover {
+    background: linear-gradient(135deg, rgba(48, 91, 115, 0.2), rgba(48, 91, 115, 0.1));
+    box-shadow: 0 4px 15px rgba(48, 91, 115, 0.2);
+}
+
+.company-name-container {
+    position: relative;
+}
+
+.company-name {
+    background: linear-gradient(135deg, #305B73, #1F3447, #499974);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease infinite;
+    transition: all 0.3s ease;
+}
+
+.company-name:hover {
+    background: linear-gradient(135deg, #499974, #6d83d5, #305B73);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transform: scale(1.02);
+}
+
+.company-tagline {
+    background: linear-gradient(135deg, #6b7280, #9ca3af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.3s ease;
+}
+
+.company-name-container:hover .company-tagline {
+    background: linear-gradient(135deg, #499974, #6d83d5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .header.scrolled {
     background: linear-gradient(to bottom right, #b4dde4ff, #dcddc0ff);
     box-shadow: 0 2px 20px rgba(31, 52, 71, 0.1);
@@ -126,10 +179,13 @@ html {
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
+    padding: 8px 16px;
+    border-radius: 8px;
 }
 
 .nav-link:hover {
     color: var(--primary-color);
+    background: rgba(48, 91, 115, 0.1);
 }
 
 .nav-link::after {
@@ -145,6 +201,52 @@ html {
 
 .nav-link:hover::after {
     width: 100%;
+}
+
+/* Active Navigation States */
+.nav-link-active {
+    color: var(--primary-color) !important;
+    background: linear-gradient(135deg, rgba(48, 91, 115, 0.15), rgba(73, 153, 116, 0.1)) !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    position: relative;
+}
+
+.nav-link-active::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    border-radius: 2px;
+}
+
+/* Mobile Navigation Styles */
+.mobile-nav-link {
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    margin: 2px 0;
+}
+
+.mobile-nav-link:hover {
+    color: var(--primary-color);
+    background: rgba(48, 91, 115, 0.1);
+    transform: translateX(4px);
+}
+
+.mobile-nav-link-active {
+    color: var(--primary-color) !important;
+    background: linear-gradient(135deg, rgba(48, 91, 115, 0.15), rgba(73, 153, 116, 0.1)) !important;
+    font-weight: 600 !important;
+    border-left: 4px solid var(--primary-color) !important;
+    transform: translateX(4px) !important;
 }
 
 /* Buttons */
@@ -307,6 +409,178 @@ html {
     .footer p, .footer li {
         font-size: 0.9rem;
     }
+    
+    /* Enhanced footer responsiveness */
+    .footer .container {
+        padding: 0 1rem;
+    }
+    
+    .footer .grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .footer .col-span-1 {
+        text-align: center;
+    }
+    
+    .footer .flex.flex-wrap {
+        justify-content: center;
+    }
+    
+    /* Company info mobile */
+    .footer h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    .footer p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Social media responsive */
+    .social-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .social-icon i {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer {
+        padding: 30px 15px 15px;
+    }
+    
+    .footer h3, .footer h4 {
+        font-size: 1rem;
+    }
+    
+    .footer p, .footer li {
+        font-size: 0.85rem;
+    }
+    
+    .footer .grid {
+        gap: 2rem;
+    }
+}
+
+/* Social Media Icons */
+.social-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.social-icon:hover::before {
+    opacity: 1;
+}
+
+.social-icon i {
+    font-size: 18px;
+    z-index: 2;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px) scale(1.05);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.social-icon:hover i {
+    transform: scale(1.1);
+}
+
+/* Platform-specific hover colors */
+.social-icon[title*="Facebook"]:hover {
+    background: linear-gradient(135deg, #1877F2, #42A5F5);
+    border-color: #1877F2;
+}
+
+.social-icon[title*="Twitter"]:hover {
+    background: linear-gradient(135deg, #1DA1F2, #42A5F5);
+    border-color: #1DA1F2;
+}
+
+.social-icon[title*="LinkedIn"]:hover {
+    background: linear-gradient(135deg, #0077B5, #42A5F5);
+    border-color: #0077B5;
+}
+
+.social-icon[title*="Instagram"]:hover {
+    background: linear-gradient(135deg, #E4405F, #F56040);
+    border-color: #E4405F;
+}
+
+.social-icon[title*="Youtube"]:hover {
+    background: linear-gradient(135deg, #FF0000, #FF4444);
+    border-color: #FF0000;
+}
+
+/* Social tooltip */
+.social-tooltip {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.social-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid rgba(0, 0, 0, 0.8);
+}
+
+.social-icon:hover .social-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
 }
 
 /* Footer social icons hover effect */
@@ -526,32 +800,38 @@ html {
     </div>
 
     <!-- Header -->
-    <header class="header fixed top-0 left-0 right-0 z-50">
+    <header class="header fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
         <nav class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
-                <!-- Logo -->
+                <!-- Logo + Company Name -->
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('home') }}" class="flex items-center">
-                        <img src="/images/logo-main-without-background.png" alt="SMA Ship Brokers Logo" class="h-20 w-auto object-contain">
-                        <!-- <span class="ml-2 text-2xl font-bold text-primary-color">SMA Ship Brokers</span> -->
+                    <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
+                        <div class="logo-container">
+                            <img src="/images/logo-main-without-background.png" alt="SMA Ship Brokers Logo" class="h-16 w-auto object-contain transition-all duration-300 group-hover:scale-105">
+                        </div>
+                        <div class="company-name-container">
+                            <span class="company-name text-2xl font-extrabold">
+                                SMA Ship Brokers
+                            </span>
+                            <span class="company-tagline text-sm font-medium opacity-80 block -mt-1">
+                                Maritime Excellence
+                            </span>
+                        </div>
                     </a>
                 </div>
-
-
+    
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="{{ route('home') }}" class="nav-link">Home</a>
-                    <a href="{{ route('about') }}" class="nav-link">About Us</a>
-                    <a href="{{ route('services') }}" class="nav-link">Services</a>
-                    <a href="{{ route('vessels') }}" class="nav-link">Vessel Inquiries</a>
-                    <a href="{{ route('blog') }}" class="nav-link">Blog</a>
-                    <a href="{{ route('sectors') }}" class="nav-link">Sectors</a>
-                    {{-- <a href="{{ route('testimonials') }}" class="nav-link">Testimonials</a> --}}
-                    <a href="{{ route('careers') }}" class="nav-link">Careers</a>
-                    <a href="{{ route('contact') }}" class="nav-link">Contact</a>
-                    <!-- <a href="{{ route('legal') }}" class="nav-link">Legal</a> -->
+                <div class="hidden md:flex items-center space-x-2">
+                    <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'nav-link-active' : '' }}">Home</a>
+                    <a href="{{ route('about') }}" class="nav-link {{ request()->routeIs('about') ? 'nav-link-active' : '' }}">About Us</a>
+                    <a href="{{ route('services') }}" class="nav-link {{ request()->routeIs('services') ? 'nav-link-active' : '' }}">Services</a>
+                    <a href="{{ route('vessels') }}" class="nav-link {{ request()->routeIs('vessels') ? 'nav-link-active' : '' }}">Vessel Inquiries</a>
+                    <a href="{{ route('blog') }}" class="nav-link {{ request()->routeIs('blog') ? 'nav-link-active' : '' }}">Blog</a>
+                    <a href="{{ route('sectors') }}" class="nav-link {{ request()->routeIs('sectors') ? 'nav-link-active' : '' }}">Sectors</a>
+                    <a href="{{ route('careers') }}" class="nav-link {{ request()->routeIs('careers') ? 'nav-link-active' : '' }}">Careers</a>
+                    <a href="{{ route('contact') }}" class="nav-link {{ request()->routeIs('contact') ? 'nav-link-active' : '' }}">Contact</a>
                 </div>
-
+    
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-primary-color">
@@ -561,24 +841,23 @@ html {
                     </button>
                 </div>
             </div>
-
+    
             <!-- Mobile Navigation -->
             <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
-                <div class="flex flex-col space-y-4">
-                    <a href="{{ route('home') }}" class="nav-link">Home</a>
-                    <a href="{{ route('about') }}" class="nav-link">About Us</a>
-                    <a href="{{ route('services') }}" class="nav-link">Services</a>
-                    <a href="{{ route('vessels') }}" class="nav-link">Vessel Listings</a>
-                    <a href="{{ route('blog') }}" class="nav-link">Blog</a>
-                    <a href="{{ route('sectors') }}" class="nav-link">Sectors</a>
-                    <a href="{{ route('testimonials') }}" class="nav-link">Testimonials</a>
-                    <a href="{{ route('careers') }}" class="nav-link">Careers</a>
-                    <a href="{{ route('contact') }}" class="nav-link">Contact</a>
-                    <a href="{{ route('legal') }}" class="nav-link">Legal</a>
+                <div class="flex flex-col space-y-2">
+                    <a href="{{ route('home') }}" class="mobile-nav-link {{ request()->routeIs('home') ? 'mobile-nav-link-active' : '' }}">Home</a>
+                    <a href="{{ route('about') }}" class="mobile-nav-link {{ request()->routeIs('about') ? 'mobile-nav-link-active' : '' }}">About Us</a>
+                    <a href="{{ route('services') }}" class="mobile-nav-link {{ request()->routeIs('services') ? 'mobile-nav-link-active' : '' }}">Services</a>
+                    <a href="{{ route('vessels') }}" class="mobile-nav-link {{ request()->routeIs('vessels') ? 'mobile-nav-link-active' : '' }}">Vessel Inquiries</a>
+                    <a href="{{ route('blog') }}" class="mobile-nav-link {{ request()->routeIs('blog') ? 'mobile-nav-link-active' : '' }}">Blog</a>
+                    <a href="{{ route('sectors') }}" class="mobile-nav-link {{ request()->routeIs('sectors') ? 'mobile-nav-link-active' : '' }}">Sectors</a>
+                    <a href="{{ route('careers') }}" class="mobile-nav-link {{ request()->routeIs('careers') ? 'mobile-nav-link-active' : '' }}">Careers</a>
+                    <a href="{{ route('contact') }}" class="mobile-nav-link {{ request()->routeIs('contact') ? 'mobile-nav-link-active' : '' }}">Contact</a>
                 </div>
             </div>
         </nav>
     </header>
+    
 
     <!-- Main Content -->
     <main class="pt-20">
@@ -606,7 +885,7 @@ html {
     
         
         <div class="container mx-auto px-4 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-8">
                 <!-- Company Info -->
                 <div class="col-span-1 md:col-span-1">
                     <h3 class="text-xl font-bold mb-4 text-white">SMA Ship Brokers</h3>
@@ -614,35 +893,44 @@ html {
                         Leading maritime solutions provider specializing in ship chartering,
                         sale & purchase, valuation, and marine services worldwide.
                     </p>
-                    <div class="flex space-x-4">
+                    <div class="flex flex-wrap gap-3">
                     @php
                         $siteSettings = \App\Models\SiteSetting::first();
+                        $socialLinks = [];
+                        
+                        if($siteSettings) {
+                            if($siteSettings->facebook) $socialLinks[] = ['platform' => 'facebook', 'url' => $siteSettings->facebook, 'icon' => 'fab fa-facebook-f', 'color' => '#1877F2'];
+                            if($siteSettings->twitter) $socialLinks[] = ['platform' => 'twitter', 'url' => $siteSettings->twitter, 'icon' => 'fab fa-twitter', 'color' => '#1DA1F2'];
+                            if($siteSettings->linkedin) $socialLinks[] = ['platform' => 'linkedin', 'url' => $siteSettings->linkedin, 'icon' => 'fab fa-linkedin-in', 'color' => '#0077B5'];
+                            if($siteSettings->instagram) $socialLinks[] = ['platform' => 'instagram', 'url' => $siteSettings->instagram, 'icon' => 'fab fa-instagram', 'color' => '#E4405F'];
+                            if($siteSettings->youtube) $socialLinks[] = ['platform' => 'youtube', 'url' => $siteSettings->youtube, 'icon' => 'fab fa-youtube', 'color' => '#FF0000'];
+                        }
                     @endphp
-                    @if($siteSettings && $siteSettings->facebook)
-                        <a href="{{ $siteSettings->facebook }}" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition" target="_blank">
+                    
+                    @forelse($socialLinks as $social)
+                        <a href="{{ $social['url'] }}" 
+                           class="social-icon group" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           title="Follow us on {{ ucfirst($social['platform']) }}">
+                            <i class="{{ $social['icon'] }}"></i>
+                            <span class="social-tooltip">{{ ucfirst($social['platform']) }}</span>
+                        </a>
+                    @empty
+                        <!-- Default social links if no settings -->
+                        <a href="#" class="social-icon group" target="_blank" title="Follow us on Facebook">
                             <i class="fab fa-facebook-f"></i>
+                            <span class="social-tooltip">Facebook</span>
                         </a>
-                    @endif
-                    @if($siteSettings && $siteSettings->twitter)
-                        <a href="{{ $siteSettings->twitter }}" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition" target="_blank">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    @endif
-                    @if($siteSettings && $siteSettings->linkedin)
-                        <a href="{{ $siteSettings->linkedin }}" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition" target="_blank">
+                        <a href="#" class="social-icon group" target="_blank" title="Follow us on LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
+                            <span class="social-tooltip">LinkedIn</span>
                         </a>
-                    @endif
-                    @if($siteSettings && $siteSettings->instagram)
-                        <a href="{{ $siteSettings->instagram }}" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition" target="_blank">
-                            <i class="fab fa-instagram"></i>
+                        <a href="#" class="social-icon group" target="_blank" title="Follow us on Twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span class="social-tooltip">Twitter</span>
                         </a>
-                    @endif
-                    @if($siteSettings && $siteSettings->youtube)
-                        <a href="{{ $siteSettings->youtube }}" class="p-2 bg-[#285566] rounded-full hover:bg-accent transition" target="_blank">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    @endif
+                    @endforelse
                     </div>
                 </div>
 

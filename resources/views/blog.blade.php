@@ -40,24 +40,6 @@ use Illuminate\Support\Str;
         </div>
     </section>
 
-    <!-- Category Filter -->
-    @if(isset($categories) && $categories->count() > 0)
-    <section class="section bg-gray-50 py-8">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="{{ route('blog') }}" class="category-btn {{ !isset($category) ? 'active' : '' }}">
-                    All Posts
-                </a>
-                @foreach($categories as $cat)
-                <a href="{{ route('blog.category', $cat) }}" class="category-btn {{ isset($category) && $category == $cat ? 'active' : '' }}">
-                    {{ $cat }}
-                </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    @endif
-
     <!-- Blog Posts Grid -->
     <section class="section bg-white">
         <div class="container mx-auto px-4">

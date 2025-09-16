@@ -6,12 +6,63 @@
 @section('content')
     <!-- Hero Section -->
     <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white overflow-hidden">
+        <canvas id="particles" class="absolute inset-0 z-0"></canvas>
         <div class="container mx-auto px-4 text-center relative z-10">
-            <div class="hero-content">
-                <h1 class="hero-title">Vessel Inquiries</h1>
-                <p class="hero-description">
+            <div class="fade-in">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">Vessel Inquiries</h1>
+                <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
                     Submit your vessel sale & purchase or chartering requirements
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Our Vessel Services (Intro) -->
+    <section class="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50 overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0">
+            <div class="floating-particles">
+                <div class="particle particle-1"></div>
+                <div class="particle particle-2"></div>
+                <div class="particle particle-3"></div>
+                <div class="particle particle-4"></div>
+                <div class="particle particle-5"></div>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="intro-content">
+                    <div class="intro-badge">
+                        <i class="fas fa-ship mr-2"></i>
+                        Maritime Solutions
+                    </div>
+                    <h2 class="intro-title">
+                        About Our Vessel Services
+                    </h2>
+                    <p class="intro-description">
+                        At SMA Ship Brokers, we specialize in comprehensive vessel solutions that connect shipowners, 
+                        charterers, and maritime businesses worldwide. Our expert team provides tailored services for 
+                        vessel sale & purchase transactions and chartering arrangements across all major shipping sectors. 
+                        With deep industry knowledge and extensive global networks, we ensure optimal outcomes for your 
+                        maritime operations and business objectives.
+                    </p>
+                </div>
+                
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="/images/ship-screen.jpg" 
+                             alt="Vessel Services" 
+                             class="main-image">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h4 class="overlay-title">Maritime Excellence</h4>
+                                <p class="overlay-desc">Connecting vessels with opportunities worldwide</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -19,9 +70,317 @@
     <!-- Form Toggle Buttons and Forms Section -->
     <div x-data="{ 
         activeForm: 'snp', 
-        charterType: ''
+        charterType: '',
+        showForm: false
     }">
     <style>
+        /* Intro Section Styles */
+        .intro-content {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .intro-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #499974, #6d83d5);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            animation: slideInUp 0.8s ease forwards 0.2s;
+            opacity: 0;
+            transform: translateY(30px);
+            box-shadow: 0 8px 25px rgba(73, 153, 116, 0.3);
+        }
+
+        .intro-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #499974, #6d83d5, #33978d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInUp 0.8s ease forwards 0.4s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .intro-description {
+            font-size: 1.125rem;
+            color: #6b7280;
+            margin-bottom: 32px;
+            line-height: 1.7;
+            animation: slideInUp 0.8s ease forwards 0.6s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Feature Cards */
+        .feature-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: slideInUp 0.8s ease forwards 0.8s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(73, 153, 116, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(73, 153, 116, 0.15);
+            border-color: rgba(73, 153, 116, 0.2);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #499974, #6d83d5);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        /* Image Container */
+        .image-container {
+            animation: fadeInUp 0.8s ease forwards 1s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-wrapper:hover .main-image {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 40px 30px 30px;
+            color: white;
+        }
+
+        .overlay-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .overlay-desc {
+            font-size: 16px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        /* Floating Stats */
+        .floating-stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .stat-card.stat-1 { animation-delay: 0s; }
+        .stat-card.stat-2 { animation-delay: 1s; }
+        .stat-card.stat-3 { animation-delay: 2s; }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: #499974;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        /* Floating Particles */
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, #499974, #6d83d5);
+            border-radius: 50%;
+            animation: floatParticle 8s ease-in-out infinite;
+            opacity: 0.1;
+        }
+
+        .particle-1 {
+            width: 20px;
+            height: 20px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle-2 {
+            width: 15px;
+            height: 15px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .particle-3 {
+            width: 25px;
+            height: 25px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .particle-4 {
+            width: 18px;
+            height: 18px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 6s;
+        }
+
+        .particle-5 {
+            width: 22px;
+            height: 22px;
+            top: 70%;
+            left: 50%;
+            animation-delay: 8s;
+        }
+
+        /* Keyframes */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes floatParticle {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-title {
+                font-size: 2rem;
+            }
+            
+            .feature-cards {
+                gap: 16px;
+            }
+            
+            .feature-card {
+                padding: 16px;
+            }
+            
+            .main-image {
+                height: 400px;
+            }
+            
+            .floating-stats {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            
+            .stat-card {
+                flex: 1;
+                max-width: 100px;
+            }
+        }
+
         /* Toggle Section Styling */
     .section {
     padding: 60px 0;
@@ -83,33 +442,327 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     }
 
+    /* Image Cards Section */
+    .image-cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .image-card {
+        position: relative;
+        height: 300px;
+        border-radius: 20px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .image-card:hover .card-image {
+        transform: scale(1.1);
+    }
+
+    .card-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        color: white;
+        padding: 2rem;
+        transform: translateY(100%);
+        transition: transform 0.4s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .image-card:hover .card-overlay {
+        transform: translateY(0);
+    }
+
+    .overlay-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease 0.1s;
+    }
+
+    .image-card:hover .overlay-title {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .overlay-description {
+        font-size: 1rem;
+        opacity: 0.9;
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease 0.2s;
+    }
+
+    .image-card:hover .overlay-description {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .overlay-button {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid white;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease 0.3s;
+    }
+
+    .image-card:hover .overlay-button {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .overlay-button:hover {
+        background: white;
+        color: #499974;
+        transform: scale(1.05);
+    }
+
+    /* Form Cards */
+    .form-card {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.5s ease;
+    }
+
+    .form-card.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .form-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    .form-body {
+        padding: 2rem;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-input {
+        padding: 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #499974;
+        box-shadow: 0 0 0 3px rgba(73, 153, 116, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .form-select {
+        padding: 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+        cursor: pointer;
+    }
+
+    .form-select:focus {
+        outline: none;
+        border-color: #499974;
+        box-shadow: 0 0 0 3px rgba(73, 153, 116, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .form-submit {
+        width: 100%;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .form-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(73, 153, 116, 0.3);
+    }
+
+    .form-submit::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .form-submit:hover::before {
+        left: 100%;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .image-cards-container {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+        
+        .image-card {
+            height: 250px;
+        }
+        
+        .card-overlay {
+            padding: 1.5rem;
+        }
+        
+        .overlay-title {
+            font-size: 1.25rem;
+        }
+        
+        .overlay-description {
+            font-size: 0.9rem;
+        }
+        
+        .form-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .form-header {
+            padding: 1.5rem;
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+        }
+        
+        .form-body {
+            padding: 1.5rem;
+        }
+    }
+
         </style>
-        <!-- Form Toggle Buttons -->
+        <!-- Image Cards Section -->
         <section class="section bg-gradient-to-br from-gray-50 to-white">
-            <div class="container mx-auto px-4">
-                <div class="flex justify-center mb-8">
-                    <div class="bg-white rounded-lg p-2 shadow-lg">
-                        <button 
-                            @click="activeForm = 'snp'" 
-                            :class="activeForm === 'snp' ? 'bg-primary-color text-black' : 'text-gray-600 hover:text-primary-color'"
-                            class="px-8 py-3 rounded-lg font-semibold transition-all duration-300 mr-2"
-                        >
-                            Vessel Sale & Purchase
-                        </button>
-                        <button 
-                            @click="activeForm = 'charter'" 
-                            :class="activeForm === 'charter' ? 'bg-primary-color text-white' : 'text-gray-600 hover:text-primary-color'"
-                            class="px-8 py-3 rounded-lg font-semibold transition-all duration-300"
-                        >
-                            Vessel Chartering
-                        </button>
+            <div class="image-cards-container">
+                <!-- Sale & Purchase Card -->
+                <div class="image-card" @click="activeForm = 'snp'; showForm = true">
+                    <img 
+                        src="https://bdmlawllp.com/wp-content/uploads/2019/11/shutterstock_161663651-1080x675.jpg" 
+                        alt="Vessel Sale & Purchase" 
+                        class="card-image"
+                    >
+                    <div class="card-overlay">
+                        <h3 class="overlay-title">Vessel Sale & Purchase</h3>
+                        <p class="overlay-description">
+                            Buy or sell vessels with our expert brokerage services. 
+                            Find the perfect vessel for your maritime operations.
+                        </p>
+                        <button class="overlay-button">Get Started</button>
+                    </div>
+                </div>
+
+                <!-- Chartering Card -->
+                <div class="image-card" @click="activeForm = 'charter'; showForm = true">
+                    <img 
+                        src="https://www.atsinc.com/hs-fs/hubfs/Shipping-Vessel.jpg?width=960&height=540&name=Shipping-Vessel.jpg" 
+                        alt="Vessel Chartering" 
+                        class="card-image"
+                    >
+                    <div class="card-overlay">
+                        <h3 class="overlay-title">Vessel Chartering</h3>
+                        <p class="overlay-description">
+                            Charter vessels for your cargo transportation needs. 
+                            Flexible chartering solutions for all vessel types.
+                        </p>
+                        <button class="overlay-button">Get Started</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Forms Section -->
-        <section class="section bg-gray-50">
+        <section class="section bg-gray-50" x-show="showForm" x-transition>
             <div class="container mx-auto px-4">
                 
                 <!-- Success/Error Messages -->
@@ -152,15 +805,31 @@
                 @endif
             
                 <!-- Sale & Purchase Form -->
-                <div x-show="activeForm === 'snp'" x-transition class="max-w-4xl mx-auto card fade-in visible shadow-lg">
-                        <div class="text-center mb-8">
-                            <h2 class="text-3xl font-bold text-gray-800 mb-2">Vessel Sale & Purchase</h2>
-                            <p class="text-gray-600">Submit your vessel S&P requirements</p>
-                        </div>
-                        
-                        <form action="{{ route('vessels.sale-purchase.store') }}" method="POST" class="space-y-8">
+                <div x-show="activeForm === 'snp'" x-transition class="form-card" :class="{ 'show': showForm && activeForm === 'snp' }">
+                    <div class="form-header">
+                        <h2 class="form-title">Vessel Sale & Purchase</h2>
+                        <p class="form-subtitle">Submit your vessel S&P requirements</p>
+                    </div>
+                    
+                    <div class="form-body">
+                        <form action="{{ route('vessels.sale-purchase.store') }}" method="POST">
                             @csrf
                             
+                            <!-- Transaction Details -->
+                            <div class="bg-gray-50 rounded-xl p-6 form-section">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-6">Transaction Details</h3>
+                                <div class="flex space-x-6">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="action" value="buy" class="mr-2 text-primary-color focus:ring-primary-color">
+                                        <span class="text-gray-700 font-medium">Buy</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="action" value="sale" class="mr-2 text-primary-color focus:ring-primary-color">
+                                        <span class="text-gray-700 font-medium">Sale</span>
+                                    </label>
+                                </div>
+                            </div>
+
                             <!-- Organisation Details -->
                             <div class="bg-gray-50 rounded-xl p-6 form-section">
                                 <h3 class="text-xl font-semibold text-gray-800 mb-6">Organisation Details</h3>
@@ -199,7 +868,7 @@
                                 <h3 class="text-xl font-semibold text-gray-800 mb-6">Vessel Details</h3>
                                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Type of Ship</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Type of Purchase</label>
                                         <select name="ship_type" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
                                             <option value="">Select Ship Type</option>
                                             <option value="newbuild">Newbuild</option>
@@ -221,16 +890,17 @@
                                             <option value="lng">LNG</option>
                                             <option value="container">Container</option>
                                             <option value="offshore">Offshore</option>
+                                            <option value="other">Other</option>
                                         </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Year of Build</label>
                                         <input type="number" name="year_of_build" min="1900" max="2030" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">DWT (Deadweight Tonnage)</label>
-                                        <input type="number" name="dwt" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
-                                    </div>
+                                     <div>
+                                         <label class="block text-sm font-medium text-gray-700 mb-2">DWT (Deadweight Tonnage)</label>
+                                         <input type="text" name="dwt" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" placeholder="e.g., 50,000" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
+                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Build Nation</label>
                                         <select name="build_nation" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
@@ -241,10 +911,10 @@
                                             <option value="other">Other</option>
                                         </select>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Budget (USD)</label>
-                                        <input type="number" name="budget" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
-                                    </div>
+                                     <div>
+                                         <label class="block text-sm font-medium text-gray-700 mb-2">Budget (USD)</label>
+                                         <input type="text" name="budget" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" placeholder="e.g., 10,000,000" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
+                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Trading Area</label>
                                         <input type="text" name="trading_area" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
@@ -260,21 +930,6 @@
                                 </div>
                             </div>
 
-                            <!-- Transaction Details -->
-                            <div class="bg-gray-50 rounded-xl p-6 form-section">
-                                <h3 class="text-xl font-semibold text-gray-800 mb-6">Transaction Details</h3>
-                                <div class="flex space-x-6">
-                                    <label class="flex items-center">
-                                        <input type="radio" name="action" value="buy" class="mr-2 text-primary-color focus:ring-primary-color">
-                                        <span class="text-gray-700 font-medium">Buy</span>
-                                    </label>
-                                    <label class="flex items-center">
-                                        <input type="radio" name="action" value="sale" class="mr-2 text-primary-color focus:ring-primary-color">
-                                        <span class="text-gray-700 font-medium">Sale</span>
-                                    </label>
-                                </div>
-                            </div>
-
                             <!-- Submit Button -->
                             <div class="text-center">
                                 <button type="submit" class="btn-primary w-full py-3 transform scale-105">
@@ -282,16 +937,18 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
                 </div>
 
                 <!-- Chartering Form -->
-                <div x-show="activeForm === 'charter'" x-transition class="max-w-4xl mx-auto card fade-in visible">
-                        <div class="text-center mb-8">
-                            <h2 class="text-3xl font-bold text-gray-800 mb-2">Vessel Chartering</h2>
-                            <p class="text-gray-600">Submit your vessel chartering requirements</p>
-                        </div>
-                        
-                        <form action="{{ route('vessels.chartering.store') }}" method="POST" class="space-y-8">
+                <div x-show="activeForm === 'charter'" x-transition class="form-card" :class="{ 'show': showForm && activeForm === 'charter' }">
+                    <div class="form-header">
+                        <h2 class="form-title">Vessel Chartering</h2>
+                        <p class="form-subtitle">Submit your vessel chartering requirements</p>
+                    </div>
+                    
+                    <div class="form-body">
+                        <form action="{{ route('vessels.chartering.store') }}" method="POST">
                             @csrf
                             
                             <!-- Organisation Details -->
@@ -363,20 +1020,16 @@
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Date</label>
                                         <input type="date" name="delivery_date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
                                     </div>
-                                    
-                                    <div x-show="charterType === 'time_charter' || charterType === 'bareboat_charter'">
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
-                                        <input type="date" name="start_date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
-                                    </div>
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Budget (USD/TON)</label>
-                                        <input type="number" name="budget_per_ton" min="0" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Budget (USD/Day)</label>
-                                        <input type="number" name="budget_per_day" min="0" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
-                                    </div>
+                                     
+                                     <div x-show="charterType === 'voyage_charter'">
+                                         <label class="block text-sm font-medium text-gray-700 mb-2">Budget (USD/TON)</label>
+                                         <input type="text" name="budget_per_ton" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" placeholder="e.g., 25.50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
+                                     </div>
+                                     
+                                     <div x-show="charterType === 'time_charter' || charterType === 'bareboat_charter'">
+                                         <label class="block text-sm font-medium text-gray-700 mb-2">Budget (USD/Day)</label>
+                                         <input type="text" name="budget_per_day" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" placeholder="e.g., 15,000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
+                                     </div>
                                 </div>
                             </div>
 
@@ -385,11 +1038,11 @@
                                 <h3 class="text-xl font-semibold text-gray-800 mb-6">Freight Details</h3>
                                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Port of Loading (POL)</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Port of Loading (POL) / Day</label>
                                         <input type="text" name="port_of_loading" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Port of Discharge (POD)</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Port of Discharge (POD) / Day</label>
                                         <input type="text" name="port_of_discharge" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
                                     </div>
                                     <div>
@@ -431,6 +1084,7 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
                 </div>
             </div>
         </section>
