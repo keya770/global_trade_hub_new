@@ -115,38 +115,6 @@
         </div>
     </section> --}}
 
-    <!-- Interactive Map Section -->
-    <section class="section bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-extrabold mb-6 
-                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
-                        bg-clip-text text-transparent">Find Us on the Map</h2>
-                <p class="section-subtitle">
-                    Visit our offices worldwide or get in touch remotely
-                </p>
-            </div>
-            
-            <div class="card">
-                @if($siteSettings && $siteSettings->map)
-                    <div class="w-full h-96 rounded-lg overflow-hidden">
-                        <iframe src="{!! $siteSettings->map !!}"  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"> </iframe>
-                    </div>
-                @else
-                    <div class="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
-                        <div class="text-center">
-                            <svg class="w-24 h-24 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
-                            </svg>
-                            <p class="text-gray-600">Interactive Google Map</p>
-                            <p class="text-sm text-gray-500">Map showing all our office locations worldwide</p>
-                        </div>
-                    </div>
-                @endif
-            </div>
-
-        </div>
-    </section>
 
     <!-- Contact Form Section -->
     <section class="section bg-white">
@@ -345,6 +313,39 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section class="section bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Find Us on the Map</h2>
+                <p class="section-subtitle">
+                    Visit our offices worldwide or get in touch remotely
+                </p>
+            </div>
+            
+            <div class="card">
+                @if($siteSettings && $siteSettings->map)
+                    <div class="w-full h-96 rounded-lg overflow-hidden">
+                        <iframe src="{!! $siteSettings->map !!}"  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"> </iframe>
+                    </div>
+                @else
+                    <div class="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
+                        <div class="text-center">
+                            <svg class="w-24 h-24 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                            </svg>
+                            <p class="text-gray-600">Interactive Google Map</p>
+                            <p class="text-sm text-gray-500">Map showing all our office locations worldwide</p>
+                        </div>
+                    </div>
+                @endif
+            </div>
+
         </div>
     </section>
 

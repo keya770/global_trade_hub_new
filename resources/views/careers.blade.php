@@ -240,6 +240,7 @@
                             <select name="position_applied" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('position_applied') border-red-500 @enderror" required>
                                 <option value="">Select position</option>
                                 <option value="Senior Chartering Manager" {{ old('position_applied') == 'Senior Chartering Manager' ? 'selected' : '' }}>Senior Chartering Manager</option>
+                                <option value="Ship Broker" {{ old('position_applied') == 'Ship Broker' ? 'selected' : '' }}>Ship Broker</option>
                                 <option value="Vessel Valuator" {{ old('position_applied') == 'Vessel Valuator' ? 'selected' : '' }}>Vessel Valuator</option>
                                 <option value="Marine Operations Specialist" {{ old('position_applied') == 'Marine Operations Specialist' ? 'selected' : '' }}>Marine Operations Specialist</option>
                                 <option value="Business Development Manager" {{ old('position_applied') == 'Business Development Manager' ? 'selected' : '' }}>Business Development Manager</option>

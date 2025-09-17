@@ -71,7 +71,30 @@
     <div x-data="{ 
         activeForm: 'snp', 
         charterType: '',
-        showForm: false
+        showForm: false,
+        init() {
+            // Check URL parameters to determine which form to show
+            const urlParams = new URLSearchParams(window.location.search);
+            const formParam = urlParams.get('form');
+            
+            if (formParam === 'charter') {
+                this.activeForm = 'charter';
+                this.showForm = true;
+            } else if (formParam === 'snp') {
+                this.activeForm = 'snp';
+                this.showForm = true;
+            }
+            
+            // Scroll to forms section if a form is specified
+            if (formParam) {
+                setTimeout(() => {
+                    const formsSection = document.querySelector('.section.bg-gray-50');
+                    if (formsSection) {
+                        formsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 500);
+            }
+        }
     }">
     <style>
         /* Intro Section Styles */
@@ -882,14 +905,12 @@
                                             <option value="">Select Vessel Type</option>
                                             <option value="dry_bulk_carrier">Dry Bulk Carrier</option>
                                             <option value="tanker_cpp_dpp">Tanker (CPP/DPP)</option>
-                                            <option value="tanker_oil_products">Tanker (Oil Products)</option>
-                                            <option value="tanker_crude_oil">Tanker (Crude Oil)</option>
                                             <option value="tanker_bitumen">Tanker (Bitumen)</option>
                                             <option value="tanker_bunkering">Tanker (Bunkering)</option>
-                                            <option value="lpg">LPG</option>
-                                            <option value="lng">LNG</option>
-                                            <option value="container">Container</option>
-                                            <option value="offshore">Offshore</option>
+                                            <option value="lpg">Liquefied petroleum gas (LPG)</option>
+                                            <option value="lng">Liquefied natural gas (LNG)</option>
+                                            <option value="container">Container/Feeder</option>
+                                            <option value="offshore">Offshore PSU/AHTS/..Others</option>
                                             <option value="other">Other</option>
                                         </select>
                                     </div>
@@ -1039,17 +1060,18 @@
                                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Port of Loading (POL) / Day</label>
-                                        <input type="text" name="port_of_loading" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
+                                        <input type="text" name="port_of_loading" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Port of Discharge (POD) / Day</label>
-                                        <input type="text" name="port_of_discharge" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
+                                        <input type="text" name="port_of_discharge" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Cargo Type</label>
                                         <select name="cargo_type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
                                             <option value="">Select Cargo Type</option>
                                             <option value="coal">Coal</option>
+                                            <option value="metal">Metals</option>
                                             <option value="iron_ore">Iron Ore</option>
                                             <option value="grain">Grain</option>
                                             <option value="cement">Cement</option>
@@ -1064,15 +1086,15 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Cargo Quantity (MT)</label>
-                                        <input type="number" name="cargo_quantity" min="0" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
+                                        <input type="number" name="cargo_quantity" min="0" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Load Rate</label>
-                                        <input type="number" name="load_rate" min="0" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Load Rate / Day</label>
+                                        <input type="number" name="load_rate" min="0" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Discharge Rate</label>
-                                        <input type="number" name="discharge_rate" min="0" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Discharge Rate / Day</label>
+                                        <input type="number" name="discharge_rate" min="0" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')">
                                     </div>
                                 </div>
                             </div>

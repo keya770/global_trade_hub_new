@@ -320,7 +320,17 @@
                             </div>
                         @endif
                         <h3 class="text-2xl font-bold mb-4 text-center text-blue-100">{{ $service->name }}</h3>
-                        <p class="text-center opacity-90 text-blue-100">{{ $service->description }}</p>
+                        <p class="text-center opacity-90 text-blue-100 service-description" data-full-text="{{ $service->description }}">
+                            {{ Str::limit($service->description, 120) }}
+                        </p>
+                        @if(strlen($service->description) > 120)
+                            <div class="text-center mt-4">
+                                <a href="{{ route('services.details', $service) }}" 
+                                   class="text-blue-100 hover:text-yellow-300 font-semibold text-sm learn-more-btn">
+                                    Learn More →
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 @empty
                     
@@ -678,7 +688,7 @@
     </section>
     
     
-    <!-- Testimonials -->
+    {{-- <!-- Testimonials -->
     <section id="testimonials" class="py-20 relative z-10">
         <div class="container mx-auto px-4">
           <!-- Title -->
@@ -877,8 +887,187 @@
             font-size: 0.75rem;
           }
         }
-      </style>
+      </style> --}}
       
+    <!-- Vessel Services Section -->
+    <section class="py-20 relative z-10 bg-gradient-to-br ">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-4xl font-extrabold mb-6 
+                    bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                    bg-clip-text text-transparent">Our Vessel Services</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto text-blue-100">
+                    Comprehensive vessel solutions tailored to your maritime business needs
+                </p>
+            </div>
+            
+            <div class="image-cards-container">
+                <!-- Sale & Purchase Card -->
+                <div class="image-card" onclick="window.location.href='{{ route('vessels') }}?form=snp'">
+                    <img 
+                        src="https://bdmlawllp.com/wp-content/uploads/2019/11/shutterstock_161663651-1080x675.jpg" 
+                        alt="Vessel Sale & Purchase" 
+                        class="card-image"
+                    >
+                    <div class="card-overlay">
+                        <h3 class="overlay-title">Vessel Sale & Purchase</h3>
+                        <p class="overlay-description">
+                            Buy or sell vessels with our expert brokerage services. 
+                            Find the perfect vessel for your maritime operations.
+                        </p>
+                        <button class="overlay-button">Get Started</button>
+                    </div>
+                </div>
+
+                <!-- Chartering Card -->
+                <div class="image-card" onclick="window.location.href='{{ route('vessels') }}?form=charter'">
+                    <img 
+                        src="https://www.atsinc.com/hs-fs/hubfs/Shipping-Vessel.jpg?width=960&height=540&name=Shipping-Vessel.jpg" 
+                        alt="Vessel Chartering" 
+                        class="card-image"
+                    >
+                    <div class="card-overlay">
+                        <h3 class="overlay-title">Vessel Chartering</h3>
+                        <p class="overlay-description">
+                            Charter vessels for your cargo transportation needs. 
+                            Flexible chartering solutions for all vessel types.
+                        </p>
+                        <button class="overlay-button">Get Started</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Image Cards Styles */
+        .image-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .image-card {
+            position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover .card-overlay {
+            transform: translateY(0);
+        }
+
+        .overlay-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .overlay-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .overlay-button {
+            background: linear-gradient(135deg, #499974, #6d83d5, #33978d);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .overlay-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .image-cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .image-card {
+                height: 350px;
+            }
+            
+            .card-overlay {
+                padding: 1.5rem;
+            }
+            
+            .overlay-title {
+                font-size: 1.25rem;
+            }
+            
+            .overlay-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .image-card {
+                height: 300px;
+            }
+            
+            .card-overlay {
+                padding: 1rem;
+            }
+            
+            .overlay-title {
+                font-size: 1.1rem;
+            }
+            
+            .overlay-description {
+                font-size: 0.85rem;
+            }
+            
+            .overlay-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 relative z-10">
@@ -1236,5 +1425,6 @@
                 }
             });
         });
+
     </script>
 @endsection

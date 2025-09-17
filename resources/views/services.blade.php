@@ -145,10 +145,20 @@
                                 @endif
                             </div>
                             <h3 class="text-2xl font-bold mb-4">{{ $service->name }}</h3>
-                            <p class="text-gray-600 mb-6 text-lg">{{ $service->description }}</p>
+                            <p class="text-gray-600 mb-6 text-lg service-description" data-full-text="{{ $service->description }}">
+                                {{ Str::limit($service->description, 150) }}
+                            </p>
+                            @if(strlen($service->description) > 150)
+                                {{-- <div class="mb-4">
+                                    <a href="{{ route('services.details', $service) }}" 
+                                       class="text-primary-color hover:text-blue-600 font-semibold text-sm learn-more-btn">
+                                        Learn More →
+                                    </a>
+                                </div> --}}
+                            @endif
                             <a href="{{ route('services.details', $service) }}" 
                             class="text-primary-color font-semibold hover:underline">
-                                Learn More →
+                                View Details →
                             </a>
                         </div>
                     @endforeach
@@ -164,10 +174,20 @@
                                 @endif
                             </div>
                             <h3 class="text-2xl font-bold mb-4">{{ $service->name }}</h3>
-                            <p class="text-gray-600 mb-6 text-lg">{{ $service->description }}</p>
+                            <p class="text-gray-600 mb-6 text-lg service-description" data-full-text="{{ $service->description }}">
+                                {{ Str::limit($service->description, 150) }}
+                            </p>
+                            @if(strlen($service->description) > 150)
+                                <div class="mb-4">
+                                    <a href="{{ route('services.details', $service) }}" 
+                                       class="text-primary-color hover:text-blue-600 font-semibold text-sm learn-more-btn">
+                                        Learn More →
+                                    </a>
+                                </div>
+                            @endif
                             <a href="{{ route('services.details', $service) }}" 
                             class="text-primary-color font-semibold hover:underline">
-                                Learn More →
+                                View Details →
                             </a>
                         </div>
                     @endforeach
