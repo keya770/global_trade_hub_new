@@ -8,8 +8,10 @@
     <title>@yield('title', 'SMA Ship Brokers - Leading Maritime Solutions')</title>
     <meta name="description" content="@yield('description', 'SMA Ship Brokers is a leading maritime services company specializing in ship chartering, sale & purchase, valuation, and marine services.')">
 
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-main-without-background.png') }}">
+
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
+    {{-- <link rel="preconnect" href="https://fonts.bunny.net"> --}}
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 

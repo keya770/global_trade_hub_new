@@ -153,7 +153,7 @@
 
         .intro-description {
             font-size: 1.125rem;
-            color: #6b7280;
+            color: #0b0c0f;
             margin-bottom: 32px;
             line-height: 1.7;
             animation: slideInUp 0.8s ease forwards 0.6s;
