@@ -1,69 +1,110 @@
 @extends('layouts.app')
 
-@section('title', 'About Us - Global Trade Hub')
-@section('description', 'Learn about Global Trade Hub, our mission, vision, core values, and leadership team. Discover why we are the trusted partner in maritime solutions.')
+@section('title', 'About Us - SMA Ship Brokers')
+@section('description', 'Learn about SMA Ship Brokers, our mission, vision, core values, and leadership team. Discover why we are the trusted partner in maritime solutions.')
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white">
-        <div class="container mx-auto px-4 text-center">
-            <div class="fade-in">
-                <h1 class="text-5xl md:text-6xl font-bold mb-6">About Global Trade Hub</h1>
-                <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
-                    Leading the maritime industry with innovation, expertise, and unwavering commitment to excellence
-                </p>
+    <!-- Hero Section with Particles -->
+        <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white overflow-hidden">
+            <!-- Canvas for particles -->
+            <canvas id="particles" class="absolute inset-0 z-0"></canvas>
+
+            <!-- Content -->
+            <div class="container mx-auto px-4 text-center relative z-10">
+                <div class="fade-in">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">About SMA Ship Brokers</h1>
+                    <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
+                        Leading the maritime industry with innovation, expertise, and unwavering commitment to excellence
+                    </p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
     <!-- Company Overview Section -->
-    <section class="section bg-white">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="slide-in-left">
-                    <h2 class="text-4xl font-bold mb-6">Company Overview</h2>
-                    <p class="text-lg text-gray-600 mb-6">
-                        Founded in 1998, Global Trade Hub has established itself as a premier maritime services 
-                        company, serving clients across the globe with comprehensive solutions in ship chartering, 
-                        sale & purchase, valuation, and marine services.
-                    </p>
-                    <p class="text-lg text-gray-600 mb-6">
-                        Our journey began with a simple vision: to provide reliable, efficient, and innovative 
-                        maritime solutions that empower our clients to navigate the complex waters of global trade 
-                        with confidence and success.
-                    </p>
-                    <p class="text-lg text-gray-600">
-                        Today, with over 25 years of experience and a team of industry experts, we continue to 
-                        lead the maritime sector with cutting-edge technology, deep market knowledge, and 
-                        unwavering commitment to client satisfaction.
-                    </p>
+    <section class="section bg-gradient-to-br from-gray-50 to-white py-20 relative overflow-hidden">
+        <!-- Background Animation -->
+        
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="overview-layout">
+                <!-- Content Section -->
+                <div class="overview-content">
+                    <div class="overview-badge">
+                        <i class="fas fa-building mr-2"></i>
+                        Established 2000
+                    </div>
+                    <h2 class="overview-title">Company Overview</h2>
+                    <div class="overview-divider"></div>
+                    
+                    <div class="overview-text">
+                        <p class="overview-paragraph">
+                            Founded in 2000, SMA Ship Brokers has established itself as a premier maritime services 
+                            company, serving clients across the globe with comprehensive solutions in ship chartering, 
+                            sale & purchase, valuation, and marine services.
+                        </p>
+                        <p class="overview-paragraph">
+                            Our journey began with a simple vision: to provide reliable, efficient, and innovative 
+                            maritime solutions that empower our clients to navigate the complex waters of global trade 
+                            with confidence and success.
+                        </p>
+                        <p class="overview-paragraph">
+                            Today, with over 25 years of experience and a team of industry experts, we continue to 
+                            lead the maritime sector with cutting-edge technology, deep market knowledge, and 
+                            unwavering commitment to client satisfaction.
+                        </p>
+                    </div>
+
+                    <!-- Stats Section -->
+                    <div class="overview-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">25+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Successful Deals</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Global Partners</div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="slide-in-right">
-                    <div class="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
-                        <svg class="w-32 h-32 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
+                <!-- Image Section -->
+                <div class="overview-image-section">
+                    <div class="image-container">
+                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20230707/pngtree-d-rendering-of-a-logistics-company-s-import-export-shipping-operations-image_3817708.jpg" 
+                             alt="SMA Ship Brokers Operations" 
+                             class="overview-image">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h3 class="overlay-title">Maritime Excellence</h3>
+                                <p class="overlay-desc">Leading the industry since 2000</p>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission, Vision & Core Values Section -->
     <section class="section bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="section-title">Our Mission, Vision & Values</h2>
+                <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Our Mission, Vision & Values</h2>
                 <p class="section-subtitle">
                     The foundation of our success and the principles that guide everything we do
                 </p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Mission -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                <div class="card fade-right text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background: linear-gradient(135deg, #499974, #6d83d5);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
@@ -77,8 +118,8 @@
                 </div>
 
                 <!-- Vision -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                <div class="card fade-right delay-1 text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background: linear-gradient(135deg, #499974, #6d83d5);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -93,8 +134,8 @@
                 </div>
 
                 <!-- Values -->
-                <div class="card fade-in text-center">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                <div class="card fade-right delay-2 text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 " style="background: linear-gradient(135deg, #499974, #6d83d5);">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                         </svg>
@@ -109,347 +150,560 @@
         </div>
     </section>
 
+    <!-- Company Overview Section Styles -->
+    <style>
+    /* Company Overview Animations */
+    .overview-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+        animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .overview-content {
+        animation: slideInLeft 0.8s ease forwards 0.2s;
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    .overview-image-section {
+        animation: slideInRight 0.8s ease forwards 0.4s;
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    .overview-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        animation: slideInUp 0.8s ease forwards 0.4s;
+        opacity: 0;
+        transform: translateY(30px);
+        box-shadow: 0 8px 25px rgba(73, 153, 116, 0.3);
+    }
+
+    .overview-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #499974, #6d83d5, #33978d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: slideInUp 0.8s ease forwards 0.6s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .overview-divider {
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        border-radius: 2px;
+        margin-bottom: 32px;
+        animation: slideInUp 0.8s ease forwards 0.8s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .overview-text {
+        margin-bottom: 32px;
+    }
+
+    .overview-paragraph {
+        font-size: 1.125rem;
+        color: #06080e;
+        margin-bottom: 20px;
+        line-height: 1.8;
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .overview-paragraph:nth-child(1) { animation-delay: 1s; }
+    .overview-paragraph:nth-child(2) { animation-delay: 1.2s; }
+    .overview-paragraph:nth-child(3) { animation-delay: 1.4s; }
+
+    .overview-stats {
+        display: flex;
+        gap: 32px;
+        animation: fadeInUp 0.8s ease forwards 1.6s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        flex: 1;
+    }
+
+    .stat-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #499974;
+        margin-bottom: 8px;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: #6b7280;
+        font-weight: 500;
+    }
+
+    /* Image Section */
+    .image-container {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .overview-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .image-container:hover .overview-image {
+        transform: scale(1.05);
+    }
+
+    .image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        padding: 32px;
+        color: white;
+    }
+
+    .overlay-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .overlay-desc {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    /* Floating Elements */
+    .floating-elements {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+
+    .floating-element {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        animation: floatElement 6s ease-in-out infinite;
+        box-shadow: 0 8px 25px rgba(73, 153, 116, 0.3);
+    }
+
+    .element-1 {
+        top: 20%;
+        right: 10%;
+        animation-delay: 0s;
+    }
+
+    .element-2 {
+        bottom: 30%;
+        left: 5%;
+        animation-delay: 2s;
+    }
+
+    .element-3 {
+        top: 60%;
+        right: 20%;
+        animation-delay: 4s;
+    }
+
+    /* Background Animations */
+    .overview-particles {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+    }
+
+    .overview-particles .particle {
+        position: absolute;
+        background: linear-gradient(135deg, #499974, #6d83d5);
+        border-radius: 50%;
+        animation: floatParticle 8s ease-in-out infinite;
+        opacity: 0.1;
+    }
+
+    .overview-particles .particle-1 {
+        width: 20px;
+        height: 20px;
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .overview-particles .particle-2 {
+        width: 15px;
+        height: 15px;
+        top: 60%;
+        left: 80%;
+        animation-delay: 2s;
+    }
+
+    .overview-particles .particle-3 {
+        width: 25px;
+        height: 25px;
+        top: 80%;
+        left: 20%;
+        animation-delay: 4s;
+    }
+
+    .overview-particles .particle-4 {
+        width: 18px;
+        height: 18px;
+        top: 30%;
+        left: 70%;
+        animation-delay: 6s;
+    }
+
+    .overview-particles .particle-5 {
+        width: 22px;
+        height: 22px;
+        top: 70%;
+        left: 50%;
+        animation-delay: 8s;
+    }
+
+    .floating-shapes {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+    }
+
+    .shape {
+        position: absolute;
+        background: linear-gradient(135deg, rgba(73, 153, 116, 0.1), rgba(109, 131, 213, 0.05));
+        border-radius: 20px;
+        animation: floatShape 12s ease-in-out infinite;
+    }
+
+    .shape-1 {
+        width: 100px;
+        height: 100px;
+        top: 10%;
+        right: 10%;
+        animation-delay: 0s;
+    }
+
+    .shape-2 {
+        width: 80px;
+        height: 80px;
+        bottom: 20%;
+        left: 15%;
+        animation-delay: 4s;
+    }
+
+    .shape-3 {
+        width: 120px;
+        height: 120px;
+        top: 50%;
+        right: 30%;
+        animation-delay: 8s;
+    }
+
+    /* Keyframes */
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInLeft {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes floatParticle {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-20px) rotate(180deg);
+        }
+    }
+
+    @keyframes floatShape {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-30px) rotate(180deg);
+        }
+    }
+
+    @keyframes floatElement {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-15px) rotate(180deg);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .overview-layout {
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        
+        .overview-stats {
+            flex-direction: column;
+            gap: 16px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .overview-title {
+            font-size: 2rem;
+        }
+        
+        .overview-stats {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            flex: 1;
+            min-width: 120px;
+        }
+    }
+
+    /* Animation Styles */
+    .fade-right {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: all 0.10s ease-out;
+    }
+    .show {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+    .delay-1 { transition-delay: 0.4s; }
+    .delay-2 { transition-delay: 0.6s; }
+    </style>
+
+    <script>
+    function revealOnScroll() {
+        const elements = document.querySelectorAll('.fade-right');
+        const triggerBottom = window.innerHeight * 0.85;
+        elements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < triggerBottom) {
+                el.classList.add('show');
+            }
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+    </script>
+
+
     <!-- Core Values Detail Section -->
-    <section class="section bg-white">
+   
+    <section class="section bg-gray-50 py-20">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="section-title">Our Core Values</h2>
-                <p class="section-subtitle">
-                    The principles that define our culture and drive our success
+                <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Why Choose SMA Ship Brokers?</h2>
+                <p class="text-gray-600 text-lg fade-up delay-1">
+                    Discover what sets us apart in the maritime industry
                 </p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Integrity -->
-                <div class="card fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Left Column -->
+                <div class="space-y-8">
+                    <div class="flex items-start fade-left hover-card">
+                        <div class="w-14 h-14 rounded-full flex items-center justify-center mr-6 mt-2 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] shadow-lg">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold">Integrity</h3>
-                    </div>
-                    <p class="text-gray-600">
-                        We conduct business with the highest ethical standards, maintaining transparency, 
-                        honesty, and trust in all our relationships.
-                    </p>
-                </div>
-
-                <!-- Excellence -->
-                <div class="card fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                            </svg>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-800">Industry Expertise</h3>
+                            <p class="text-gray-600">
+                                Our team brings decades of combined experience across all maritime operations, ensuring deep industry knowledge.
+                            </p>
                         </div>
-                        <h3 class="text-xl font-bold">Excellence</h3>
                     </div>
-                    <p class="text-gray-600">
-                        We strive for excellence in everything we do, continuously improving our services 
-                        and exceeding client expectations.
-                    </p>
-                </div>
 
-                <!-- Innovation -->
-                <div class="card fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-start fade-left delay-1 hover-card">
+                        <div class="w-14 h-14 rounded-full flex items-center justify-center mr-6 mt-2 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] shadow-lg">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold">Innovation</h3>
-                    </div>
-                    <p class="text-gray-600">
-                        We embrace innovation and technology to deliver cutting-edge solutions that address 
-                        the evolving needs of the maritime industry.
-                    </p>
-                </div>
-
-                <!-- Sustainability -->
-                <div class="card fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-800">Innovation & Technology</h3>
+                            <p class="text-gray-600">
+                                We leverage cutting-edge technology and innovative solutions to optimize operations and deliver superior results.
+                            </p>
                         </div>
-                        <h3 class="text-xl font-bold">Sustainability</h3>
                     </div>
-                    <p class="text-gray-600">
-                        We are committed to environmental responsibility and sustainable practices that 
-                        protect our oceans and planet for future generations.
-                    </p>
-                </div>
 
-                <!-- Client-Centric -->
-                <div class="card fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-start fade-left delay-2 hover-card">
+                        <div class="w-14 h-14 rounded-full flex items-center justify-center mr-6 mt-2 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] shadow-lg">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold">Client-Centric</h3>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-800">Client-Centric Approach</h3>
+                            <p class="text-gray-600">
+                                We build lasting partnerships based on trust, transparency, and mutual understanding of your business needs.
+                            </p>
+                        </div>
                     </div>
-                    <p class="text-gray-600">
-                        Our clients are at the heart of everything we do. We build lasting partnerships 
-                        based on understanding, trust, and mutual success.
-                    </p>
                 </div>
 
-                <!-- Global Reach -->
-                <div class="card fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- Right Column -->
+                <div class="space-y-8">
+                    <div class="flex items-start fade-right hover-card">
+                        <div class="w-14 h-14 rounded-full flex items-center justify-center mr-6 mt-2 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] shadow-lg">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold">Global Reach</h3>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-800">Global Network</h3>
+                            <p class="text-gray-600">
+                                With offices and partners worldwide, we provide local expertise with global reach for seamless service.
+                            </p>
+                        </div>
                     </div>
-                    <p class="text-gray-600">
-                        We operate globally with local expertise, providing seamless services across 
-                        international markets and jurisdictions.
-                    </p>
+
+                    <div class="flex items-start fade-right delay-1 hover-card">
+                        <div class="w-14 h-14 rounded-full flex items-center justify-center mr-6 mt-2 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] shadow-lg">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-800">24/7 Support</h3>
+                            <p class="text-gray-600">
+                                Maritime operations never stop, and neither do we. Our dedicated team is available around the clock.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start fade-right delay-2 hover-card">
+                        <div class="w-14 h-14 rounded-full flex items-center justify-center mr-6 mt-2 bg-gradient-to-br from-[#0dd3f3] to-[#6b6c00] shadow-lg">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-800">Proven Track Record</h3>
+                            <p class="text-gray-600">
+                                With over 500 successful deals and 25+ years of experience, we deliver results that exceed expectations.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Leadership Team Section -->
-    <section class="section bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Leadership Team</h2>
-                <p class="section-subtitle">
-                    Meet the experienced professionals who drive our success
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- CEO -->
-                <div class="card fade-in text-center">
-                    <div class="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Michael Anderson</h3>
-                    <p class="text-primary-color font-semibold mb-4">Chief Executive Officer</p>
-                    <p class="text-gray-600">
-                        Over 30 years of maritime industry experience, leading strategic initiatives and 
-                        driving company growth across global markets.
-                    </p>
-                </div>
+    <style>
+    .fade-up, .fade-left, .fade-right {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .fade-left { transform: translateX(-50px); }
+    .fade-right { transform: translateX(50px); }
+    .show {
+        opacity: 1 !important;
+        transform: translate(0,0) !important;
+    }
+    .delay-1 { transition-delay: 0.2s; }
+    .delay-2 { transition-delay: 0.4s; }
 
-                <!-- COO -->
-                <div class="card fade-in text-center">
-                    <div class="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Sarah Johnson</h3>
-                    <p class="text-primary-color font-semibold mb-4">Chief Operations Officer</p>
-                    <p class="text-gray-600">
-                        Expert in maritime operations with 25+ years managing complex logistics and 
-                        fleet operations worldwide.
-                    </p>
-                </div>
+    /* Hover Card */
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 12px;
+    }
+    .hover-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    </style>
 
-                <!-- CTO -->
-                <div class="card fade-in text-center">
-                    <div class="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">David Chen</h3>
-                    <p class="text-primary-color font-semibold mb-4">Chief Technology Officer</p>
-                    <p class="text-gray-600">
-                        Leading digital transformation initiatives and implementing cutting-edge 
-                        technology solutions for maritime operations.
-                    </p>
-                </div>
+    <script>
+    function revealOnScroll() {
+        const elements = document.querySelectorAll('.fade-up, .fade-left, .fade-right');
+        const triggerBottom = window.innerHeight * 0.85;
+        elements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if(rect.top < triggerBottom) {
+                el.classList.add('show');
+            }
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+    </script>
 
-                <!-- CFO -->
-                <div class="card fade-in text-center">
-                    <div class="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Emily Rodriguez</h3>
-                    <p class="text-primary-color font-semibold mb-4">Chief Financial Officer</p>
-                    <p class="text-gray-600">
-                        Financial expert with extensive experience in maritime finance, risk management, 
-                        and strategic financial planning.
-                    </p>
-                </div>
-
-                <!-- Head of Chartering -->
-                <div class="card fade-in text-center">
-                    <div class="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">James Wilson</h3>
-                    <p class="text-primary-color font-semibold mb-4">Head of Chartering</p>
-                    <p class="text-gray-600">
-                        Seasoned chartering professional with deep market knowledge and extensive 
-                        network in the global shipping community.
-                    </p>
-                </div>
-
-                <!-- Head of S&P -->
-                <div class="card fade-in text-center">
-                    <div class="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Lisa Thompson</h3>
-                    <p class="text-primary-color font-semibold mb-4">Head of Sale & Purchase</p>
-                    <p class="text-gray-600">
-                        Expert in vessel transactions with proven track record in negotiating complex 
-                        deals and maximizing client value.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- Why Choose Us Section -->
-        <section class="section bg-white py-20">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="section-title fade-up">Why Choose Global Trade Hub?</h2>
-                    <p class="section-subtitle fade-up delay-1">
-                        Discover what sets us apart in the maritime industry
-                    </p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <!-- Left Column -->
-                    <div class="space-y-8">
-                        <div class="flex items-start fade-left">
-                            <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-6 mt-2">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-3">Industry Expertise</h3>
-                                <p class="text-gray-600">
-                                    Our team brings together decades of combined experience across all 
-                                    aspects of maritime operations, ensuring you benefit from deep industry knowledge.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start fade-left delay-1">
-                            <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-6 mt-2">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-3">Innovation & Technology</h3>
-                                <p class="text-gray-600">
-                                    We leverage cutting-edge technology and innovative solutions to 
-                                    optimize operations and deliver superior results for our clients.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start fade-left delay-2">
-                            <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-6 mt-2">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-3">Client-Centric Approach</h3>
-                                <p class="text-gray-600">
-                                    Your success is our priority. We build lasting partnerships based on 
-                                    trust, transparency, and mutual understanding of your business needs.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Column -->
-                    <div class="space-y-8">
-                        <div class="flex items-start fade-right">
-                            <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-6 mt-2">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-3">Global Network</h3>
-                                <p class="text-gray-600">
-                                    With offices and partners worldwide, we provide local expertise with 
-                                    global reach, ensuring seamless service across international markets.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start fade-right delay-1">
-                            <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-6 mt-2">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-3">24/7 Support</h3>
-                                <p class="text-gray-600">
-                                    Maritime operations never stop, and neither do we. Our dedicated team 
-                                    is available around the clock to support your needs.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start fade-right delay-2">
-                            <div class="w-12 h-12 bg-primary-color rounded-full flex items-center justify-center mr-6 mt-2">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-3">Proven Track Record</h3>
-                                <p class="text-gray-600">
-                                    With over 500 successful deals and 25+ years of experience, we have 
-                                    the proven expertise to deliver results that exceed expectations.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Animation Styles -->
-        <style>
-        .fade-up, .fade-left, .fade-right {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 5s ease;
-        }
-        .fade-left { transform: translateX(-50px); }
-        .fade-right { transform: translateX(50px); }
-        .show {
-            opacity: 1 !important;
-            transform: translate(0,0) !important;
-        }
-        .delay-1 { transition-delay: 0.2s; }
-        .delay-2 { transition-delay: 0.4s; }
-        </style>
-
+        
     <!-- Scroll Animation Script -->
     <script>
     function revealOnScroll() {
@@ -473,14 +727,14 @@
             <div class="fade-in">
                 <h2 class="text-4xl font-bold mb-6">Ready to Partner With Us?</h2>
                 <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                    Join hundreds of satisfied clients who trust Global Trade Hub for their maritime needs. 
+                    Join hundreds of satisfied clients who trust SMA Ship Brokers for their maritime needs. 
                     Let's discuss how we can help you achieve your goals.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('contact') }}" class="bg-white text-primary-color px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    <a href="{{ route('contact') }}" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105 ">
                         Get in Touch
                     </a>
-                    <a href="{{ route('services') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-color transition-colors">
+                    <a href="{{ route('services') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors">
                         Explore Services
                     </a>
                 </div>

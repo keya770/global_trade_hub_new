@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -44,5 +45,61 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the user's role.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Check if user has a specific role.
+     */
+    public function hasRole($role)
+    {
+        return $this->role && $this->role->slug === $role;
+    }
+
+    /**
+     * Check if user is an admin.
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    /**
+     * Check if user is an editor.
+     */
+    public function isEditor()
+    {
+        return $this->hasRole('editor');
+    }
+
+    /**
+     * Check if user is a viewer.
+     */
+    public function isViewer()
+    {
+        return $this->hasRole('viewer');
+    }
+
+    /**
+     * Check if user can perform admin actions.
+     */
+    public function canManageUsers()
+    {
+        return $this->isAdmin();
+    }
+
+    /**
+     * Check if user can manage content.
+     */
+    public function canManageContent()
+    {
+        return $this->isAdmin() || $this->isEditor();
     }
 }

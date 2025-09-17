@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Careers - Global Trade Hub')
-@section('description', 'Join our team at Global Trade Hub. Explore current job openings, internship opportunities, and start your career in the maritime industry.')
+@section('title', 'Careers - SMA Ship Brokers')
+@section('description', 'Join our team at SMA Ship Brokers. Explore current job openings, internship opportunities, and start your career in the maritime industry.')
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white">
-        <div class="container mx-auto px-4 text-center">
+    <!-- Careers Hero Section with Particles -->
+    <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white overflow-hidden">
+        <canvas id="particles" class="absolute inset-0 z-0"></canvas>
+        <div class="container mx-auto px-4 text-center relative z-10">
             <div class="fade-in">
                 <h1 class="text-5xl md:text-6xl font-bold mb-6">Careers</h1>
                 <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
@@ -16,191 +17,105 @@
         </div>
     </section>
 
-    <!-- Why Work With Us -->
-    <section class="section bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Why Work With Us</h2>
-                <p class="section-subtitle">
-                    Discover the benefits of joining our global maritime team
-                </p>
+    <!-- About Our Careers (Intro) -->
+    {{-- <section class="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50 overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0">
+            <div class="floating-particles">
+                <div class="particle particle-1"></div>
+                <div class="particle particle-2"></div>
+                <div class="particle particle-3"></div>
+                <div class="particle particle-4"></div>
+                <div class="particle particle-5"></div>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="card text-center fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-                        </svg>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="intro-content">
+                    <div class="intro-badge">
+                        <i class="fas fa-users mr-2"></i>
+                        Join Our Team
                     </div>
-                    <h3 class="text-xl font-bold mb-4">Global Opportunities</h3>
-                    <p class="text-gray-600">
-                        Work across our international offices and gain exposure to global maritime markets
+                    <h2 class="intro-title">
+                        About Our Careers
+                    </h2>
+                    <p class="intro-description">
+                        At SMA Ship Brokers, we believe that our people are our greatest asset. We offer exciting career 
+                        opportunities in the dynamic maritime industry, where you can grow professionally while contributing 
+                        to global trade and commerce. Our diverse team of maritime professionals works together to deliver 
+                        exceptional service to clients worldwide. Whether you're starting your career or looking to advance, 
+                        we provide the platform for your success.
                     </p>
+                    
+                    <!-- Feature Cards -->
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h3 class="feature-title">Professional Growth</h3>
+                                <p class="feature-desc">Continuous learning and development opportunities</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h3 class="feature-title">Global Exposure</h3>
+                                <p class="feature-desc">Work with international clients and partners</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h3 class="feature-title">Collaborative Culture</h3>
+                                <p class="feature-desc">Supportive team environment and mentorship</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="card text-center fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
+                
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Maritime Careers" 
+                             class="main-image">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h4 class="overlay-title">Maritime Excellence</h4>
+                                <p class="overlay-desc">Building careers in global shipping</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Stats -->
+                        <div class="floating-stats">
+                            <div class="stat-card stat-1">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">Team Members</div>
+                            </div>
+                            <div class="stat-card stat-2">
+                                <div class="stat-number">15+</div>
+                                <div class="stat-label">Countries</div>
+                            </div>
+                            <div class="stat-card stat-3">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Growth Focus</div>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-4">Professional Growth</h3>
-                    <p class="text-gray-600">
-                        Continuous learning and development opportunities in a dynamic industry
-                    </p>
-                </div>
-
-                <div class="card text-center fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Collaborative Culture</h3>
-                    <p class="text-gray-600">
-                        Work with experienced professionals in a supportive team environment
-                    </p>
-                </div>
-
-                <div class="card text-center fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Innovation Focus</h3>
-                    <p class="text-gray-600">
-                        Be part of shaping the future of maritime technology and services
-                    </p>
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <!-- Current Job Openings -->
-    <section class="section bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Current Job Openings</h2>
-                <p class="section-subtitle">
-                    Explore opportunities to join our growing team
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Job 1 -->
-                <div class="card fade-in">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold">Senior Chartering Manager</h3>
-                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Full-time</span>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Lead our chartering operations and develop strategic relationships with clients and vessel owners.
-                    </p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            Dubai, UAE
-                        </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            5+ years experience
-                        </div>
-                    </div>
-                    <a href="#apply" class="btn-primary">Apply Now</a>
-                </div>
-
-                <!-- Job 2 -->
-                <div class="card fade-in">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold">Vessel Valuator</h3>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Full-time</span>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Conduct comprehensive vessel valuations and provide market analysis for clients.
-                    </p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            Singapore
-                        </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            3+ years experience
-                        </div>
-                    </div>
-                    <a href="#apply" class="btn-primary">Apply Now</a>
-                </div>
-
-                <!-- Job 3 -->
-                <div class="card fade-in">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold">Marine Operations Specialist</h3>
-                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Full-time</span>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Oversee marine operations and provide technical support for vessel management.
-                    </p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            London, UK
-                        </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            4+ years experience
-                        </div>
-                    </div>
-                    <a href="#apply" class="btn-primary">Apply Now</a>
-                </div>
-
-                <!-- Job 4 -->
-                <div class="card fade-in">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold">Business Development Manager</h3>
-                        <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold">Full-time</span>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Drive business growth and develop new client relationships in the maritime sector.
-                    </p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            Hong Kong
-                        </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            6+ years experience
-                        </div>
-                    </div>
-                    <a href="#apply" class="btn-primary">Apply Now</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Internship Opportunities -->
+    {{-- <!-- Internship Opportunities -->
     <section class="section bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
@@ -252,67 +167,108 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Application Form -->
     <section id="apply" class="section bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="section-title">Apply Online</h2>
+                    <h2 class="text-4xl font-extrabold mb-6 
+                        bg-gradient-to-r from-[#499974] via-[#6d83d5] to-[#33978d] 
+                        bg-clip-text text-transparent">Apply Online</h2>
                     <p class="section-subtitle">
                         Submit your application and take the first step towards your maritime career
                     </p>
                 </div>
                 
                 <div class="card">
-                    <form class="space-y-6">
+                    @if(session('success'))
+                        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                            <ul class="list-disc list-inside">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('careers.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                                <input type="text" name="first_name" value="{{ old('first_name') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('first_name') border-red-500 @enderror" required>
+                                @error('first_name')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                                <input type="text" name="last_name" value="{{ old('last_name') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('last_name') border-red-500 @enderror" required>
+                                @error('last_name')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                                <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                                <input type="email" name="email" value="{{ old('email') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('email') border-red-500 @enderror" required>
+                                @error('email')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                                <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent">
+                                <input type="tel" name="phone" value="{{ old('phone') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('phone') border-red-500 @enderror">
+                                @error('phone')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Position Applied For *</label>
-                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                            <select name="position_applied" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('position_applied') border-red-500 @enderror" required>
                                 <option value="">Select position</option>
-                                <option value="senior-chartering-manager">Senior Chartering Manager</option>
-                                <option value="vessel-valuator">Vessel Valuator</option>
-                                <option value="marine-operations-specialist">Marine Operations Specialist</option>
-                                <option value="business-development-manager">Business Development Manager</option>
-                                <option value="chartering-intern">Chartering Intern</option>
-                                <option value="market-research-intern">Market Research Intern</option>
-                                <option value="operations-intern">Operations Intern</option>
-                                <option value="other">Other</option>
+                                <option value="Senior Chartering Manager" {{ old('position_applied') == 'Senior Chartering Manager' ? 'selected' : '' }}>Senior Chartering Manager</option>
+                                <option value="Ship Broker" {{ old('position_applied') == 'Ship Broker' ? 'selected' : '' }}>Ship Broker</option>
+                                <option value="Vessel Valuator" {{ old('position_applied') == 'Vessel Valuator' ? 'selected' : '' }}>Vessel Valuator</option>
+                                <option value="Marine Operations Specialist" {{ old('position_applied') == 'Marine Operations Specialist' ? 'selected' : '' }}>Marine Operations Specialist</option>
+                                <option value="Business Development Manager" {{ old('position_applied') == 'Business Development Manager' ? 'selected' : '' }}>Business Development Manager</option>
+                                <option value="Chartering Intern" {{ old('position_applied') == 'Chartering Intern' ? 'selected' : '' }}>Chartering Intern</option>
+                                <option value="Market Research Intern" {{ old('position_applied') == 'Market Research Intern' ? 'selected' : '' }}>Market Research Intern</option>
+                                <option value="Operations Intern" {{ old('position_applied') == 'Operations Intern' ? 'selected' : '' }}>Operations Intern</option>
+                                <option value="Other" {{ old('position_applied') == 'Other' ? 'selected' : '' }}>Other</option>
                             </select>
+                            @error('position_applied')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Cover Letter *</label>
-                            <textarea rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" placeholder="Tell us why you're interested in this position and what makes you a great candidate..." required></textarea>
+                            <textarea name="cover_letter" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('cover_letter') border-red-500 @enderror" placeholder="Tell us why you're interested in this position and what makes you a great candidate..." required>{{ old('cover_letter') }}</textarea>
+                            @error('cover_letter')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Resume/CV *</label>
-                            <input type="file" accept=".pdf,.doc,.docx" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent" required>
+                            <input type="file" name="resume" accept=".pdf,.doc,.docx" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-color focus:border-transparent @error('resume') border-red-500 @enderror" required>
                             <p class="text-sm text-gray-500 mt-1">Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
+                            @error('resume')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
@@ -330,18 +286,327 @@
             <div class="fade-in">
                 <h2 class="text-4xl font-bold mb-6">Ready to Join Our Team?</h2>
                 <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                    Start your journey with Global Trade Hub and be part of shaping the future of maritime services
+                    Start your journey with SMA Ship Brokers and be part of shaping the future of maritime services
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#apply" class="bg-white text-primary-color px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    <a href="#apply" class="btn-primary bg-gray-800 text-lg px-8 py-4 transform scale-105 ">
                         Apply Now
                     </a>
-                    <a href="{{ route('contact') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-color transition-colors">
+                    <a href="{{ route('contact') }}" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors">
                         Contact HR
                     </a>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+        /* Intro Section Styles */
+        .intro-content {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .intro-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #499974, #6d83d5);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            animation: slideInUp 0.8s ease forwards 0.2s;
+            opacity: 0;
+            transform: translateY(30px);
+            box-shadow: 0 8px 25px rgba(73, 153, 116, 0.3);
+        }
+
+        .intro-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #499974, #6d83d5, #33978d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInUp 0.8s ease forwards 0.4s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .intro-description {
+            font-size: 1.125rem;
+            color: #6b7280;
+            margin-bottom: 32px;
+            line-height: 1.7;
+            animation: slideInUp 0.8s ease forwards 0.6s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Feature Cards */
+        .feature-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: slideInUp 0.8s ease forwards 0.8s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(73, 153, 116, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(73, 153, 116, 0.15);
+            border-color: rgba(73, 153, 116, 0.2);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #499974, #6d83d5);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        /* Image Container */
+        .image-container {
+            animation: fadeInUp 0.8s ease forwards 1s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-wrapper:hover .main-image {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 40px 30px 30px;
+            color: white;
+        }
+
+        .overlay-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .overlay-desc {
+            font-size: 16px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        /* Floating Stats */
+        .floating-stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .stat-card.stat-1 { animation-delay: 0s; }
+        .stat-card.stat-2 { animation-delay: 1s; }
+        .stat-card.stat-3 { animation-delay: 2s; }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: #499974;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        /* Floating Particles */
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, #499974, #6d83d5);
+            border-radius: 50%;
+            animation: floatParticle 8s ease-in-out infinite;
+            opacity: 0.1;
+        }
+
+        .particle-1 {
+            width: 20px;
+            height: 20px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle-2 {
+            width: 15px;
+            height: 15px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .particle-3 {
+            width: 25px;
+            height: 25px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .particle-4 {
+            width: 18px;
+            height: 18px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 6s;
+        }
+
+        .particle-5 {
+            width: 22px;
+            height: 22px;
+            top: 70%;
+            left: 50%;
+            animation-delay: 8s;
+        }
+
+        /* Keyframes */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes floatParticle {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-title {
+                font-size: 2rem;
+            }
+            
+            .feature-cards {
+                gap: 16px;
+            }
+            
+            .feature-card {
+                padding: 16px;
+            }
+            
+            .main-image {
+                height: 400px;
+            }
+            
+            .floating-stats {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            
+            .stat-card {
+                flex: 1;
+                max-width: 100px;
+            }
+        }
+    </style>
 @endsection
 

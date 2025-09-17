@@ -1,12 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Legal & Resources - Global Trade Hub')
-@section('description', 'Access legal documents, compliance information, and useful maritime resources from Global Trade Hub.')
+@section('title', 'Legal & Resources - SMA Ship Brokers')
+@section('description', 'Access legal documents, compliance information, and useful maritime resources from SMA Ship Brokers.')
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white">
-        <div class="container mx-auto px-4 text-center">
+   <!-- Legal & Resources Hero Section with Particles -->
+    <section class="relative py-20 bg-gradient-to-br from-primary-color to-primary-dark text-white overflow-hidden">
+        <!-- Canvas for particles -->
+        <canvas id="particles" class="absolute inset-0 z-0"></canvas>
+
+        <!-- Content -->
+        <div class="container mx-auto px-4 text-center relative z-10">
             <div class="fade-in">
                 <h1 class="text-5xl md:text-6xl font-bold mb-6">Legal & Resources</h1>
                 <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
@@ -29,14 +33,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Terms & Conditions -->
                 <div class="card fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#305b73] to-[#4a7c95] rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-4 text-center">Terms & Conditions</h3>
                     <p class="text-gray-600 mb-6 text-center">
-                        Our terms of service and conditions for using Global Trade Hub services.
+                        Our terms of service and conditions for using SMA Ship Brokers services.
                     </p>
                     <div class="text-center">
                         <a href="#" class="btn-primary">Read Terms</a>
@@ -45,7 +49,7 @@
 
                 <!-- Privacy Policy -->
                 <div class="card fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#305b73] to-[#4a7c95] rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                         </svg>
@@ -61,7 +65,7 @@
 
                 <!-- Cookie Policy -->
                 <div class="card fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#305b73] to-[#4a7c95] rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
                         </svg>
@@ -92,7 +96,7 @@
                 <div class="fade-in">
                     <h3 class="text-2xl font-bold mb-6">Regulatory Compliance</h3>
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        Global Trade Hub maintains strict compliance with international maritime regulations, 
+                        SMA Ship Brokers maintains strict compliance with international maritime regulations, 
                         including IMO standards, SOLAS, MARPOL, and other relevant conventions. Our operations 
                         adhere to the highest industry standards and best practices.
                     </p>
@@ -192,7 +196,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Market Reports -->
                 <div class="card text-center fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#305b73] to-[#4a7c95] rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
@@ -206,7 +210,7 @@
 
                 <!-- Vessel Database -->
                 <div class="card text-center fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#305b73] to-[#4a7c95] rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
                         </svg>
@@ -220,7 +224,7 @@
 
                 <!-- Industry Links -->
                 <div class="card text-center fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#305b73] to-[#4a7c95] rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
                         </svg>
@@ -234,7 +238,7 @@
 
                 <!-- Publications -->
                 <div class="card text-center fade-in">
-                    <div class="w-16 h-16 bg-primary-color rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#305b73] to-[#4a7c95] rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
